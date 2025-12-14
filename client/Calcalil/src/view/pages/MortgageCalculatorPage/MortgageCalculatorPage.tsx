@@ -66,7 +66,7 @@ const MortgageCalculatorPage = () => {
     }
 
     if (row.method === "keren" && r > 0) {
-      const principalPart = P / n;
+      //const principalPart = P / n;
       const avgInterest = (P * r) / 2;
       const totalPaid = P + avgInterest;
       const monthlyPayment = totalPaid / n;

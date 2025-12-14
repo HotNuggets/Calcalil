@@ -4,7 +4,6 @@ import { useLoanCalculatorVM } from "./LoanCalculatorPageVM";
 
 const LoanCalculatorPage = () => {
   const {
-    isClicked,
     selectedOption,
     loanOption,
     chooseCalculationType,
