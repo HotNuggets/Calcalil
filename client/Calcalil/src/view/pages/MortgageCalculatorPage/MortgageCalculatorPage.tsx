@@ -96,6 +96,7 @@ const MortgageCalculatorPage = () => {
     <div className={styles.calculator}>
       <BackToWelcomeButton />
       <h2 className={styles.title}>מחשבון משכנתא</h2>
+      <div className={styles.tableWrapper}>
       <table className={styles.table}>
         <thead>
           <tr>
@@ -200,6 +201,7 @@ const MortgageCalculatorPage = () => {
           ))}
         </tbody>
       </table>
+      </div>
 
       <button className={styles.addRow} onClick={addRow}>
         ➕ הוסף מסלול
