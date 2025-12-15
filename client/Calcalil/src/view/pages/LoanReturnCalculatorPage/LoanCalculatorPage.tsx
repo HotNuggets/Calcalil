@@ -1,4 +1,4 @@
-//import React from "react";
+import BackToWelcomeButton from "../../components/BackToWelcomeButton/BackToWelcomeButton";
 import styles from "./LoanCalculatorPage.module.scss";
 import { useLoanCalculatorVM } from "./LoanCalculatorPageVM";
 
@@ -22,6 +22,7 @@ const LoanCalculatorPage = () => {
 
   return (
     <div className={styles.calculator}>
+       <BackToWelcomeButton />
       <div className={styles.parameters}>
         <div className={styles.monthOrSum}>
           <span className={styles.parameter}>לחשב את:</span>

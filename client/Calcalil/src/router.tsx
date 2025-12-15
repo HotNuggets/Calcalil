@@ -4,6 +4,8 @@ import LoanCalculatorPage from "./view/pages/LoanReturnCalculatorPage/LoanCalcul
 import SavingsCalculatorPage from "./view/pages/SavingsCalculatorPage/SavingsCalculatorPage";
 import MortgageCalculatorPage from "./view/pages/MortgageCalculatorPage/MortgageCalculatorPage";
 import ExpensesPage from "./view/pages/ExpensesPage/ExpensesPage";
+import PrivacyPolicyPage from "./view/pages/PrivacyPolicyPage/PrivacyPolicyPage";
+import TermsOfServicePage from "./view/pages/PrivacyPolicyPage/TermsOfServicePage";
 
 export const router = createBrowserRouter([
   {
@@ -25,5 +27,13 @@ export const router = createBrowserRouter([
   {
     path: "/expenses",
     element: <ExpensesPage />,
+  },
+  {
+    path: "/privacy",
+    element: <PrivacyPolicyPage />,
+  },
+  {
+    path: "/Terms",
+    element: <TermsOfServicePage />,
   },
 ]);

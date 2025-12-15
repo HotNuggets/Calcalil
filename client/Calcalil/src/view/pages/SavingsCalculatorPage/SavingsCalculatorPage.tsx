@@ -1,6 +1,7 @@
 import  { useState } from "react";
 import styles from "./SavingsCalculatorPage.module.scss";
 
+
 const SavingsCalculatorPage = () => {
   const [mode, setMode] = useState<"oneTime" | "monthly">("oneTime");
   const [deposit, setDeposit] = useState<number | null>(null);
@@ -74,6 +75,7 @@ const SavingsCalculatorPage = () => {
   };
 
   return (
+    
     <div className={styles.calculator}>
       <div className={styles.parameters}>
         <span className={styles.parameter}>בחר סוג חיסכון:</span>
