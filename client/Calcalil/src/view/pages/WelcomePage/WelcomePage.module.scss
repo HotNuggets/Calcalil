@@ -1,38 +1,70 @@
 .welcome {
-  text-align: center;
-  padding: 50px;
   direction: rtl;
+  width: 100%;
+  min-height: 100vh;
+  padding: 1.5rem;
+  box-sizing: border-box;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .title {
-  font-size: 2.5rem;
-  margin-bottom: 10px;
+  font-size: 2.2rem;
+  margin-bottom: 0.5rem;
   color: #333;
 }
 
 .subtitle {
-  font-size: 1.2rem;
-  margin-bottom: 30px;
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
   color: #555;
+  max-width: 600px;
 }
 
+/* BUTTON CONTAINER */
 .buttons {
-  display: flex;
-  justify-content: center;
-  gap: 15px;
+  width: 100%;
+  max-width: 900px;
+  display: grid;
+  grid-template-columns: 1fr; /* mobile first */
+  gap: 1rem;
 }
 
-button {
-  padding: 12px 24px;
+/* BUTTONS */
+.buttons button {
+  width: 100%;
+  padding: 0.9rem 1rem;
   font-size: 1rem;
   border: none;
-  border-radius: 8px;
+  border-radius: 10px;
   cursor: pointer;
   background: #1a1a1a;
-  color: white;
-  transition: background 0.3s;
+  color: #ffffff;
+  transition: background 0.25s ease, transform 0.15s ease;
+  box-sizing: border-box;
 }
 
-button:hover {
+.buttons button:hover {
   background: #4caf50;
+  transform: translateY(-2px);
+}
+
+/* TABLET */
+@media (min-width: 768px) {
+  .buttons {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .title {
+    font-size: 2.5rem;
+  }
+}
+
+/* DESKTOP */
+@media (min-width: 1024px) {
+  .buttons {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
