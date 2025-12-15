@@ -1,5 +1,6 @@
 import  { useState } from "react";
 import styles from "./SavingsCalculatorPage.module.scss";
+import BackToWelcomeButton from "../../components/BackToWelcomeButton/BackToWelcomeButton";
 
 
 const SavingsCalculatorPage = () => {
@@ -77,6 +78,7 @@ const SavingsCalculatorPage = () => {
   return (
     
     <div className={styles.calculator}>
+      <BackToWelcomeButton />
       <div className={styles.parameters}>
         <span className={styles.parameter}>בחר סוג חיסכון:</span>
         <button

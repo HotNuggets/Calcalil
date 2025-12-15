@@ -1,10 +1,12 @@
 import React from "react";
 import styles from "./LegalPages.module.scss";
+import BackToWelcomeButton from "../../components/BackToWelcomeButton/BackToWelcomeButton";
 
 
 const TermsOfServicePage: React.FC = () => {
 return (
 <div className={styles.container}>
+    <BackToWelcomeButton />
 <h1>Terms of Service</h1>
 <p className={styles.updated}>Last updated: December 14, 2025</p>
 

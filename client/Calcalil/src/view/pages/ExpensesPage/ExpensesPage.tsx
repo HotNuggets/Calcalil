@@ -2,6 +2,8 @@
 import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer } from "recharts";
 import { useExpensesPageVM } from "./ExpensesPageVM";
 import styles from "./ExpensesPage.module.scss";
+import BackToWelcomeButton from "../../components/BackToWelcomeButton/BackToWelcomeButton";
+
 
 const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "#A65EEA", "#FF6699", "#2E8B57"];
 
@@ -10,6 +12,7 @@ const ExpensesPage: React.FC = () => {
 
   return (
     <div className={styles.container}>
+      <BackToWelcomeButton />
   {/* Left side: Summary */}
   <section className={styles.leftPane}>
     <div className={styles.card}>
