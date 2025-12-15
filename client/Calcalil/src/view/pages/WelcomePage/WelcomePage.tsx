@@ -13,10 +13,10 @@ const WelcomePage = () => {
         </Link>
         <Link to="/savings">
           <button>מחשבון חיסכון</button>
-        </Link>
-        <Link to="/mortgage">
+        </Link> 
+        {/* <Link to="/mortgage">
           <button>מחשבון משכנתא</button>
-        </Link>
+        </Link> */}
         <Link to="/expenses">
           <button>דף הוצאות</button>
         </Link>

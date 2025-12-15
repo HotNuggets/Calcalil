@@ -1,63 +1,45 @@
 .calculator {
   direction: rtl;
-  width: 100%;
   max-width: 1000px;
-  margin: 20px auto;
-  padding: 16px;
+  margin: 40px auto;
+  padding: 20px;
   background: #f5f7fa;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   font-family: "Arial", sans-serif;
-  box-sizing: border-box;
-  overflow-x: hidden;
 }
 
 .title {
   text-align: center;
   margin-bottom: 20px;
-  font-size: 1.6rem;
+  font-size: 1.8rem;
   color: #273a73;
 }
 
-/* WRAP TABLE FOR MOBILE */
-.tableWrapper {
-  width: 100%;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  margin-bottom: 20px;
-}
-
-/* TABLE */
 .table {
   width: 100%;
-  min-width: 600px; /* 👈 forces scroll instead of overflow */
   border-collapse: collapse;
+  margin-bottom: 20px;
 
-  th,
-  td {
+  th, td {
     border: 1px solid #ddd;
-    padding: 8px;
+    padding: 10px;
     text-align: center;
-    white-space: nowrap;
   }
 
   th {
     background: #273a73;
     color: white;
-    font-size: 0.9rem;
   }
 
-  td input,
-  td select {
+  td input, td select {
     width: 100%;
-    min-width: 80px;
     padding: 6px;
     border: 1px solid #ccc;
     border-radius: 6px;
     text-align: center;
     background: white;
     color: black;
-    box-sizing: border-box;
   }
 }
 
@@ -67,13 +49,10 @@
   font-weight: bold;
 }
 
-/* ADD ROW BUTTON */
 .addRow {
   display: block;
-  width: 100%;
-  max-width: 220px;
   margin: 0 auto 20px;
-  padding: 10px;
+  padding: 10px 20px;
   background: #4caf50;
   color: white;
   border: none;
@@ -84,17 +63,5 @@
 
   &:hover {
     background: #45a049;
-  }
-}
-
-/* MOBILE TWEAKS */
-@media (max-width: 600px) {
-  .title {
-    font-size: 1.4rem;
-  }
-
-  .calculator {
-    padding: 12px;
-    border-radius: 8px;
   }
 }
