@@ -19,12 +19,12 @@ export const useExpensesPageVM = () => {
   const [hoursWorked, setHoursWorked] = useState<number | "">("");
   const [monthlySalary, setMonthlySalary] = useState<number | "">("");
   const [categories, setCategories] = useState<string[]>([
-    "Bills",
-    "Mortgage/Rent",
-    "Insurance",
-    "Groceries",
-    "Gas",
-    "Fun",
+    "חשבונות",
+    "משכנתא/שכירות",
+    "ביטוח",
+    "קניות",
+    "דלק",
+    "פנאי",
   ]);
   const [expenses, setExpenses] = useState<Expense[]>([]);
   const [newCategory, setNewCategory] = useState<string>("");
