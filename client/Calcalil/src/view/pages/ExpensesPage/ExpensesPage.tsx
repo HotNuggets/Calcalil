@@ -177,6 +177,21 @@ const ExpensesPage: React.FC = () => {
                 הוסף קטגוריה
               </button>
             </div>
+            <div className={styles.categoryList}>
+  {vm.categories.map((cat) => (
+    <div key={cat} className={styles.categoryItem}>
+      <span>{cat}</span>
+      {cat !== "אחר" && (
+        <button
+          onClick={() => vm.handleDeleteCategory(cat)}
+          className={styles.deleteButton}
+        >
+          ✕
+        </button>
+      )}
+    </div>
+  ))}
+</div>
           </div>
         </div>
       </section>

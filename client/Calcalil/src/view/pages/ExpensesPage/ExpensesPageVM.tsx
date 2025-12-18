@@ -19,15 +19,34 @@ export const useExpensesPageVM = () => {
   const [hoursWorked, setHoursWorked] = useState<number | "">("");
   const [monthlySalary, setMonthlySalary] = useState<number | "">("");
   const [categories, setCategories] = useState<string[]>([
-    "חשבונות",
-    "משכנתא/שכירות",
-    "ביטוח",
-    "קניות",
-    "דלק",
-    "פנאי",
-  ]);
+  "חשבונות",
+  "משכנתא/שכירות",
+  "ביטוח",
+  "קניות",
+  "דלק",
+  "פנאי",
+  "אחר",
+]);
   const [expenses, setExpenses] = useState<Expense[]>([]);
   const [newCategory, setNewCategory] = useState<string>("");
+
+  const handleDeleteCategory = (categoryToDelete: string) => {
+  if (categories.length <= 1) return;
+
+  const fallbackCategory = "אחר";
+
+  setExpenses((prev) =>
+    prev.map((expense) =>
+      expense.category === categoryToDelete
+        ? { ...expense, category: fallbackCategory }
+        : expense
+    )
+  );
+
+  setCategories((prev) =>
+    prev.filter((cat) => cat !== categoryToDelete)
+  );
+};
 
   const handleAddExpense = () => {
     setExpenses((prev) => [
@@ -87,5 +106,6 @@ export const useExpensesPageVM = () => {
     handleAddExpense,
     handleExpenseChange,
     handleAddCategory,
+    handleDeleteCategory,
   };
 };
