@@ -1,125 +1,55 @@
-import  { useState } from "react";
 import styles from "./SavingsCalculatorPage.module.scss";
 import BackToWelcomeButton from "../../components/BackToWelcomeButton/BackToWelcomeButton";
-
+import { useSavingsCalculatorPageVM } from "./SavingsCalculatorPageVM";
 
 const SavingsCalculatorPage = () => {
-  const [mode, setMode] = useState<"oneTime" | "monthly">("oneTime");
-  const [deposit, setDeposit] = useState<number | null>(null);
-  const [monthlyDeposit, setMonthlyDeposit] = useState<number | null>(null);
-  const [years, setYears] = useState<number | null>(null);
-  const [interest, setInterest] = useState<number | null>(null);
-  const [tax, setTax] = useState<number | null>(0);
-  const [fee, setFee] = useState<number | null>(0);
-  const [result, setResult] = useState<any>(null);
-
-  const calculate = () => {
-    const yrs = Number(years || 0);
-    const annualRate = Number(interest || 0) / 100;
-    const monthlyRate = annualRate / 12;
-    const totalMonths = yrs * 12;
-    const feeRate = Number(fee || 0) / 100; // yearly %
-    const taxRate = Number(tax || 0) / 100;
-
-    if (yrs <= 0 || (!deposit && !monthlyDeposit)) {
-      setResult(null);
-      return;
-    }
-
-    let balance = 0;
-    let totalDeposited = 0;
-    let feesPaid = 0;
-
-    if (mode === "oneTime" && deposit) {
-      balance = deposit;
-      totalDeposited = deposit;
-
-      for (let m = 1; m <= totalMonths; m++) {
-        balance *= 1 + monthlyRate;
-
-        // yearly management fee
-        if (m % 12 === 0 && feeRate > 0) {
-          const yearlyFee = balance * feeRate;
-          balance -= yearlyFee;
-          feesPaid += yearlyFee;
-        }
-      }
-    }
-
-    if (mode === "monthly" && monthlyDeposit) {
-      for (let m = 1; m <= totalMonths; m++) {
-        balance += monthlyDeposit;
-        totalDeposited += monthlyDeposit;
-
-        balance *= 1 + monthlyRate;
-
-        if (m % 12 === 0 && feeRate > 0) {
-          const yearlyFee = balance * feeRate;
-          balance -= yearlyFee;
-          feesPaid += yearlyFee;
-        }
-      }
-    }
-
-    const earnedBeforeTax = balance - totalDeposited;
-    const taxPaid = earnedBeforeTax * taxRate;
-    const finalAmount = balance - taxPaid;
-    const earned = earnedBeforeTax - taxPaid;
-
-    setResult({
-      totalSaved: finalAmount,
-      totalDeposited,
-      earned,
-      taxPaid,
-      feesPaid,
-    });
-  };
+  const vm = useSavingsCalculatorPageVM();
 
   return (
-    
     <div className={styles.calculator}>
       <BackToWelcomeButton />
+
       <div className={styles.parameters}>
         <span className={styles.parameter}>בחר סוג חיסכון:</span>
+
         <button
-          className={`${styles.option} ${mode === "oneTime" ? styles.active : ""}`}
-          onClick={() => setMode("oneTime")}
+          className={`${styles.option} ${vm.calcType === "oneTime" ? styles.active : ""}`}
+          onClick={() => vm.setCalcType("oneTime")}
         >
           הפקדה חד פעמית
         </button>
+
         <button
-          className={`${styles.option} ${mode === "monthly" ? styles.active : ""}`}
-          onClick={() => setMode("monthly")}
+          className={`${styles.option} ${vm.calcType === "monthly" ? styles.active : ""}`}
+          onClick={() => vm.setCalcType("monthly")}
         >
           הפקדה חודשית
         </button>
       </div>
 
       <div className={styles.formWindow}>
-        {mode === "oneTime" && (
+        {vm.calcType === "oneTime" && (
           <>
             <span>סכום הפקדה חד פעמית</span>
             <input
               type="number"
               min={0}
-              max={1000000000}
               placeholder="₪"
-              value={deposit ?? ""}
-              onChange={(e) => setDeposit(Number(e.target.value))}
+              value={vm.deposit ?? ""}
+              onChange={(e) => vm.setDeposit(Number(e.target.value))}
             />
           </>
         )}
 
-        {mode === "monthly" && (
+        {vm.calcType === "monthly" && (
           <>
             <span>סכום הפקדה חודשית</span>
             <input
               type="number"
               min={0}
-              max={1000000}
               placeholder="₪"
-              value={monthlyDeposit ?? ""}
-              onChange={(e) => setMonthlyDeposit(Number(e.target.value))}
+              value={vm.monthlyDeposit ?? ""}
+              onChange={(e) => vm.setMonthlyDeposit(Number(e.target.value))}
             />
           </>
         )}
@@ -129,8 +59,8 @@ const SavingsCalculatorPage = () => {
           type="number"
           min={1}
           max={100}
-          value={years ?? ""}
-          onChange={(e) => setYears(Number(e.target.value))}
+          value={vm.years ?? ""}
+          onChange={(e) => vm.setYears(Number(e.target.value))}
         />
 
         <span>ריבית שנתית (%)</span>
@@ -138,8 +68,8 @@ const SavingsCalculatorPage = () => {
           type="number"
           min={0}
           max={100}
-          value={interest ?? ""}
-          onChange={(e) => setInterest(Number(e.target.value))}
+          value={vm.interest ?? ""}
+          onChange={(e) => vm.setInterest(Number(e.target.value))}
         />
 
         <span>מס רווחי הון (%)</span>
@@ -147,32 +77,41 @@ const SavingsCalculatorPage = () => {
           type="number"
           min={0}
           max={100}
-          value={tax ?? ""}
-          onChange={(e) => setTax(Number(e.target.value))}
+          value={vm.tax ?? ""}
+          onChange={(e) => vm.setTax(Number(e.target.value))}
         />
 
-        <span>עמלת ניהול שנתית (%)</span>
+        <span>דמי ניהול מהפקדה (%)</span>
         <input
           type="number"
           min={0}
           max={10}
-          value={fee ?? ""}
-          onChange={(e) => setFee(Number(e.target.value))}
+          value={vm.depositFee ?? ""}
+          onChange={(e) => vm.setDepositFee(Number(e.target.value))}
         />
 
-        <button type="button" onClick={calculate}>
+        <span>דמי ניהול מצבירה שנתית (%)</span>
+        <input
+          type="number"
+          min={0}
+          max={5}
+          value={vm.accumulationFee ?? ""}
+          onChange={(e) => vm.setAccumulationFee(Number(e.target.value))}
+        />
+
+        <button type="button" onClick={vm.calculate}>
           חשב
         </button>
 
-        {result && (
-  <div className={styles.result}>
-    <p>סה״כ חיסכון: ₪{result.totalSaved.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
-    <p>סה״כ הופקד: ₪{result.totalDeposited.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
-    <p>רווחים נטו: ₪{result.earned.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
-    <p>מס ששולם: ₪{result.taxPaid.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
-    <p>עמלות ניהול: ₪{result.feesPaid.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
-  </div>
-)}
+        {vm.result && (
+          <div className={styles.result}>
+            <p>סה״כ חיסכון: ₪{vm.result.finalAmount.toLocaleString("en-US", { minimumFractionDigits: 2 })}</p>
+            <p>סה״כ הופקד: ₪{vm.result.totalDeposited.toLocaleString("en-US", { minimumFractionDigits: 2 })}</p>
+            <p>רווחים נטו: ₪{vm.result.earnedNet.toLocaleString("en-US", { minimumFractionDigits: 2 })}</p>
+            <p>מס ששולם: ₪{vm.result.taxPaid.toLocaleString("en-US", { minimumFractionDigits: 2 })}</p>
+            <p>עמלות ניהול: ₪{vm.result.feesPaid.toLocaleString("en-US", { minimumFractionDigits: 2 })}</p>
+          </div>
+        )}
       </div>
     </div>
   );
