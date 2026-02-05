@@ -72,7 +72,17 @@ const SavingsCalculatorPage = () => {
           onChange={(e) => vm.setInterest(Number(e.target.value))}
         />
 
-        <span>מס רווחי הון (%)</span>
+        <div className={styles.labelWithInfo}>
+           <span>מס רווחי הון (%)</span>
+
+            <button
+              type="button"
+              className={styles.infoButton}
+              onClick={() => alert("מס רווחי הון בישראל נע בין 15% ל-25%")}
+              aria-label="מידע על מס רווחי הון">
+              ?
+            </button>
+        </div>
         <input
           type="number"
           min={0}
