@@ -68,26 +68,44 @@ export function useSavingsCalculatorPageVM() {
     }
 
     if (calcType === "monthly") {
-      const PMT = Number(monthlyDeposit || 0);
-      if (PMT <= 0) return;
+  const initialDeposit = Number(deposit || 0); // initial capital
+  const PMT = Number(monthlyDeposit || 0);
 
-      for (let m = 1; m <= totalMonths; m++) {
-        const feeFromDeposit = PMT * depositFeeRate;
-        const netDeposit = PMT - feeFromDeposit;
+  if (initialDeposit <= 0 && PMT <= 0) {
+    setResult(null);
+    return;
+  }
 
-        balance += netDeposit;
-        totalDeposited += PMT;
-        feesPaid += feeFromDeposit;
+  // ---- Initial Deposit ----
+  if (initialDeposit > 0) {
+    const feeFromInitial = initialDeposit * depositFeeRate;
+    const netInitial = initialDeposit - feeFromInitial;
 
-        balance *= 1 + monthlyRate;
+    balance = netInitial;
+    totalDeposited += initialDeposit;
+    feesPaid += feeFromInitial;
+  }
 
-        if (m % 12 === 0 && accumulationFeeRate > 0) {
-          const yearlyFee = balance * accumulationFeeRate;
-          balance -= yearlyFee;
-          feesPaid += yearlyFee;
-        }
-      }
+  // ---- Monthly Deposits ----
+  for (let m = 1; m <= totalMonths; m++) {
+    if (PMT > 0) {
+      const feeFromDeposit = PMT * depositFeeRate;
+      const netDeposit = PMT - feeFromDeposit;
+
+      balance += netDeposit;
+      totalDeposited += PMT;
+      feesPaid += feeFromDeposit;
     }
+
+    balance *= 1 + monthlyRate;
+
+    if (m % 12 === 0 && accumulationFeeRate > 0) {
+      const yearlyFee = balance * accumulationFeeRate;
+      balance -= yearlyFee;
+      feesPaid += yearlyFee;
+    }
+  }
+}
 
     const earnedGross = balance - totalDeposited;
     const taxPaid = Math.max(0, earnedGross) * taxRate;

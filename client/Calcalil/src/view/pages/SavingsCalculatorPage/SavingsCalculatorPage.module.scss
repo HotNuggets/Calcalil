@@ -91,13 +91,30 @@
 
 .result {
   margin-top: 20px;
-  padding: 15px;
-  border-radius: 6px;
-  background: #e9f5e9;
-  color: #2d572c;
+  padding: 16px;
+  border-radius: 8px;
+  background: #a1f9c7;
   font-size: 16px;
-  font-weight: 500;
+  line-height: 1.6;
 }
+
+.positive {
+  color: #2e7d32; // green
+  margin-bottom: 12px;
+
+  p {
+    margin: 4px 0;
+  }
+}
+
+.negative {
+  color: #c62828; // red
+
+  p {
+    margin: 4px 0;
+  }
+}
+
 .labelWithInfo {
   display: flex;
   align-items: center;

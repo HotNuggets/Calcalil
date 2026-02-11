@@ -42,17 +42,26 @@ const SavingsCalculatorPage = () => {
         )}
 
         {vm.calcType === "monthly" && (
-          <>
-            <span>סכום הפקדה חודשית</span>
-            <input
-              type="number"
-              min={0}
-              placeholder="₪"
-              value={vm.monthlyDeposit ?? ""}
-              onChange={(e) => vm.setMonthlyDeposit(Number(e.target.value))}
-            />
-          </>
-        )}
+  <>
+    <span>הפקדה ראשונית</span>
+    <input
+      type="number"
+      min={0}
+      placeholder="₪"
+      value={vm.deposit ?? ""}
+      onChange={(e) => vm.setDeposit(Number(e.target.value))}
+    />
+
+    <span>הפקדה חודשית</span>
+    <input
+      type="number"
+      min={0}
+      placeholder="₪"
+      value={vm.monthlyDeposit ?? ""}
+      onChange={(e) => vm.setMonthlyDeposit(Number(e.target.value))}
+    />
+  </>
+)}
 
         <span>מספר שנים</span>
         <input
@@ -114,14 +123,34 @@ const SavingsCalculatorPage = () => {
         </button>
 
         {vm.result && (
-          <div className={styles.result}>
-            <p>סה״כ חיסכון: ₪{vm.result.finalAmount.toLocaleString("en-US", { minimumFractionDigits: 2 })}</p>
-            <p>סה״כ הופקד: ₪{vm.result.totalDeposited.toLocaleString("en-US", { minimumFractionDigits: 2 })}</p>
-            <p>רווחים נטו: ₪{vm.result.earnedNet.toLocaleString("en-US", { minimumFractionDigits: 2 })}</p>
-            <p>מס ששולם: ₪{vm.result.taxPaid.toLocaleString("en-US", { minimumFractionDigits: 2 })}</p>
-            <p>עמלות ניהול: ₪{vm.result.feesPaid.toLocaleString("en-US", { minimumFractionDigits: 2 })}</p>
-          </div>
-        )}
+  <div className={styles.result}>
+    <div className={styles.positive}>
+      <p>
+        <strong>סה״כ חיסכון:</strong>{" "}
+        ₪{vm.result.finalAmount.toLocaleString("en-US", { minimumFractionDigits: 2 })}
+      </p>
+      <p>
+        <strong>סה״כ הופקד:</strong>{" "}
+        ₪{vm.result.totalDeposited.toLocaleString("en-US", { minimumFractionDigits: 2 })}
+      </p>
+      <p>
+        <strong>רווחים נטו:</strong>{" "}
+        ₪{vm.result.earnedNet.toLocaleString("en-US", { minimumFractionDigits: 2 })}
+      </p>
+    </div>
+
+    <div className={styles.negative}>
+      <p>
+        <strong>מס ששולם:</strong>{" "}
+        ₪{vm.result.taxPaid.toLocaleString("en-US", { minimumFractionDigits: 2 })}
+      </p>
+      <p>
+        <strong>עמלות ניהול:</strong>{" "}
+        ₪{vm.result.feesPaid.toLocaleString("en-US", { minimumFractionDigits: 2 })}
+      </p>
+    </div>
+  </div>
+)}
       </div>
     </div>
   );
