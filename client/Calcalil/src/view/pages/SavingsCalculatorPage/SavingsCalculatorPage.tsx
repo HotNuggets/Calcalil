@@ -58,31 +58,43 @@ const SavingsCalculatorPage = () => {
 
     <span>הפקדה חודשית</span>
     <input
-      type="number"
+      type="text"
+      inputMode="decimal"
+      pattern="[0-9]*"
       min={0}
       placeholder="₪"
       value={vm.monthlyDeposit ?? ""}
-      onChange={(e) => vm.setMonthlyDeposit(Number(e.target.value))}
+      onChange={(e) => {
+        const value = e.target.value.replace(/[^0-9.]/g, "");
+        vm.setMonthlyDeposit(Number(value))}}
     />
   </>
 )}
 
         <span>מספר שנים</span>
         <input
-          type="number"
+          type="text"
+          inputMode="decimal"
+          pattern="[0-9]*"
           min={1}
           max={100}
           value={vm.years ?? ""}
-          onChange={(e) => vm.setYears(Number(e.target.value))}
+          onChange={(e) => {
+             const value = e.target.value.replace(/[^0-9.]/g, "");
+             vm.setYears(Number(value))}}
         />
 
         <span>ריבית שנתית (%)</span>
         <input
-          type="number"
+          type="text"
+          inputMode="decimal"
+          pattern="[0-9]*"
           min={0}
           max={100}
           value={vm.interest ?? ""}
-          onChange={(e) => vm.setInterest(Number(e.target.value))}
+          onChange={(e) => {
+             const value = e.target.value.replace(/[^0-9.]/g, "");
+             vm.setInterest(Number(value))}}
         />
 
         <div className={styles.labelWithInfo}>
