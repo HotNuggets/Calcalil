@@ -32,11 +32,15 @@ const SavingsCalculatorPage = () => {
           <>
             <span>סכום הפקדה חד פעמית</span>
             <input
-              type="number"
+              type="text"
+              inputMode="decimal"
+              pattern="[0-9]*"
               min={0}
               placeholder="₪"
               value={vm.deposit ?? ""}
-              onChange={(e) => vm.setDeposit(Number(e.target.value))}
+              onChange={(e) => {
+                const value = e.target.value.replace(/[^0-9.]/g, "");
+                vm.setDeposit(Number(value))}}
             />
           </>
         )}
@@ -109,29 +113,41 @@ const SavingsCalculatorPage = () => {
             </button>
         </div>
         <input
-          type="number"
+          type="text"
+          inputMode="decimal"
+          pattern="[0-9]*"
           min={0}
           max={100}
           value={vm.tax ?? ""}
-          onChange={(e) => vm.setTax(Number(e.target.value))}
+          onChange={(e) => {
+            const value = e.target.value.replace(/[^0-9.]/g, "");
+            vm.setTax(Number(value))}}
         />
 
         <span>דמי ניהול מהפקדה (%)</span>
         <input
-          type="number"
+          type="text"
+          inputMode="decimal"
+          pattern="[0-9]*"
           min={0}
           max={10}
           value={vm.depositFee ?? ""}
-          onChange={(e) => vm.setDepositFee(Number(e.target.value))}
+          onChange={(e) => {
+            const value = e.target.value.replace(/[^0-9.]/g, "");
+            vm.setDepositFee(Number(value))}}
         />
 
         <span>דמי ניהול מצבירה שנתית (%)</span>
         <input
-          type="number"
+          type="text"
+          inputMode="decimal"
+          pattern="[0-9]*"
           min={0}
           max={5}
           value={vm.accumulationFee ?? ""}
-          onChange={(e) => vm.setAccumulationFee(Number(e.target.value))}
+          onChange={(e) => {
+            const value = e.target.value.replace(/[^0-9.]/g, "");
+            vm.setAccumulationFee(Number(value))}}
         />
 
         <button type="button" onClick={vm.calculate}>
