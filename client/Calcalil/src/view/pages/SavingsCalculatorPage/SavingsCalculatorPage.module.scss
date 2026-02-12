@@ -96,10 +96,11 @@
   background: #a1f9c7;
   font-size: 16px;
   line-height: 1.6;
+  
 }
 
 .positive {
-  color: #2e7d32; // green
+  color: #1c6c20; // green
   margin-bottom: 12px;
 
   p {
@@ -138,5 +139,12 @@
 .infoButton:hover {
   background: #1e2d5f;
 }
-}
 
+}
+.tableWrapper{
+  color: black;
+  background-color: #a1f9c7;
+  td{
+    border:solid 1px #1a1a1a;
+  }
+}

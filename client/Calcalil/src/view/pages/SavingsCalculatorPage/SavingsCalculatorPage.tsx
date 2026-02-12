@@ -123,34 +123,50 @@ const SavingsCalculatorPage = () => {
         </button>
 
         {vm.result && (
-  <div className={styles.result}>
-    <div className={styles.positive}>
-      <p>
-        <strong>סה״כ חיסכון:</strong>{" "}
-        ₪{vm.result.finalAmount.toLocaleString("en-US", { minimumFractionDigits: 2 })}
-      </p>
-      <p>
-        <strong>סה״כ הופקד:</strong>{" "}
-        ₪{vm.result.totalDeposited.toLocaleString("en-US", { minimumFractionDigits: 2 })}
-      </p>
-      <p>
-        <strong>רווחים נטו:</strong>{" "}
-        ₪{vm.result.earnedNet.toLocaleString("en-US", { minimumFractionDigits: 2 })}
-      </p>
+  <>
+    <div className={styles.result}>
+      <div className={styles.positive}>
+        <p><strong>סה״כ חיסכון:</strong> ₪{vm.result.finalAmount.toLocaleString()}</p>
+        <p><strong>סה״כ הופקד:</strong> ₪{vm.result.totalDeposited.toLocaleString()}</p>
+        <p><strong>רווחים נטו:</strong> ₪{vm.result.earnedNet.toLocaleString()}</p>
+      </div>
+
+      <div className={styles.negative}>
+        <p><strong>מס ששולם:</strong> ₪{vm.result.taxPaid.toLocaleString()}</p>
+        <p><strong>עמלות ניהול:</strong> ₪{vm.result.feesPaid.toLocaleString()}</p>
+      </div>
     </div>
 
-    <div className={styles.negative}>
-      <p>
-        <strong>מס ששולם:</strong>{" "}
-        ₪{vm.result.taxPaid.toLocaleString("en-US", { minimumFractionDigits: 2 })}
-      </p>
-      <p>
-        <strong>עמלות ניהול:</strong>{" "}
-        ₪{vm.result.feesPaid.toLocaleString("en-US", { minimumFractionDigits: 2 })}
-      </p>
+    {/* ✅ MONTHLY BREAKDOWN TABLE */}
+    <div className={styles.tableWrapper}>
+      <h3>פירוט חודשי</h3>
+
+      <table className={styles.table}>
+        <thead>
+          <tr>
+            <th>חודש</th>
+            <th>סה״כ הופקד</th>
+            <th>ריבית לחודש</th>
+            <th>יתרה</th>
+          </tr>
+        </thead>
+        <tbody>
+          {vm.result.schedule.map(row => (
+            <tr key={row.month}>
+              <td>{row.month}</td>
+              <td>₪{row.depositedTotal.toFixed(2)}</td>
+              <td className={styles.positive}>
+                ₪{row.interestEarned.toFixed(2)}
+              </td>
+              <td>₪{row.balance.toFixed(2)}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
-  </div>
+  </>
 )}
+
       </div>
     </div>
   );

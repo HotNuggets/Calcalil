@@ -1,5 +1,12 @@
 import { useState } from "react";
 
+export type MonthlyRow = {
+  month: number;
+  depositedTotal: number;
+  interestEarned: number;
+  balance: number;
+};
+
 export type SavingsResult = {
   finalAmount: number;
   totalDeposited: number;
@@ -7,6 +14,7 @@ export type SavingsResult = {
   earnedGross: number;
   taxPaid: number;
   feesPaid: number;
+  schedule: MonthlyRow[];
 };
 
 export function useSavingsCalculatorPageVM() {
@@ -17,17 +25,15 @@ export function useSavingsCalculatorPageVM() {
 
   const [interest, setInterest] = useState<number | null>(null);
   const [years, setYears] = useState<number | null>(null);
-
   const [tax, setTax] = useState<number | null>(0);
 
-  // ✅ NEW FEES
-  const [depositFee, setDepositFee] = useState<number | null>(0);       // %
-  const [accumulationFee, setAccumulationFee] = useState<number | null>(0); // %
+  const [depositFee, setDepositFee] = useState<number | null>(0);
+  const [accumulationFee, setAccumulationFee] = useState<number | null>(0);
 
   const [result, setResult] = useState<SavingsResult | null>(null);
 
   function calculate() {
-    const yrs = Math.max(0, Number(years || 0));
+    const yrs = Number(years || 0);
     if (yrs <= 0) {
       setResult(null);
       return;
@@ -45,67 +51,42 @@ export function useSavingsCalculatorPageVM() {
     let totalDeposited = 0;
     let feesPaid = 0;
 
-    if (calcType === "oneTime") {
-      const P = Number(deposit || 0);
-      if (P <= 0) return;
+    const schedule: MonthlyRow[] = [];
 
-      const feeFromDeposit = P * depositFeeRate;
-      const netDeposit = P - feeFromDeposit;
+    // ---- Initial deposit (for both modes) ----
+    const initial = Number(deposit || 0);
+    if (initial > 0) {
+      const fee = initial * depositFeeRate;
+      balance = initial - fee;
+      totalDeposited += initial;
+      feesPaid += fee;
+    }
 
-      balance = netDeposit;
-      totalDeposited = P;
-      feesPaid += feeFromDeposit;
-
-      for (let m = 1; m <= totalMonths; m++) {
-        balance *= 1 + monthlyRate;
-
-        if (m % 12 === 0 && accumulationFeeRate > 0) {
-          const yearlyFee = balance * accumulationFeeRate;
-          balance -= yearlyFee;
-          feesPaid += yearlyFee;
-        }
+    // ---- Monthly loop ----
+    for (let m = 1; m <= totalMonths; m++) {
+      if (calcType === "monthly" && monthlyDeposit && monthlyDeposit > 0) {
+        const fee = monthlyDeposit * depositFeeRate;
+        balance += monthlyDeposit - fee;
+        totalDeposited += monthlyDeposit;
+        feesPaid += fee;
       }
+
+      const interestEarned = balance * monthlyRate;
+      balance += interestEarned;
+
+      if (m % 12 === 0 && accumulationFeeRate > 0) {
+        const yearlyFee = balance * accumulationFeeRate;
+        balance -= yearlyFee;
+        feesPaid += yearlyFee;
+      }
+
+      schedule.push({
+        month: m,
+        depositedTotal: totalDeposited,
+        interestEarned,
+        balance,
+      });
     }
-
-    if (calcType === "monthly") {
-  const initialDeposit = Number(deposit || 0); // initial capital
-  const PMT = Number(monthlyDeposit || 0);
-
-  if (initialDeposit <= 0 && PMT <= 0) {
-    setResult(null);
-    return;
-  }
-
-  // ---- Initial Deposit ----
-  if (initialDeposit > 0) {
-    const feeFromInitial = initialDeposit * depositFeeRate;
-    const netInitial = initialDeposit - feeFromInitial;
-
-    balance = netInitial;
-    totalDeposited += initialDeposit;
-    feesPaid += feeFromInitial;
-  }
-
-  // ---- Monthly Deposits ----
-  for (let m = 1; m <= totalMonths; m++) {
-    if (PMT > 0) {
-      const feeFromDeposit = PMT * depositFeeRate;
-      const netDeposit = PMT - feeFromDeposit;
-
-      balance += netDeposit;
-      totalDeposited += PMT;
-      feesPaid += feeFromDeposit;
-    }
-
-    balance *= 1 + monthlyRate;
-
-    if (m % 12 === 0 && accumulationFeeRate > 0) {
-      const yearlyFee = balance * accumulationFeeRate;
-      balance -= yearlyFee;
-      feesPaid += yearlyFee;
-    }
-  }
-}
 
     const earnedGross = balance - totalDeposited;
     const taxPaid = Math.max(0, earnedGross) * taxRate;
@@ -119,31 +100,27 @@ export function useSavingsCalculatorPageVM() {
       earnedNet,
       taxPaid,
       feesPaid,
+      schedule,
     });
   }
 
   return {
     calcType,
     setCalcType,
-
     deposit,
     setDeposit,
     monthlyDeposit,
     setMonthlyDeposit,
-
     interest,
     setInterest,
     years,
     setYears,
     tax,
     setTax,
-
-   
     depositFee,
     setDepositFee,
     accumulationFee,
     setAccumulationFee,
-
     result,
     calculate,
   };
