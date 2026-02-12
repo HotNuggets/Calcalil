@@ -46,15 +46,14 @@ const SavingsCalculatorPage = () => {
     <span>הפקדה ראשונית</span>
         <input
       type="text"
-      inputMode="numeric"
+      inputMode="decimal"
       pattern="[0-9]*"
       placeholder="₪"
       value={vm.deposit ?? ""}
-      onChange={(e) =>
-        vm.setDeposit(
-      Number(e.target.value.replace(/[^0-9.]/g, ""))
-    )
-  }
+      onChange={(e) => {
+      const value = e.target.value.replace(/[^0-9.]/g, "");
+      vm.setDeposit(Number(value));
+      }}
 />
 
     <span>הפקדה חודשית</span>
