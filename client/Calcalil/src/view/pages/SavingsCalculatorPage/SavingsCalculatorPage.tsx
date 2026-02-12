@@ -52,7 +52,7 @@ const SavingsCalculatorPage = () => {
       value={vm.deposit ?? ""}
       onChange={(e) =>
         vm.setDeposit(
-      Number(e.target.value.replace(/[^0-9]/g, ""))
+      Number(e.target.value.replace(/[^0-9.]/g, ""))
     )
   }
 />
