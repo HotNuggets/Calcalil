@@ -6,6 +6,7 @@ import MortgageCalculatorPage from "./view/pages/MortgageCalculatorPage/Mortgage
 import ExpensesPage from "./view/pages/ExpensesPage/ExpensesPage";
 import PrivacyPolicyPage from "./view/pages/PrivacyPolicyPage/PrivacyPolicyPage";
 import TermsOfServicePage from "./view/pages/PrivacyPolicyPage/TermsOfServicePage";
+import SNPPage from "./view/pages/S&PPage/S&PPage";
 
 export const router = createBrowserRouter([
   {
@@ -35,5 +36,9 @@ export const router = createBrowserRouter([
   {
     path: "/Terms",
     element: <TermsOfServicePage />,
+  },
+  {
+    path: "/SNP",
+    element: <SNPPage />,
   },
 ]);

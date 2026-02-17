@@ -20,6 +20,9 @@ const WelcomePage = () => {
         {/* <Link to="/expenses">
           <button>דף הוצאות</button>
         </Link> */}
+        <Link to="/SNP">
+          <button>מדד סנ"פ בישראל</button>
+        </Link> 
       </div>
     </div>
   );

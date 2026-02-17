@@ -1,0 +1,34 @@
+.usd,
+.ils {
+  flex: 1 1 250px;
+  background: #ffffff;
+  padding: 16px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  color: #111; // ✅ FORCE DARK TEXT
+}
+
+.usd h3,
+.ils h3 {
+  margin-bottom: 8px;
+  color: #1e3a8a; // visible title
+}
+
+.usd p,
+.ils p {
+  margin: 4px 0;
+  font-size: 1rem;
+  color: #111; // ✅ ensure visible
+}
+.chartWrapper {
+  width: 100%;
+  height: 360px; // ✅ REQUIRED
+  margin-top: 20px;
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .chartWrapper {
+    height: 280px;
+  }
+}
