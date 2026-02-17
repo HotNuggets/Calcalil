@@ -46,7 +46,7 @@ const SAndPPage = () => {
   data={vm.data}
   margin={{ top: 10, right: 20, left: 30, bottom: 10 }}
 >
-  <XAxis dataKey="date"  />
+  <XAxis dataKey="date" hide />
 
   <YAxis
     width={60}

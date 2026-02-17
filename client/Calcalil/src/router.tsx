@@ -7,6 +7,7 @@ import ExpensesPage from "./view/pages/ExpensesPage/ExpensesPage";
 import PrivacyPolicyPage from "./view/pages/PrivacyPolicyPage/PrivacyPolicyPage";
 import TermsOfServicePage from "./view/pages/PrivacyPolicyPage/TermsOfServicePage";
 import SNPPage from "./view/pages/S&PPage/S&PPage";
+import SalaryCalculator from "./view/pages/SalaryCalculatorPage/SalaryCalculator";
 
 export const router = createBrowserRouter([
   {
@@ -40,5 +41,9 @@ export const router = createBrowserRouter([
   {
     path: "/SNP",
     element: <SNPPage />,
+  },
+  {
+    path: "/Salary",
+    element: <SalaryCalculator />,
   },
 ]);

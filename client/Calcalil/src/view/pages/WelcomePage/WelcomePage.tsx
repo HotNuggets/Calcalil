@@ -23,6 +23,9 @@ const WelcomePage = () => {
         <Link to="/SNP">
           <button>מדד סנ"פ בישראל</button>
         </Link> 
+        <Link to="/Salary">
+          <button>מחשבון צמיחת שכר</button>
+        </Link> 
       </div>
     </div>
   );

@@ -1,0 +1,886 @@
+// ─── Google Font ─────────────────────────────────────────────────────────────
+@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;900&display=swap');
+
+// ─── Design Tokens — Light Theme ─────────────────────────────────────────────
+$font:          'Heebo', sans-serif;
+
+// Backgrounds
+$bg:            #F4F6FB;          // soft off-white page bg
+$bg-card:       #FFFFFF;          // pure white cards
+$bg-deep:       #F0F2F8;          // slightly deeper inset areas
+$bg-input:      #FFFFFF;          // white inputs
+$bg-header:     #FFFFFF;          // white header
+
+// Borders
+$border:        #E2E6F0;
+$border-subtle: #EAECF4;
+$border-input:  #CBD2E8;
+
+// Text
+$text:          #1A1D2E;          // near-black ink
+$text-secondary:#3D4466;          // dark slate secondary
+$muted:         #7B83A8;          // medium-blue muted
+$faint:         #9BA3C4;          // light muted
+$ultra-faint:   #B8BEDA;          // very light label
+
+// Brand accents — vivid & punchy
+$indigo:        #4F46E5;          // primary indigo (replaces gold)
+$indigo-light:  #EEF2FF;          // indigo tint bg
+$indigo-dim:    #3730A3;          // darker indigo
+$blue:          #0EA5E9;          // sky blue (base salary)
+$blue-light:    #E0F2FE;          // blue tint
+$violet:        #7C3AED;          // violet (bonus)
+$violet-light:  #EDE9FE;          // violet tint
+$green:         #059669;          // emerald green (gains)
+$green-light:   #D1FAE5;          // green tint
+$orange:        #EA580C;          // vivid orange (time machine)
+$orange-light:  #FFF7ED;          // orange tint
+$orange-mid:    #FB923C;          // orange mid
+
+// Radius
+$radius-sm:     12px;
+$radius-md:     16px;
+$radius-lg:     20px;
+$radius-xl:     24px;
+
+// Shadows
+$shadow-sm:     0 1px 4px rgba(26, 29, 46, 0.07);
+$shadow-md:     0 4px 16px rgba(26, 29, 46, 0.09);
+$shadow-lg:     0 8px 32px rgba(26, 29, 46, 0.10);
+
+// ─── Animations ───────────────────────────────────────────────────────────────
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position:  200% center; }
+}
+
+@keyframes popIn {
+  0%   { opacity: 0; transform: scale(0.94) translateY(12px); }
+  100% { opacity: 1; transform: scale(1)    translateY(0); }
+}
+
+// ─── Global resets ────────────────────────────────────────────────────────────
+:global {
+  * { box-sizing: border-box; }
+
+  ::-webkit-scrollbar       { width: 6px; }
+  ::-webkit-scrollbar-track { background: $bg; }
+  ::-webkit-scrollbar-thumb { background: $border; border-radius: 3px; }
+
+  input[type='number']::-webkit-inner-spin-button,
+  input[type='number']::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+  input[type='number'] { -moz-appearance: textfield; }
+}
+
+// ─── Root ─────────────────────────────────────────────────────────────────────
+.root {
+  min-height: 100vh;
+  background: $bg;
+  font-family: $font;
+  color: $text;
+  padding-bottom: 80px;
+  direction: rtl;
+}
+
+// ─── Header ───────────────────────────────────────────────────────────────────
+.header {
+  background: $bg-header;
+  border-bottom: 1px solid $border-subtle;
+  padding: 48px 24px 40px;
+  text-align: center;
+  animation: fadeUp 0.6s ease both;
+  box-shadow: $shadow-sm;
+}
+
+.currencyBar {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.currencyBtn {
+  background: $bg-deep;
+  color: $muted;
+  border: 1px solid $border;
+  border-radius: 8px;
+  padding: 6px 14px;
+  font-family: $font;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &:hover { border-color: $indigo; color: $indigo; }
+
+  &.active {
+    background: $indigo;
+    color: #fff;
+    border-color: $indigo;
+  }
+}
+
+.title {
+  font-family: $font;
+  font-size: clamp(28px, 6vw, 52px);
+  font-weight: 900;
+  margin: 0;
+  line-height: 1.2;
+  background: linear-gradient(90deg, $indigo, $violet, $indigo);
+  background-size: 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 4s linear infinite;
+}
+
+.subtitle {
+  color: $muted;
+  font-size: 16px;
+  margin-top: 12px;
+  font-weight: 300;
+}
+
+// ─── Content wrapper ──────────────────────────────────────────────────────────
+.content {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+// ─── Snapshot cards ───────────────────────────────────────────────────────────
+.snapshotGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin: 32px 0;
+  animation: fadeUp 0.6s 0.1s ease both;
+  opacity: 0;
+  animation-fill-mode: forwards;
+}
+
+.snapshotCard {
+  background: $bg-card;
+  border: 1px solid $border;
+  border-radius: $radius-md;
+  padding: 20px 16px;
+  text-align: center;
+  box-shadow: $shadow-sm;
+}
+
+.snapshotLabel {
+  font-size: 12px;
+  color: $muted;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.snapshotValue {
+  font-size: clamp(16px, 3vw, 24px);
+  font-weight: 700;
+}
+
+// ─── Input panels ─────────────────────────────────────────────────────────────
+.inputsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  animation: fadeUp 0.6s 0.2s ease both;
+  opacity: 0;
+  animation-fill-mode: forwards;
+}
+
+.panel {
+  background: $bg-card;
+  border: 1px solid $border;
+  border-radius: $radius-lg;
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  box-shadow: $shadow-sm;
+}
+
+.panelTitle {
+  font-size: 18px;
+  font-weight: 700;
+  color: $text;
+  border-bottom: 1px solid $border-subtle;
+  padding-bottom: 16px;
+}
+
+// ─── Slider ───────────────────────────────────────────────────────────────────
+.sliderWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sliderHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.sliderLabel {
+  font-size: 13px;
+  color: $muted;
+  font-weight: 500;
+}
+
+.sliderValue {
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.sliderTrack {
+  position: relative;
+  height: 6px;
+  background: $bg-deep;
+  border-radius: 999px;
+  border: 1px solid $border;
+}
+
+.sliderFill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  border-radius: 999px;
+  transition: width 0.1s;
+  margin-top: -1px;
+  height: calc(100% + 2px);
+}
+
+.sliderInput {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 20px;
+  transform: translateY(-50%);
+  opacity: 0;
+  cursor: pointer;
+  margin: 0;
+  padding: 0;
+  direction: ltr;
+}
+
+.sliderThumb {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 3px solid #fff;
+  pointer-events: none;
+  transition: left 0.1s;
+  box-shadow: $shadow-md;
+}
+
+// ─── Number input ─────────────────────────────────────────────────────────────
+.numberInputWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.numberInputLabel {
+  font-size: 13px;
+  color: $muted;
+  font-weight: 500;
+}
+
+.numberInputField {
+  position: relative;
+}
+
+.numberInputSymbol {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 16px;
+  pointer-events: none;
+  font-weight: 600;
+}
+
+.numberInput {
+  width: 100%;
+  background: $bg-input;
+  border: 1.5px solid $border-input;
+  border-radius: $radius-sm;
+  padding: 12px 40px 12px 14px;
+  font-family: $font;
+  font-size: 18px;
+  color: $text;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  direction: ltr;
+  text-align: right;
+  font-weight: 600;
+
+  &:focus {
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.12);
+  }
+}
+
+// ─── Breakdown ────────────────────────────────────────────────────────────────
+.breakdown {
+  background: linear-gradient(135deg, $indigo-light, $bg-card);
+  border: 1px solid darken($indigo-light, 5%);
+  border-radius: $radius-lg;
+  padding: 24px 28px;
+  margin-top: 24px;
+  animation: fadeUp 0.6s 0.3s ease both;
+  opacity: 0;
+  animation-fill-mode: forwards;
+  box-shadow: $shadow-sm;
+}
+
+.breakdownTitle {
+  font-size: 16px;
+  font-weight: 700;
+  color: $indigo-dim;
+  margin-bottom: 16px;
+}
+
+.breakdownGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 16px;
+}
+
+.breakdownCell {
+  background: $bg-card;
+  border-radius: $radius-sm;
+  padding: 14px 16px;
+  border: 1px solid $border;
+  box-shadow: $shadow-sm;
+}
+
+.breakdownCellLabel {
+  font-size: 11px;
+  color: $muted;
+  margin-bottom: 6px;
+  font-weight: 500;
+}
+
+.breakdownCellValue {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.breakdownCellSub {
+  font-size: 11px;
+  color: $faint;
+}
+
+// ─── Bar chart ────────────────────────────────────────────────────────────────
+.chartCard {
+  background: $bg-card;
+  border: 1px solid $border;
+  border-radius: $radius-lg;
+  padding: 28px;
+  margin-top: 24px;
+  animation: fadeUp 0.6s 0.4s ease both;
+  opacity: 0;
+  animation-fill-mode: forwards;
+  box-shadow: $shadow-sm;
+}
+
+.chartHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.chartTitle {
+  font-size: 18px;
+  font-weight: 700;
+  color: $text;
+}
+
+.chartLegend {
+  display: flex;
+  gap: 16px;
+  font-size: 12px;
+  color: $muted;
+  font-weight: 500;
+}
+
+.legendDot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  margin-left: 6px;
+}
+
+.chartRows {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.chartRow {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-direction: row-reverse;
+}
+
+.chartRowLabel {
+  width: 62px;
+  text-align: right;
+  font-size: 13px;
+  flex-shrink: 0;
+  font-weight: 500;
+}
+
+.chartBars {
+  flex: 1;
+  display: flex;
+  gap: 2px;
+  height: 32px;
+  border-radius: 8px;
+  overflow: hidden;
+  flex-direction: row-reverse;
+  background: $bg-deep;
+}
+
+.barBase {
+  background: linear-gradient(270deg, #0284C7, $blue);
+  border-radius: 8px 0 0 8px;
+  min-width: 4px;
+  transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.barBonus {
+  background: linear-gradient(270deg, #6D28D9, $violet);
+  border-radius: 0 8px 8px 0;
+  min-width: 2px;
+  transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.chartRowTotal {
+  width: 140px;
+  flex-shrink: 0;
+  text-align: left;
+  font-size: 15px;
+  color: $text;
+  font-weight: 600;
+}
+
+.chartDelta {
+  font-size: 11px;
+  color: $green;
+  margin-right: 6px;
+  font-weight: 600;
+}
+
+// ─── Table ────────────────────────────────────────────────────────────────────
+.tableCard {
+  background: $bg-card;
+  border: 1px solid $border;
+  border-radius: $radius-lg;
+  overflow: hidden;
+  margin-top: 24px;
+  animation: fadeUp 0.6s 0.5s ease both;
+  opacity: 0;
+  animation-fill-mode: forwards;
+  box-shadow: $shadow-sm;
+}
+
+.tableCardTitle {
+  padding: 20px 24px;
+  border-bottom: 1px solid $border-subtle;
+  font-size: 18px;
+  font-weight: 700;
+  color: $text;
+}
+
+.tableScroll {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  direction: rtl;
+}
+
+.tableTh {
+  padding: 12px 20px;
+  color: $muted;
+  font-weight: 600;
+  font-size: 12px;
+  border-bottom: 1px solid $border-subtle;
+  background: $bg-deep;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+
+  &:first-child { text-align: right; }
+  &:not(:first-child) { text-align: left; }
+}
+
+.tableTr {
+  border-bottom: 1px solid $border-subtle;
+  transition: background 0.15s;
+
+  &:hover { background: $bg-deep; }
+  &.currentRow { background: $indigo-light; }
+}
+
+.tableTd {
+  padding: 14px 20px;
+  font-weight: 500;
+
+  &:first-child { text-align: right; }
+  &:not(:first-child) { text-align: left; }
+}
+
+// ─── Summary callout ─────────────────────────────────────────────────────────
+.summaryCallout {
+  margin-top: 24px;
+  border-radius: $radius-lg;
+  padding: 32px 28px;
+  background: linear-gradient(135deg, $indigo, $violet);
+  border: none;
+  text-align: center;
+  animation: fadeUp 0.6s 0.6s ease both;
+  opacity: 0;
+  animation-fill-mode: forwards;
+  box-shadow: $shadow-lg;
+}
+
+.summaryLabel {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.summaryAmount {
+  font-size: clamp(32px, 7vw, 60px);
+  font-weight: 900;
+  color: #fff;
+  line-height: 1;
+}
+
+.summaryStats {
+  margin-top: 16px;
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+
+.summaryStat {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.65);
+
+  span {
+    font-size: 18px;
+    font-weight: 700;
+    margin-right: 4px;
+    color: #fff;
+  }
+}
+
+// ─── Time Machine section ─────────────────────────────────────────────────────
+.timeMachineSection {
+  margin-top: 56px;
+  border-top: 2px solid $border;
+  padding-top: 52px;
+  animation: fadeUp 0.6s 0.7s ease both;
+  opacity: 0;
+  animation-fill-mode: forwards;
+}
+
+.sectionEyebrow {
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: $orange;
+  margin-bottom: 10px;
+  text-align: center;
+  font-weight: 700;
+}
+
+.sectionTitle {
+  font-size: clamp(24px, 4vw, 40px);
+  font-weight: 900;
+  margin: 0;
+  color: $text;
+  line-height: 1.2;
+  text-align: center;
+}
+
+.sectionSubtitle {
+  color: $muted;
+  font-size: 15px;
+  margin-top: 10px;
+  font-weight: 400;
+  text-align: center;
+}
+
+.sectionHeading {
+  margin-bottom: 40px;
+}
+
+// ─── Year picker ─────────────────────────────────────────────────────────────
+.yearPickerWrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 36px;
+}
+
+.yearPickerInner {
+  position: relative;
+}
+
+.yearPickerAboveLabel {
+  position: absolute;
+  top: -30px;
+  width: 100%;
+  text-align: center;
+  font-size: 12px;
+  color: $muted;
+  font-weight: 500;
+}
+
+.yearPickerControl {
+  display: flex;
+  align-items: stretch;
+  background: $bg-card;
+  border: 2px solid $orange;
+  border-radius: 22px;
+  overflow: hidden;
+  box-shadow: 0 0 40px rgba(234, 88, 12, 0.15);
+}
+
+.yearPickerBtn {
+  background: none;
+  border: none;
+  color: $orange;
+  font-size: 28px;
+  font-weight: 300;
+  padding: 0 22px;
+  cursor: pointer;
+  transition: background 0.15s;
+  font-family: $font;
+
+  &:first-child { border-left: 1px solid $border; }
+  &:last-child  { border-right: 1px solid $border; }
+  &:hover { background: $orange-light; }
+}
+
+.yearPickerInputArea {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 10px;
+}
+
+.yearPickerInput {
+  background: transparent;
+  border: none;
+  outline: none;
+  font-family: $font;
+  font-size: clamp(52px, 10vw, 80px);
+  color: $orange;
+  font-weight: 900;
+  width: clamp(100px, 14vw, 160px);
+  text-align: center;
+  padding: 0;
+  direction: ltr;
+}
+
+.yearPickerHint {
+  font-size: 12px;
+  color: $faint;
+  margin-top: -4px;
+}
+
+// ─── Result card ─────────────────────────────────────────────────────────────
+.resultCard {
+  background: $bg-card;
+  border: 1.5px solid $border;
+  border-radius: $radius-xl;
+  overflow: hidden;
+  animation: popIn 0.4s cubic-bezier(0.2, 1, 0.3, 1) both;
+  box-shadow: $shadow-lg;
+}
+
+.resultCardAccentBar {
+  height: 5px;
+  background: linear-gradient(90deg, $orange, $orange-mid, $orange);
+  background-size: 200%;
+  animation: shimmer 2s linear infinite;
+}
+
+.resultCardBody {
+  padding: 36px 28px 32px;
+}
+
+.resultMainSection {
+  text-align: center;
+  margin-bottom: 36px;
+}
+
+.resultIntro {
+  font-size: 16px;
+  color: $muted;
+  margin-bottom: 6px;
+
+  strong {
+    color: $orange;
+    font-weight: 700;
+  }
+}
+
+.resultAmount {
+  font-size: clamp(52px, 11vw, 96px);
+  font-weight: 900;
+  color: $orange;
+  line-height: 1;
+  margin: 8px 0;
+}
+
+.resultBadges {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 14px;
+}
+
+.badge {
+  border-radius: 20px;
+  padding: 7px 16px;
+  font-size: 14px;
+  font-weight: 600;
+
+  &.green   { background: $green-light;   border: 1px solid darken($green-light, 8%);   color: $green; }
+  &.gold    { background: $indigo-light;   border: 1px solid darken($indigo-light, 6%);  color: $indigo; }
+  &.neutral { background: $bg-deep;        border: 1px solid $border;                    color: $muted; }
+}
+
+// ─── Base / Bonus split cards ─────────────────────────────────────────────────
+.splitGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 24px;
+}
+
+.splitCard {
+  background: $bg-deep;
+  border-radius: $radius-md;
+  padding: 20px 22px;
+  border: 1px solid $border;
+
+  &.baseCard  { border-right: 3px solid $blue; }
+  &.bonusCard { border-right: 3px solid $violet; }
+}
+
+.splitCardLabel {
+  font-size: 11px;
+  color: $muted;
+  margin-bottom: 8px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.splitCardValue {
+  font-size: clamp(20px, 3.5vw, 30px);
+  font-weight: 700;
+}
+
+.splitCardDelta {
+  font-size: 12px;
+  color: $faint;
+  margin-top: 6px;
+}
+
+// ─── Progress bar ─────────────────────────────────────────────────────────────
+.progressBox {
+  background: $bg-deep;
+  border-radius: 14px;
+  padding: 20px 22px;
+  border: 1px solid $border;
+}
+
+.progressLabels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: $muted;
+  margin-bottom: 10px;
+  font-weight: 500;
+}
+
+.progressTrack {
+  position: relative;
+  height: 12px;
+  background: $border;
+  border-radius: 999px;
+  overflow: visible;
+}
+
+.progressFill {
+  height: 100%;
+  background: linear-gradient(90deg, $blue, $violet);
+  border-radius: 999px;
+  position: relative;
+}
+
+.progressDot {
+  position: absolute;
+  right: -7px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: $orange;
+  border: 3px solid #fff;
+  box-shadow: 0 0 12px rgba(234, 88, 12, 0.4);
+}
+
+.progressStats {
+  margin-top: 14px;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.progressStat {
+  text-align: center;
+}
+
+.progressStatLabel {
+  font-size: 11px;
+  color: $muted;
+  font-weight: 500;
+}
+
+.progressStatValue {
+  font-size: 18px;
+  font-weight: 700;
+  margin-top: 3px;
+}
