@@ -2,6 +2,7 @@ import React from 'react';
 import { useSalaryCalculatorVM, CURRENCIES, fmt, fmtDelta } from './SalaryCalculator.vm';
 import type { Currency, ProjectionRow } from './SalaryCalculator.vm';
 import styles from './SalaryCalculator.module.scss';
+import BackToWelcomeButton from '../../components/BackToWelcomeButton/BackToWelcomeButton';
 
 // ─── Sub-components ───────────────────────────────────────────────────────────
 
@@ -22,6 +23,7 @@ const SliderInput: React.FC<SliderInputProps> = ({
   const pct = ((value - min) / (max - min)) * 100;
 
   return (
+     
     <div className={styles.sliderWrapper}>
       <div className={styles.sliderHeader}>
         <span className={styles.sliderLabel}>{label}</span>
@@ -101,9 +103,9 @@ const SalaryCalculator: React.FC = () => {
 
   return (
     <div className={styles.root}>
-
       {/* ── כותרת ראשית ── */}
       <header className={styles.header}>
+        <BackToWelcomeButton />
         <div className={styles.currencyBar}>
           {CURRENCIES.map((c) => (
             <button

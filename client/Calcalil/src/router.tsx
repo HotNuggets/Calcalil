@@ -6,7 +6,7 @@ import MortgageCalculatorPage from "./view/pages/MortgageCalculatorPage/Mortgage
 import ExpensesPage from "./view/pages/ExpensesPage/ExpensesPage";
 import PrivacyPolicyPage from "./view/pages/PrivacyPolicyPage/PrivacyPolicyPage";
 import TermsOfServicePage from "./view/pages/PrivacyPolicyPage/TermsOfServicePage";
-import SNPPage from "./view/pages/S&PPage/S&PPage";
+import SNPPage from "./view/pages/S&PPage/SAndPPage";
 import SalaryCalculator from "./view/pages/SalaryCalculatorPage/SalaryCalculator";
 
 export const router = createBrowserRouter([

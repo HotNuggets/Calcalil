@@ -1,0 +1,376 @@
+// ─── Import Heebo font ────────────────────────────────────────────────────────
+@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;900&display=swap');
+
+// ─── Design Tokens (matching salary calculator) ──────────────────────────────
+$font:          'Heebo', sans-serif;
+
+// Backgrounds
+$bg:            #F4F6FB;
+$bg-card:       #FFFFFF;
+$bg-deep:       #F0F2F8;
+
+// Borders
+$border:        #E2E6F0;
+$border-subtle: #EAECF4;
+
+// Text
+$text:          #1A1D2E;
+$text-secondary:#3D4466;
+$muted:         #7B83A8;
+$faint:         #9BA3C4;
+
+// Accents
+$indigo:        #4F46E5;
+$indigo-light:  #EEF2FF;
+$blue:          #0EA5E9;
+$blue-light:    #E0F2FE;
+$green:         #059669;
+$green-light:   #D1FAE5;
+$red:           #DC2626;
+$red-light:     #FEE2E2;
+$orange:        #EA580C;
+
+// Radius
+$radius-sm:     12px;
+$radius-md:     16px;
+$radius-lg:     20px;
+$radius-xl:     24px;
+
+// Shadows
+$shadow-sm:     0 1px 4px rgba(26, 29, 46, 0.07);
+$shadow-md:     0 4px 16px rgba(26, 29, 46, 0.09);
+$shadow-lg:     0 8px 32px rgba(26, 29, 46, 0.10);
+
+// ─── Animations ───────────────────────────────────────────────────────────────
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position:  200% center; }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.05); }
+}
+
+// ─── Container ────────────────────────────────────────────────────────────────
+.container {
+  min-height: 100vh;
+  background: $bg;
+  padding: 24px 20px 80px;
+  font-family: $font;
+  color: $text;
+  direction: rtl;
+}
+
+// ─── Loading ──────────────────────────────────────────────────────────────────
+.loading {
+  text-align: center;
+  padding: 80px 20px;
+  font-size: 18px;
+  color: $muted;
+  font-weight: 500;
+}
+
+// ─── Title ────────────────────────────────────────────────────────────────────
+.title {
+  font-size: clamp(24px, 5vw, 40px);
+  font-weight: 900;
+  margin: 32px 0 24px;
+  text-align: center;
+  background: linear-gradient(90deg, $indigo, $blue, $indigo);
+  background-size: 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 4s linear infinite;
+  line-height: 1.2;
+}
+
+// ─── Summary Cards ────────────────────────────────────────────────────────────
+.summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+  margin-bottom: 32px;
+  animation: fadeUp 0.6s 0.1s ease both;
+  opacity: 0;
+  animation-fill-mode: forwards;
+}
+
+.usd,
+.ils {
+  background: $bg-card;
+  border: 1px solid $border;
+  border-radius: $radius-lg;
+  padding: 24px;
+  box-shadow: $shadow-sm;
+  transition: transform 0.2s, box-shadow 0.2s;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: $shadow-md;
+  }
+
+  h3 {
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: $muted;
+    margin: 0 0 16px;
+  }
+
+  .currentValue {
+    font-size: clamp(28px, 5vw, 40px);
+    font-weight: 900;
+    margin: 8px 0 12px;
+    line-height: 1;
+  }
+
+  .growthBadge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 14px;
+    border-radius: 20px;
+    font-size: 15px;
+    font-weight: 700;
+    margin-top: 8px;
+  }
+
+  .label {
+    font-size: 13px;
+    color: $muted;
+    margin-bottom: 4px;
+    font-weight: 500;
+  }
+}
+
+.usd {
+  .currentValue { color: $blue; }
+  
+  .growthBadge {
+    background: $green-light;
+    color: $green;
+    border: 1px solid darken($green-light, 8%);
+  }
+}
+
+.ils {
+  .currentValue { color: $indigo; }
+  
+  .growthBadge {
+    background: $green-light;
+    color: $green;
+    border: 1px solid darken($green-light, 8%);
+
+    &.negative {
+      background: $red-light;
+      color: $red;
+      border: 1px solid darken($red-light, 8%);
+    }
+  }
+}
+
+// ─── Comparison strip ─────────────────────────────────────────────────────────
+.comparison {
+  background: linear-gradient(135deg, $indigo-light, $bg-card);
+  border: 1px solid darken($indigo-light, 5%);
+  border-radius: $radius-lg;
+  padding: 20px 24px;
+  margin-bottom: 24px;
+  animation: fadeUp 0.6s 0.2s ease both;
+  opacity: 0;
+  animation-fill-mode: forwards;
+  box-shadow: $shadow-sm;
+}
+
+.comparisonTitle {
+  font-size: 14px;
+  font-weight: 700;
+  color: $indigo;
+  margin-bottom: 14px;
+  text-align: center;
+}
+
+.comparisonStats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 12px;
+}
+
+.comparisonStat {
+  background: $bg-card;
+  border-radius: $radius-sm;
+  padding: 12px 14px;
+  border: 1px solid $border;
+  text-align: center;
+
+  .statLabel {
+    font-size: 11px;
+    color: $muted;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 6px;
+  }
+
+  .statValue {
+    font-size: 18px;
+    font-weight: 700;
+    color: $text;
+  }
+}
+
+// ─── Chart Wrapper ────────────────────────────────────────────────────────────
+.chartCard {
+  background: $bg-card;
+  border: 1px solid $border;
+  border-radius: $radius-lg;
+  padding: 24px;
+  box-shadow: $shadow-sm;
+  animation: fadeUp 0.6s 0.3s ease both;
+  opacity: 0;
+  animation-fill-mode: forwards;
+}
+
+.chartHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid $border-subtle;
+}
+
+.chartTitle {
+  font-size: 18px;
+  font-weight: 700;
+  color: $text;
+}
+
+.chartLegend {
+  display: flex;
+  gap: 16px;
+  font-size: 12px;
+  color: $muted;
+  font-weight: 500;
+}
+
+.legendDot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  margin-left: 6px;
+}
+
+.chartWrapper {
+  width: 100%;
+  height: 400px;
+  direction: ltr; // charts render better LTR
+
+  // Override recharts default styles
+  :global {
+    .recharts-cartesian-axis-tick-value {
+      font-family: $font;
+      font-size: 12px;
+      fill: $muted;
+    }
+
+    .recharts-tooltip-wrapper {
+      outline: none;
+    }
+
+    .recharts-default-tooltip {
+      background: $bg-card !important;
+      border: 1px solid $border !important;
+      border-radius: $radius-sm !important;
+      box-shadow: $shadow-md !important;
+      padding: 12px !important;
+      font-family: $font;
+    }
+
+    .recharts-tooltip-label {
+      font-weight: 600;
+      color: $text;
+      margin-bottom: 6px;
+    }
+
+    .recharts-tooltip-item {
+      font-size: 13px !important;
+      font-weight: 500;
+    }
+
+    .recharts-legend-item-text {
+      font-family: $font;
+      font-size: 13px;
+      color: $text !important;
+      font-weight: 500;
+    }
+  }
+}
+
+// ─── Period selector (new feature) ────────────────────────────────────────────
+.periodSelector {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.periodBtn {
+  background: $bg-deep;
+  color: $muted;
+  border: 1px solid $border;
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-family: $font;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &:hover {
+    border-color: $indigo;
+    color: $indigo;
+  }
+
+  &.active {
+    background: $indigo;
+    color: #fff;
+    border-color: $indigo;
+  }
+}
+
+// ─── Mobile responsive ────────────────────────────────────────────────────────
+@media (max-width: 600px) {
+  .container {
+    padding: 20px 16px 60px;
+  }
+
+  .title {
+    margin: 24px 0 20px;
+  }
+
+  .chartWrapper {
+    height: 320px;
+  }
+
+  .summary {
+    gap: 12px;
+  }
+
+  .usd,
+  .ils {
+    padding: 20px;
+  }
+
+  .comparisonStats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
