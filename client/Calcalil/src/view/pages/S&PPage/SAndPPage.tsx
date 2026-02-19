@@ -193,7 +193,7 @@ const SAndPPage = () => {
                   })
                 }
                 formatter={(value: number | undefined, name: string | undefined) => {
-                  if (value === undefined) return ['N/A', name];
+                  if (value === undefined || name === undefined) return ['N/A', ''];
                   return [
                     name.includes('USD')
                       ? `$${value.toFixed(2)}`
