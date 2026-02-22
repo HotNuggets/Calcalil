@@ -3,8 +3,8 @@ import styles from "./SavingsCalculatorPage.module.scss";
 import BackToWelcomeButton from "../../components/BackToWelcomeButton/BackToWelcomeButton";
 import { useSavingsCalculatorPageVM } from "./SavingsCalculatorPageVM";
 import {
-  LineChart,
-  Line,
+  //LineChart,
+  //Line,
   AreaChart,
   Area,
   XAxis,
