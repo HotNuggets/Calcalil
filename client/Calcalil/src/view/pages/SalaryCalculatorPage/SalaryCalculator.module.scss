@@ -1,3 +1,5 @@
+@use "sass:color";
+
 // ─── Google Font ─────────────────────────────────────────────────────────────
 @import url('https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;900&display=swap');
 
@@ -5,11 +7,11 @@
 $font:          'Heebo', sans-serif;
 
 // Backgrounds
-$bg:            #F4F6FB;          // soft off-white page bg
-$bg-card:       #FFFFFF;          // pure white cards
-$bg-deep:       #F0F2F8;          // slightly deeper inset areas
-$bg-input:      #FFFFFF;          // white inputs
-$bg-header:     #FFFFFF;          // white header
+$bg:            #F4F6FB;
+$bg-card:       #FFFFFF;
+$bg-deep:       #F0F2F8;
+$bg-input:      #FFFFFF;
+$bg-header:     #FFFFFF;
 
 // Borders
 $border:        #E2E6F0;
@@ -17,25 +19,25 @@ $border-subtle: #EAECF4;
 $border-input:  #CBD2E8;
 
 // Text
-$text:          #1A1D2E;          // near-black ink
-$text-secondary:#3D4466;          // dark slate secondary
-$muted:         #7B83A8;          // medium-blue muted
-$faint:         #9BA3C4;          // light muted
-$ultra-faint:   #B8BEDA;          // very light label
+$text:          #1A1D2E;
+$text-secondary:#3D4466;
+$muted:         #7B83A8;
+$faint:         #9BA3C4;
+$ultra-faint:   #B8BEDA;
 
-// Brand accents — vivid & punchy
-$indigo:        #4F46E5;          // primary indigo (replaces gold)
-$indigo-light:  #EEF2FF;          // indigo tint bg
-$indigo-dim:    #3730A3;          // darker indigo
-$blue:          #0EA5E9;          // sky blue (base salary)
-$blue-light:    #E0F2FE;          // blue tint
-$violet:        #7C3AED;          // violet (bonus)
-$violet-light:  #EDE9FE;          // violet tint
-$green:         #059669;          // emerald green (gains)
-$green-light:   #D1FAE5;          // green tint
-$orange:        #EA580C;          // vivid orange (time machine)
-$orange-light:  #FFF7ED;          // orange tint
-$orange-mid:    #FB923C;          // orange mid
+// Brand accents
+$indigo:        #4F46E5;
+$indigo-light:  #EEF2FF;
+$indigo-dim:    #3730A3;
+$blue:          #0EA5E9;
+$blue-light:    #E0F2FE;
+$violet:        #7C3AED;
+$violet-light:  #EDE9FE;
+$green:         #059669;
+$green-light:   #D1FAE5;
+$orange:        #EA580C;
+$orange-light:  #FFF7ED;
+$orange-mid:    #FB923C;
 
 // Radius
 $radius-sm:     12px;
@@ -64,19 +66,6 @@ $shadow-lg:     0 8px 32px rgba(26, 29, 46, 0.10);
   100% { opacity: 1; transform: scale(1)    translateY(0); }
 }
 
-// ─── Global resets ────────────────────────────────────────────────────────────
-:global {
-  * { box-sizing: border-box; }
-
-  ::-webkit-scrollbar       { width: 6px; }
-  ::-webkit-scrollbar-track { background: $bg; }
-  ::-webkit-scrollbar-thumb { background: $border; border-radius: 3px; }
-
-  input[type='number']::-webkit-inner-spin-button,
-  input[type='number']::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
-  input[type='number'] { -moz-appearance: textfield; }
-}
-
 // ─── Root ─────────────────────────────────────────────────────────────────────
 .root {
   min-height: 100vh;
@@ -85,6 +74,13 @@ $shadow-lg:     0 8px 32px rgba(26, 29, 46, 0.10);
   color: $text;
   padding-bottom: 80px;
   direction: rtl;
+
+  // Scoped global resets
+  * { box-sizing: border-box; }
+
+  input[type='number']::-webkit-inner-spin-button,
+  input[type='number']::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+  input[type='number'] { -moz-appearance: textfield; }
 }
 
 // ─── Header ───────────────────────────────────────────────────────────────────
@@ -145,14 +141,12 @@ $shadow-lg:     0 8px 32px rgba(26, 29, 46, 0.10);
   font-weight: 300;
 }
 
-// ─── Content wrapper ──────────────────────────────────────────────────────────
 .content {
   max-width: 900px;
   margin: 0 auto;
   padding: 0 20px;
 }
 
-// ─── Snapshot cards ───────────────────────────────────────────────────────────
 .snapshotGrid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -184,7 +178,6 @@ $shadow-lg:     0 8px 32px rgba(26, 29, 46, 0.10);
   font-weight: 700;
 }
 
-// ─── Input panels ─────────────────────────────────────────────────────────────
 .inputsGrid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -213,7 +206,6 @@ $shadow-lg:     0 8px 32px rgba(26, 29, 46, 0.10);
   padding-bottom: 16px;
 }
 
-// ─── Slider ───────────────────────────────────────────────────────────────────
 .sliderWrapper {
   display: flex;
   flex-direction: column;
@@ -248,12 +240,10 @@ $shadow-lg:     0 8px 32px rgba(26, 29, 46, 0.10);
 .sliderFill {
   position: absolute;
   left: 0;
-  top: 0;
-  height: 100%;
+  top: -1px;
+  height: calc(100% + 2px);
   border-radius: 999px;
   transition: width 0.1s;
-  margin-top: -1px;
-  height: calc(100% + 2px);
 }
 
 .sliderInput {
@@ -283,7 +273,6 @@ $shadow-lg:     0 8px 32px rgba(26, 29, 46, 0.10);
   box-shadow: $shadow-md;
 }
 
-// ─── Number input ─────────────────────────────────────────────────────────────
 .numberInputWrapper {
   display: flex;
   flex-direction: column;
@@ -330,10 +319,9 @@ $shadow-lg:     0 8px 32px rgba(26, 29, 46, 0.10);
   }
 }
 
-// ─── Breakdown ────────────────────────────────────────────────────────────────
 .breakdown {
   background: linear-gradient(135deg, $indigo-light, $bg-card);
-  border: 1px solid darken($indigo-light, 5%);
+  border: 1px solid color.adjust($indigo-light, $lightness: -5%);
   border-radius: $radius-lg;
   padding: 24px 28px;
   margin-top: 24px;
@@ -382,7 +370,6 @@ $shadow-lg:     0 8px 32px rgba(26, 29, 46, 0.10);
   color: $faint;
 }
 
-// ─── Bar chart ────────────────────────────────────────────────────────────────
 .chartCard {
   background: $bg-card;
   border: 1px solid $border;
@@ -486,7 +473,6 @@ $shadow-lg:     0 8px 32px rgba(26, 29, 46, 0.10);
   font-weight: 600;
 }
 
-// ─── Table ────────────────────────────────────────────────────────────────────
 .tableCard {
   background: $bg-card;
   border: 1px solid $border;
@@ -548,7 +534,6 @@ $shadow-lg:     0 8px 32px rgba(26, 29, 46, 0.10);
   &:not(:first-child) { text-align: left; }
 }
 
-// ─── Summary callout ─────────────────────────────────────────────────────────
 .summaryCallout {
   margin-top: 24px;
   border-radius: $radius-lg;
@@ -598,7 +583,6 @@ $shadow-lg:     0 8px 32px rgba(26, 29, 46, 0.10);
   }
 }
 
-// ─── Time Machine section ─────────────────────────────────────────────────────
 .timeMachineSection {
   margin-top: 56px;
   border-top: 2px solid $border;
@@ -639,7 +623,6 @@ $shadow-lg:     0 8px 32px rgba(26, 29, 46, 0.10);
   margin-bottom: 40px;
 }
 
-// ─── Year picker ─────────────────────────────────────────────────────────────
 .yearPickerWrapper {
   display: flex;
   justify-content: center;
@@ -714,7 +697,6 @@ $shadow-lg:     0 8px 32px rgba(26, 29, 46, 0.10);
   margin-top: -4px;
 }
 
-// ─── Result card ─────────────────────────────────────────────────────────────
 .resultCard {
   background: $bg-card;
   border: 1.5px solid $border;
@@ -773,12 +755,11 @@ $shadow-lg:     0 8px 32px rgba(26, 29, 46, 0.10);
   font-size: 14px;
   font-weight: 600;
 
-  &.green   { background: $green-light;   border: 1px solid darken($green-light, 8%);   color: $green; }
-  &.gold    { background: $indigo-light;   border: 1px solid darken($indigo-light, 6%);  color: $indigo; }
+  &.green   { background: $green-light;   border: 1px solid color.adjust($green-light, $lightness: -8%);   color: $green; }
+  &.gold    { background: $indigo-light;   border: 1px solid color.adjust($indigo-light, $lightness: -6%);  color: $indigo; }
   &.neutral { background: $bg-deep;        border: 1px solid $border;                    color: $muted; }
 }
 
-// ─── Base / Bonus split cards ─────────────────────────────────────────────────
 .splitGrid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -816,7 +797,6 @@ $shadow-lg:     0 8px 32px rgba(26, 29, 46, 0.10);
   margin-top: 6px;
 }
 
-// ─── Progress bar ─────────────────────────────────────────────────────────────
 .progressBox {
   background: $bg-deep;
   border-radius: 14px;

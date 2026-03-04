@@ -1,3 +1,5 @@
+@use "sass:color";
+
 // ─── Import Heebo font ────────────────────────────────────────────────────────
 @import url('https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;900&display=swap');
 
@@ -156,7 +158,7 @@ $shadow-lg:     0 8px 32px rgba(26, 29, 46, 0.10);
   .growthBadge {
     background: $green-light;
     color: $green;
-    border: 1px solid darken($green-light, 8%);
+    border: 1px solid color.adjust($green-light, $lightness: -8%);
   }
 }
 
@@ -166,12 +168,12 @@ $shadow-lg:     0 8px 32px rgba(26, 29, 46, 0.10);
   .growthBadge {
     background: $green-light;
     color: $green;
-    border: 1px solid darken($green-light, 8%);
+    border: 1px solid color.adjust($green-light, $lightness: -8%);
 
     &.negative {
       background: $red-light;
       color: $red;
-      border: 1px solid darken($red-light, 8%);
+      border: 1px solid color.adjust($red-light, $lightness: -8%);
     }
   }
 }
@@ -179,7 +181,7 @@ $shadow-lg:     0 8px 32px rgba(26, 29, 46, 0.10);
 // ─── Comparison strip ─────────────────────────────────────────────────────────
 .comparison {
   background: linear-gradient(135deg, $indigo-light, $bg-card);
-  border: 1px solid darken($indigo-light, 5%);
+  border: 1px solid color.adjust($indigo-light, $lightness: -5%);
   border-radius: $radius-lg;
   padding: 20px 24px;
   margin-bottom: 24px;
@@ -274,44 +276,42 @@ $shadow-lg:     0 8px 32px rgba(26, 29, 46, 0.10);
   height: 400px;
   direction: ltr; // charts render better LTR
 
-  // Override recharts default styles
-  :global {
-    .recharts-cartesian-axis-tick-value {
-      font-family: $font;
-      font-size: 12px;
-      fill: $muted;
-    }
+  // Recharts styles - scoped to this component
+  .recharts-cartesian-axis-tick-value {
+    font-family: $font;
+    font-size: 12px;
+    fill: $muted;
+  }
 
-    .recharts-tooltip-wrapper {
-      outline: none;
-    }
+  .recharts-tooltip-wrapper {
+    outline: none;
+  }
 
-    .recharts-default-tooltip {
-      background: $bg-card !important;
-      border: 1px solid $border !important;
-      border-radius: $radius-sm !important;
-      box-shadow: $shadow-md !important;
-      padding: 12px !important;
-      font-family: $font;
-    }
+  .recharts-default-tooltip {
+    background: $bg-card !important;
+    border: 1px solid $border !important;
+    border-radius: $radius-sm !important;
+    box-shadow: $shadow-md !important;
+    padding: 12px !important;
+    font-family: $font;
+  }
 
-    .recharts-tooltip-label {
-      font-weight: 600;
-      color: $text;
-      margin-bottom: 6px;
-    }
+  .recharts-tooltip-label {
+    font-weight: 600;
+    color: $text;
+    margin-bottom: 6px;
+  }
 
-    .recharts-tooltip-item {
-      font-size: 13px !important;
-      font-weight: 500;
-    }
+  .recharts-tooltip-item {
+    font-size: 13px !important;
+    font-weight: 500;
+  }
 
-    .recharts-legend-item-text {
-      font-family: $font;
-      font-size: 13px;
-      color: $text !important;
-      font-weight: 500;
-    }
+  .recharts-legend-item-text {
+    font-family: $font;
+    font-size: 13px;
+    color: $text !important;
+    font-weight: 500;
   }
 }
 

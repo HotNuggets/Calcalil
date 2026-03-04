@@ -1,0 +1,81 @@
+/* ════════════════════════════════════════════════════════════════════════════
+   GLOBAL RESET & BASE STYLES
+   Import this in your main App.tsx or index.tsx
+   ════════════════════════════════════════════════════════════════════════════ */
+
+/* Reset everything */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* Prevent horizontal scroll */
+}
+
+body {
+  font-family: 'Heebo', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: #F4F6FB;
+}
+
+/* Ensure React root takes full width */
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Fix React Router container */
+#root > div {
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* Remove default link styling */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Remove button default styling */
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+/* Ensure inputs don't have weird defaults */
+input,
+textarea,
+select {
+  font-family: inherit;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #E2E6F0;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #7B83A8;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #4F46E5;
+}
