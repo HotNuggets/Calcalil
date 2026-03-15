@@ -1,132 +1,338 @@
-/* Root layout */
-.container {
-  display: grid;
-  grid-template-columns: 35% 65%; /* left summary narrower, right wider */
-  gap: 2.5rem;
-  width: 100vw; /* full width */
-  min-height: 100vh; /* full height */
-  box-sizing: border-box;
-  padding: 2rem 4rem; /* comfortable side padding */
-  background-color: #f5f6fa;
-  color: #222;
+@use "sass:color";
 
-  @media (max-width: 1000px) {
+// ─── Import Heebo font ────────────────────────────────────────────────────────
+@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;900&display=swap');
+
+// ─── Design Tokens ────────────────────────────────────────────────────────────
+$font:          'Heebo', sans-serif;
+$bg:            #F4F6FB;
+$bg-card:       #FFFFFF;
+$bg-deep:       #F0F2F8;
+$text:          #1A1D2E;
+$muted:         #7B83A8;
+$faint:         #9BA3C4;
+$indigo:        #4F46E5;
+$indigo-light:  #EEF2FF;
+$blue:          #0EA5E9;
+$green:         #059669;
+$green-light:   #D1FAE5;
+$red:           #DC2626;
+$red-light:     #FEE2E2;
+$orange:        #EA580C;
+$violet:        #7C3AED;
+$border:        #E2E6F0;
+$border-subtle: #EAECF4;
+$radius-sm:     12px;
+$radius-md:     16px;
+$radius-lg:     20px;
+$shadow-sm:     0 1px 4px rgba(26, 29, 46, 0.07);
+$shadow-md:     0 4px 16px rgba(26, 29, 46, 0.09);
+$shadow-lg:     0 8px 32px rgba(26, 29, 46, 0.10);
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position:  200% center; }
+}
+
+// ─── Container ────────────────────────────────────────────────────────────────
+.container {
+  min-height: 100vh;
+  background: $bg;
+  padding: 24px 20px 80px;
+  font-family: $font;
+  color: $text;
+  direction: rtl;
+}
+
+.content {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+// ─── Title ────────────────────────────────────────────────────────────────────
+.title {
+  font-size: clamp(24px, 5vw, 40px);
+  font-weight: 900;
+  margin: 32px 0 32px;
+  text-align: center;
+  background: linear-gradient(90deg, $indigo, $violet, $indigo);
+  background-size: 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 4s linear infinite;
+  line-height: 1.2;
+}
+
+// ─── Grid Layout ──────────────────────────────────────────────────────────────
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 24px;
+  animation: fadeUp 0.6s 0.1s ease both;
+  opacity: 0;
+  animation-fill-mode: forwards;
+
+  @media (max-width: 1024px) {
     grid-template-columns: 1fr;
-    padding: 1rem 2rem;
   }
 }
 
-.leftPane,
-.rightPane {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-}
-
-/* Card container styling */
+// ─── Cards ────────────────────────────────────────────────────────────────────
 .card {
-  background: #fff;
-  border-radius: 16px;
-  padding: 2rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  width: 100%;
-  box-sizing: border-box;
+  background: $bg-card;
+  border: 1px solid $border;
+  border-radius: $radius-lg;
+  padding: 28px;
+  box-shadow: $shadow-sm;
+  margin-bottom: 24px;
+
+  &:hover {
+    box-shadow: $shadow-md;
+  }
 }
 
 .cardTitle {
-  font-size: 1.4rem;
-  font-weight: 600;
-  margin-bottom: 1rem;
-  color: #111;
+  font-size: 18px;
+  font-weight: 700;
+  color: $text;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid $border-subtle;
 }
 
 .cardContent {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 16px;
 }
 
-/* Summary grid inside the left card */
+// ─── Summary Cards ────────────────────────────────────────────────────────────
 .summaryGrid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.summaryCard {
+  background: linear-gradient(135deg, $bg-deep, $bg-card);
+  border: 1px solid $border;
+  border-radius: $radius-md;
+  padding: 20px;
   text-align: center;
-  gap: 1rem;
-  margin-bottom: 2rem;
-}
-
-.summaryLabel {
-  font-weight: 500;
-  color: #666;
-}
-
-.savedPositive {
-  color: #2ecc71;
-}
-
-.savedNegative {
-  color: #e74c3c;
-}
-
-/* Pie chart container */
-.chartContainer {
-  width: 100%;
-  height: 350px;
-  background-color: #fafafa;
-  border-radius: 10px;
-  padding: 1rem;
-}
-
-/* Inputs and expense rows */
-.input,
-.select {
-  padding: 0.75rem 1rem;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  width: 100%;
-  box-sizing: border-box;
-  font-size: 0.95rem;
-}
-
-.expenseRow {
-  display: grid;
-  grid-template-columns: 1fr 2fr 1fr;
-  gap: 0.75rem;
-  align-items: center;
-}
-
-.addCategoryRow {
-  display: flex;
-  gap: 0.5rem;
-  margin-top: 1rem;
-}
-
-.button {
-  background-color: #4f46e5;
-  color: white;
-  border: none;
-  padding: 0.75rem 1.25rem;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
+  transition: transform 0.2s;
 
   &:hover {
-    background-color: #4338ca;
+    transform: translateY(-2px);
+    box-shadow: $shadow-sm;
+  }
+
+  &.income {
+    background: linear-gradient(135deg, $green-light, $bg-card);
+    border-color: color.adjust($green-light, $lightness: -8%);
+  }
+
+  &.expense {
+    background: linear-gradient(135deg, $red-light, $bg-card);
+    border-color: color.adjust($red-light, $lightness: -8%);
+  }
+
+  &.savings {
+    background: linear-gradient(135deg, $indigo-light, $bg-card);
+    border-color: color.adjust($indigo-light, $lightness: -8%);
   }
 }
 
-/* Checkbox style */
+.summaryLabel {
+  font-size: 12px;
+  color: $muted;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 8px;
+}
+
+.summaryValue {
+  font-size: clamp(20px, 3.5vw, 28px);
+  font-weight: 900;
+  line-height: 1;
+}
+
+.savedPositive {
+  color: $green;
+}
+
+.savedNegative {
+  color: $red;
+}
+
+// ─── Chart ────────────────────────────────────────────────────────────────────
+.chartContainer {
+  width: 100%;
+  height: 350px;
+  direction: ltr;
+  background: $bg-deep;
+  border-radius: $radius-md;
+  padding: 16px;
+
+  .recharts-pie-label-text {
+    font-family: $font;
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  .recharts-legend-item-text {
+    font-family: $font;
+    font-size: 13px;
+    color: $text !important;
+    font-weight: 500;
+  }
+}
+
+// ─── Inputs ───────────────────────────────────────────────────────────────────
+.inputGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.input,
+.select {
+  width: 100%;
+  background: $bg-card;
+  border: 1.5px solid $border;
+  border-radius: $radius-sm;
+  padding: 12px 14px;
+  font-family: $font;
+  font-size: 15px;
+  color: $text;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  font-weight: 500;
+  box-sizing: border-box;
+
+  &:focus {
+    border-color: $indigo;
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.12);
+  }
+
+  &::placeholder {
+    color: $faint;
+    font-weight: 400;
+  }
+}
+
+// ─── Checkbox ─────────────────────────────────────────────────────────────────
 .checkbox {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  font-size: 0.95rem;
-  color: #333;
+  gap: 10px;
+  font-size: 15px;
+  font-weight: 500;
+  color: $text;
+  cursor: pointer;
+  user-select: none;
+
+  input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    accent-color: $indigo;
+  }
 }
+
+// ─── Buttons ──────────────────────────────────────────────────────────────────
+.button {
+  padding: 12px 20px;
+  border: none;
+  border-radius: $radius-sm;
+  background: linear-gradient(135deg, $indigo, $violet);
+  color: #fff;
+  font-family: $font;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: $shadow-sm;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: $shadow-md;
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  &.secondary {
+    background: $bg-deep;
+    color: $text;
+    border: 1px solid $border;
+
+    &:hover {
+      border-color: $indigo;
+      color: $indigo;
+    }
+  }
+}
+
+// ─── Expense Row ──────────────────────────────────────────────────────────────
+.expenseRow {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1.2fr auto;
+  gap: 12px;
+  align-items: center;
+  padding: 12px;
+  background: $bg-deep;
+  border-radius: $radius-sm;
+  border: 1px solid $border-subtle;
+  transition: all 0.2s;
+
+  &:hover {
+    background: $bg-card;
+    box-shadow: $shadow-sm;
+  }
+}
+
+.deleteExpenseBtn {
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 50%;
+  background: $red-light;
+  color: $red;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    background: $red;
+    color: #fff;
+    transform: rotate(90deg);
+  }
+}
+
+// ─── Category Management ──────────────────────────────────────────────────────
+.addCategoryRow {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px;
+  margin-top: 16px;
+}
+
 .categoryList {
   margin-top: 16px;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
   gap: 8px;
 }
 
@@ -134,20 +340,109 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #f5f5f5;
-  padding: 8px 12px;
-  border-radius: 6px;
+  background: $indigo-light;
+  border: 1px solid color.adjust($indigo-light, $lightness: -8%);
+  padding: 10px 14px;
+  border-radius: $radius-sm;
   font-size: 14px;
+  font-weight: 600;
+  color: $indigo;
+  transition: all 0.2s;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: $shadow-sm;
+  }
+
+  span {
+    flex: 1;
+  }
 }
 
 .deleteButton {
   background: none;
   border: none;
-  color: #d32f2f;
-  font-size: 16px;
+  color: $red;
+  font-size: 18px;
+  font-weight: 700;
   cursor: pointer;
+  padding: 0;
+  margin-left: 8px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
 
   &:hover {
-    color: #b71c1c;
+    background: $red;
+    color: #fff;
+    transform: rotate(90deg);
+  }
+}
+
+// ─── Empty State ──────────────────────────────────────────────────────────────
+.emptyState {
+  text-align: center;
+  padding: 60px 20px;
+  color: $muted;
+
+  .emptyIcon {
+    font-size: 64px;
+    margin-bottom: 16px;
+    opacity: 0.5;
+  }
+
+  .emptyText {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+
+  .emptySubtext {
+    font-size: 14px;
+    color: $faint;
+  }
+}
+
+// ─── Mobile Responsive ────────────────────────────────────────────────────────
+@media (max-width: 768px) {
+  .container {
+    padding: 20px 16px 60px;
+  }
+
+  .title {
+    margin: 24px 0 24px;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .summaryGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .card {
+    padding: 20px;
+  }
+
+  .expenseRow {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .inputGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .chartContainer {
+    height: 280px;
+  }
+
+  .categoryList {
+    grid-template-columns: 1fr;
   }
 }
