@@ -1,0 +1,283 @@
+@use "sass:color";
+
+@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;900&display=swap');
+
+$font:          'Heebo', sans-serif;
+$bg:            #F4F6FB;
+$bg-card:       #FFFFFF;
+$text:          #1A1D2E;
+$muted:         #7B83A8;
+$faint:         #9BA3C4;
+$indigo:        #4F46E5;
+$indigo-light:  #EEF2FF;
+$violet:        #7C3AED;
+$border:        #E2E6F0;
+$radius-sm:     12px;
+$radius-md:     16px;
+$radius-lg:     20px;
+$shadow-md:     0 4px 16px rgba(26, 29, 46, 0.09);
+$shadow-lg:     0 8px 32px rgba(26, 29, 46, 0.10);
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position:  200% center; }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+.container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: $bg;
+  padding: 24px;
+  font-family: $font;
+  direction: rtl;
+}
+
+.card {
+  background: $bg-card;
+  border: 1px solid $border;
+  border-radius: $radius-lg;
+  padding: 48px 40px;
+  max-width: 440px;
+  width: 100%;
+  text-align: center;
+  box-shadow: $shadow-lg;
+  animation: fadeUp 0.6s ease both;
+}
+
+.logo {
+  font-size: 64px;
+  margin-bottom: 16px;
+  animation: fadeUp 0.6s 0.1s ease both;
+  opacity: 0;
+  animation-fill-mode: forwards;
+}
+
+.title {
+  font-size: 36px;
+  font-weight: 900;
+  margin: 0 0 12px;
+  background: linear-gradient(90deg, $indigo, $violet, $indigo);
+  background-size: 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 4s linear infinite, fadeUp 0.6s 0.2s ease both;
+  opacity: 0;
+  animation-fill-mode: forwards;
+}
+
+.subtitle {
+  font-size: 16px;
+  color: $muted;
+  margin: 0 0 32px;
+  animation: fadeUp 0.6s 0.3s ease both;
+  opacity: 0;
+  animation-fill-mode: forwards;
+}
+
+// ─── Mode Toggle (Login/Signup) ───────────────────────────────────────────────
+.modeToggle {
+  display: flex;
+  gap: 8px;
+  background: $indigo-light;
+  padding: 4px;
+  border-radius: $radius-md;
+  margin-bottom: 24px;
+  animation: fadeUp 0.6s 0.4s ease both;
+  opacity: 0;
+  animation-fill-mode: forwards;
+
+  button {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: $radius-sm;
+    background: transparent;
+    color: $indigo;
+    font-family: $font;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+
+    &.active {
+      background: $indigo;
+      color: #fff;
+      box-shadow: 0 2px 8px rgba(79, 70, 229, 0.3);
+    }
+
+    &:hover:not(.active) {
+      background: rgba(79, 70, 229, 0.1);
+    }
+  }
+}
+
+// ─── Form ─────────────────────────────────────────────────────────────────────
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  animation: fadeUp 0.6s 0.5s ease both;
+  opacity: 0;
+  animation-fill-mode: forwards;
+}
+
+.inputGroup {
+  text-align: right;
+
+  label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: $text;
+    margin-bottom: 8px;
+  }
+
+  input {
+    width: 100%;
+    padding: 14px 16px;
+    border: 1.5px solid $border;
+    border-radius: $radius-sm;
+    font-family: $font;
+    font-size: 15px;
+    color: $text;
+    outline: none;
+    transition: all 0.2s;
+    box-sizing: border-box;
+
+    &:focus {
+      border-color: $indigo;
+      box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.12);
+    }
+
+    &::placeholder {
+      color: $faint;
+    }
+  }
+}
+
+.submitBtn {
+  width: 100%;
+  padding: 14px 24px;
+  border: none;
+  border-radius: $radius-sm;
+  background: linear-gradient(135deg, $indigo, $violet);
+  color: #fff;
+  font-family: $font;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: $shadow-md;
+  margin-top: 8px;
+
+  &:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: $shadow-lg;
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(0);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+// ─── Hint ─────────────────────────────────────────────────────────────────────
+.hint {
+  margin-top: 16px;
+  font-size: 14px;
+  color: $muted;
+  animation: fadeUp 0.6s 0.6s ease both;
+  opacity: 0;
+  animation-fill-mode: forwards;
+}
+
+// ─── Features ─────────────────────────────────────────────────────────────────
+.features {
+  margin-top: 48px;
+  padding-top: 32px;
+  border-top: 1px solid $border;
+  display: flex;
+  justify-content: space-around;
+  gap: 16px;
+  animation: fadeUp 0.6s 0.7s ease both;
+  opacity: 0;
+  animation-fill-mode: forwards;
+}
+
+.feature {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: $muted;
+  font-weight: 500;
+}
+
+.featureIcon {
+  font-size: 28px;
+}
+
+// ─── Loading ──────────────────────────────────────────────────────────────────
+.loading {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: $bg;
+  color: $muted;
+  font-family: $font;
+  gap: 16px;
+
+  p {
+    font-size: 16px;
+    font-weight: 500;
+  }
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid $border;
+  border-top-color: $indigo;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+// ─── Mobile ───────────────────────────────────────────────────────────────────
+@media (max-width: 768px) {
+  .card {
+    padding: 36px 28px;
+  }
+
+  .title {
+    font-size: 28px;
+  }
+
+  .features {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .feature {
+    flex-direction: row;
+    justify-content: flex-start;
+  }
+}

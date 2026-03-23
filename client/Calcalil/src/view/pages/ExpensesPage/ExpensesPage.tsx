@@ -15,15 +15,105 @@ const COLORS = [
   "#10B981", // emerald
 ];
 
+const MONTHS = [
+  "ינואר", "פברואר", "מרץ", "אפריל", "מאי", "יוני",
+  "יולי", "אוגוסט", "ספטמבר", "אוקטובר", "נובמבר", "דצמבר"
+];
+
 const ExpensesPage: React.FC = () => {
   const vm = useExpensesPageVM();
+
+  if (vm.loading) {
+    return (
+      <div className={styles.loading}>
+        <div className={styles.spinner}></div>
+        <p>טוען נתונים...</p>
+      </div>
+    );
+  }
 
   return (
     <div className={styles.container}>
       <BackToWelcomeButton />
 
       <div className={styles.content}>
-        <h1 className={styles.title}>מעקב הוצאות והכנסות</h1>
+        {/* Header with Month/Year Selector */}
+        <div className={styles.header}>
+          <h1 className={styles.title}>מעקב הוצאות והכנסות</h1>
+          
+          <div className={styles.headerActions}>
+            <div className={styles.monthSelector}>
+              <button
+                onClick={() => {
+                  if (vm.currentMonth === 1) {
+                    vm.setCurrentMonth(12);
+                    vm.setCurrentYear(vm.currentYear - 1);
+                  } else {
+                    vm.setCurrentMonth(vm.currentMonth - 1);
+                  }
+                }}
+                className={styles.monthBtn}
+              >
+                ←
+              </button>
+
+              <div className={styles.monthDisplay}>
+                <select
+                  value={vm.currentMonth}
+                  onChange={(e) => vm.setCurrentMonth(Number(e.target.value))}
+                  className={styles.monthSelect}
+                >
+                  {MONTHS.map((month, idx) => (
+                    <option key={idx} value={idx + 1}>
+                      {month}
+                    </option>
+                  ))}
+                </select>
+
+                <select
+                  value={vm.currentYear}
+                  onChange={(e) => vm.setCurrentYear(Number(e.target.value))}
+                  className={styles.yearSelect}
+                >
+                  {Array.from({ length: 10 }, (_, i) => new Date().getFullYear() - i).map((year) => (
+                    <option key={year} value={year}>
+                      {year}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <button
+                onClick={() => {
+                  if (vm.currentMonth === 12) {
+                    vm.setCurrentMonth(1);
+                    vm.setCurrentYear(vm.currentYear + 1);
+                  } else {
+                    vm.setCurrentMonth(vm.currentMonth + 1);
+                  }
+                }}
+                className={styles.monthBtn}
+              >
+                →
+              </button>
+            </div>
+
+            <button 
+              onClick={vm.saveAll} 
+              disabled={vm.saving}
+              className={styles.saveButton}
+            >
+              {vm.saving ? '💾 שומר...' : '💾 שמור נתונים'}
+            </button>
+          </div>
+
+          {vm.saving && (
+            <div className={styles.savingIndicator}>
+              <div className={styles.savingSpinner}></div>
+              <span>שומר...</span>
+            </div>
+          )}
+        </div>
 
         <div className={styles.grid}>
           {/* ── Left Column: Summary & Chart ── */}

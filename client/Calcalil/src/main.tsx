@@ -3,10 +3,14 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import { RouterProvider } from 'react-router-dom'
 import { router } from './router.tsx'
-import './global.css';
+import './global.css'
+import { AuthProvider } from './contexts/AuthContext'  // ← ADD THIS
+
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <AuthProvider>  {/* ← WRAP YOUR APP */}
+      <RouterProvider router={router} />
+    </AuthProvider>  {/* ← CLOSE THE WRAPPER */}
   </StrictMode>,
 )
