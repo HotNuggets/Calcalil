@@ -3,7 +3,7 @@ import { supabase } from '../../../lib/supabase'
 import { Navigate } from 'react-router-dom'
 import { useAuth } from '../../../contexts/AuthContext'
 import styles from './LoginPage.module.scss'
-import PageHeader from '../../components/HeaderComponent/PageHeader/PageHeader'
+
 
 const LoginPage = () => {
   const { user, loading } = useAuth()
