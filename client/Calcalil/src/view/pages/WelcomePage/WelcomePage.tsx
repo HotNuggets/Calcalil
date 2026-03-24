@@ -1,7 +1,6 @@
 //import React from "react";
 import { Link } from "react-router-dom";
 import styles from "./WelcomePage.module.scss";
-import UserMenu from "../../../../src/view/components/UserMenu/UserMenu";
 import PageHeader from "../../components/HeaderComponent/PageHeader/PageHeader";
 
 const WelcomePage = () => {
