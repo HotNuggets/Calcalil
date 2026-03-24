@@ -13,6 +13,12 @@ const PageHeader = ({ title, subtitle, showBackButton = true }: PageHeaderProps)
 
   return (
     <div className={styles.pageHeader}>
+      
+
+      <div className={styles.userMenuContainer}>
+        <UserMenu />
+      </div>
+
       {showBackButton && (
         <button
           className={styles.backButton}
@@ -21,11 +27,7 @@ const PageHeader = ({ title, subtitle, showBackButton = true }: PageHeaderProps)
           ← חזור לדף הבית
         </button>
       )}
-
-      <div className={styles.userMenuContainer}>
-        <UserMenu />
-      </div>
-
+      
       {title && (
         <div className={styles.titleContainer}>
           <h1 className={styles.title}>{title}</h1>
