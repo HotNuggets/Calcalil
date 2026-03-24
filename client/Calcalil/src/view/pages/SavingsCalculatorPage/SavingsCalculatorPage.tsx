@@ -1,6 +1,5 @@
 import React from "react";
 import styles from "./SavingsCalculatorPage.module.scss";
-import BackToWelcomeButton from "../../components/BackToWelcomeButton/BackToWelcomeButton";
 import { useSavingsCalculatorPageVM } from "./SavingsCalculatorPageVM";
 import {
   //LineChart,
@@ -14,6 +13,7 @@ import {
   ResponsiveContainer,
   CartesianGrid,
 } from "recharts";
+import PageHeader from "../../components/HeaderComponent/PageHeader/PageHeader";
 
 // ─── Slider Component ─────────────────────────────────────────────────────────
 interface SliderProps {
@@ -116,7 +116,7 @@ const SavingsCalculatorPage = () => {
 
   return (
     <div className={styles.calculator}>
-      <BackToWelcomeButton />
+      <PageHeader />
 
       <div className={styles.content}>
         <h1 className={styles.title}>מחשבון חיסכון חכם</h1>
