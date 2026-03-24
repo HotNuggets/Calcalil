@@ -113,7 +113,7 @@ const LoginPage = () => {
     <div className={styles.container}>
       <div className={styles.card}>
         <div className={styles.logo}>💰</div>
-        <h1 className={styles.title}>CalcaLil</h1>
+        <h1 className={styles.title}>CalCalil</h1>
         <p className={styles.subtitle}>
           מערכת חכמה לניהול הוצאות והכנסות
         </p>

@@ -10,7 +10,7 @@ import SNPPage from "./view/pages/S&PPage/SAndPPage";
 import SalaryCalculator from "./view/pages/SalaryCalculatorPage/SalaryCalculator";
 import LoginPage from "./view/pages/LoginPage/LoginPage";
 import ResetPasswordPage from "./view/pages/LoginPage/ResetPasswordPage";
-import ProtectedRoute from "./view/components/ProtectedRoute";
+import ProtectedRoute from "./../src/view/components/ProtectedRoute";
 
 export const router = createBrowserRouter([
   // ── Public Routes (no login required) ──
@@ -23,6 +23,30 @@ export const router = createBrowserRouter([
     element: <ResetPasswordPage />,
   },
   {
+    path: "/",
+    element: <WelcomePage />,
+  },
+  {
+    path: "/loan",
+    element: <LoanCalculatorPage />,
+  },
+  {
+    path: "/savings",
+    element: <SavingsCalculatorPage />,
+  },
+  {
+    path: "/mortgage",
+    element: <MortgageCalculatorPage />,
+  },
+  {
+    path: "/SNP",
+    element: <SNPPage />,
+  },
+  {
+    path: "/Salary",
+    element: <SalaryCalculator />,
+  },
+  {
     path: "/privacy",
     element: <PrivacyPolicyPage />,
   },
@@ -33,31 +57,7 @@ export const router = createBrowserRouter([
 
   // ── Protected Routes (login required) ──
   {
-    path: "/",
-    element: <ProtectedRoute><WelcomePage /></ProtectedRoute>,
-  },
-  {
-    path: "/loan",
-    element: <ProtectedRoute><LoanCalculatorPage /></ProtectedRoute>,
-  },
-  {
-    path: "/savings",
-    element: <ProtectedRoute><SavingsCalculatorPage /></ProtectedRoute>,
-  },
-  {
-    path: "/mortgage",
-    element: <ProtectedRoute><MortgageCalculatorPage /></ProtectedRoute>,
-  },
-  {
     path: "/expenses",
     element: <ProtectedRoute><ExpensesPage /></ProtectedRoute>,
-  },
-  {
-    path: "/SNP",
-    element: <ProtectedRoute><SNPPage /></ProtectedRoute>,
-  },
-  {
-    path: "/Salary",
-    element: <ProtectedRoute><SalaryCalculator /></ProtectedRoute>,
   },
 ]);

@@ -1,0 +1,102 @@
+@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;900&display=swap');
+
+$font: 'Heebo', sans-serif;
+$indigo: #4F46E5;
+$border: #E2E6F0;
+$shadow-sm: 0 1px 4px rgba(26, 29, 46, 0.07);
+$shadow-md: 0 4px 16px rgba(26, 29, 46, 0.09);
+
+.pageHeader {
+  position: relative;
+  width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  min-height: 60px;
+}
+
+.backButton {
+  padding: 10px 20px;
+  border: 2px solid $border;
+  border-radius: 12px;
+  background: white;
+  color: $indigo;
+  font-family: $font;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+  box-shadow: $shadow-sm;
+  direction: rtl;
+
+  &:hover {
+    border-color: $indigo;
+    transform: translateY(-2px);
+    box-shadow: $shadow-md;
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+.userMenuContainer {
+  // No absolute positioning - stays in flow
+  z-index: 100;
+}
+
+.titleContainer {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  pointer-events: none; // Allows clicking through to buttons
+}
+
+.title {
+  font-family: $font;
+  font-size: clamp(24px, 5vw, 36px);
+  font-weight: 900;
+  margin: 0;
+  color: #1A1D2E;
+}
+
+.subtitle {
+  font-family: $font;
+  font-size: 16px;
+  color: #7B83A8;
+  margin: 8px 0 0;
+}
+
+@media (max-width: 768px) {
+  .pageHeader {
+    padding: 16px;
+    flex-direction: column;
+    gap: 12px;
+    align-items: stretch;
+  }
+
+  .backButton {
+    width: 100%;
+  }
+
+  .userMenuContainer {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+  }
+
+  .titleContainer {
+    position: relative;
+    left: 0;
+    top: 0;
+    transform: none;
+    margin-top: 50px;
+    pointer-events: auto;
+  }
+}
+

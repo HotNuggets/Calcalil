@@ -1,9 +1,11 @@
 import { useState, useRef, useEffect } from 'react'
 import { useAuth } from '../../../contexts/AuthContext'
+import { useNavigate } from 'react-router-dom'
 import styles from './UserMenu.module.scss'
 
 const UserMenu = () => {
   const { user, signOut } = useAuth()
+  const navigate = useNavigate()
   const [isOpen, setIsOpen] = useState(false)
   const menuRef = useRef<HTMLDivElement>(null)
 
@@ -19,16 +21,35 @@ const UserMenu = () => {
     return () => document.removeEventListener('mousedown', handleClickOutside)
   }, [])
 
-  if (!user) return null
-
-  const userEmail = user.email || 'משתמש'
-  const userInitial = userEmail.charAt(0).toUpperCase()
-
   const handleSignOut = async () => {
     if (confirm('האם אתה בטוח שברצונך להתנתק?')) {
       await signOut()
     }
+    setIsOpen(false)
   }
+
+  const handleLogin = () => {
+    navigate('/login')
+    setIsOpen(false)
+  }
+
+  // If no user - show Login button
+  if (!user) {
+    return (
+      <div className={styles.userMenu}>
+        <button 
+          className={styles.loginButton} 
+          onClick={handleLogin}
+        >
+          🔐 התחבר
+        </button>
+      </div>
+    )
+  }
+
+  // If user logged in - show avatar menu
+  const userEmail = user.email || 'משתמש'
+  const userInitial = userEmail.charAt(0).toUpperCase()
 
   return (
     <div className={styles.userMenu} ref={menuRef}>

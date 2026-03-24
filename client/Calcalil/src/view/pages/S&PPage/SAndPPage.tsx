@@ -12,6 +12,7 @@ import {
 import { useSAndPPageVM } from "./SAndPPageVM";
 import type { Period } from "./SAndPPageVM";
 import BackToWelcomeButton from "../../components/BackToWelcomeButton/BackToWelcomeButton";
+import PageHeader from "../../components/HeaderComponent/PageHeader/PageHeader";
 
 const SAndPPage = () => {
   const vm = useSAndPPageVM();
@@ -44,7 +45,7 @@ const SAndPPage = () => {
 
   return (
     <div className={styles.container}>
-      <BackToWelcomeButton />
+      <PageHeader />
 
       <h2 className={styles.title}>S&P 500 – מעקב ביצועים</h2>
 

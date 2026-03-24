@@ -2,12 +2,13 @@
 import { Link } from "react-router-dom";
 import styles from "./WelcomePage.module.scss";
 import UserMenu from "../../../../src/view/components/UserMenu/UserMenu";
+import PageHeader from "../../components/HeaderComponent/PageHeader/PageHeader";
 
 const WelcomePage = () => {
   return (
     <div className={styles.welcome}>
       <div className={styles.userMenuContainer}>
-        <UserMenu />
+        <PageHeader showBackButton={false} />
       </div>
 
       <h1 className={styles.title}>ברוך הבא!</h1>

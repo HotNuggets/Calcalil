@@ -1,6 +1,7 @@
 import  { useState, useEffect } from "react";
 import styles from "./MortgageCalculatorPage.module.scss";
 import BackToWelcomeButton from "../../components/BackToWelcomeButton/BackToWelcomeButton";
+import PageHeader from "../../components/HeaderComponent/PageHeader/PageHeader";
 
 type MortgageRow = {
   price: number;
@@ -94,7 +95,8 @@ const MortgageCalculatorPage = () => {
 
   return (
     <div className={styles.calculator}>
-      <BackToWelcomeButton />
+      <PageHeader />
+      
       <h2 className={styles.title}>מחשבון משכנתא</h2>
       <table className={styles.table}>
         <thead>

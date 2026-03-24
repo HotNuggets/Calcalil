@@ -1,13 +1,15 @@
 import React from "react";
 import styles from "./LegalPages.module.scss";
 import BackToWelcomeButton from "../../components/BackToWelcomeButton/BackToWelcomeButton";
+import PageHeader from "../../components/HeaderComponent/PageHeader/PageHeader";
 
 
 
 const PrivacyPolicyPage: React.FC = () => {
 return (
 <div className={styles.container}>
-    <BackToWelcomeButton />
+    <PageHeader />
+    
 <h1>Privacy Policy</h1>
 <p className={styles.updated}>Last updated: December 14, 2025</p>
 

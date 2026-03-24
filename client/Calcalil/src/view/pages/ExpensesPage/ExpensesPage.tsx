@@ -2,7 +2,7 @@ import React from "react";
 import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer } from "recharts";
 import { useExpensesPageVM } from "./ExpensesPageVM";
 import styles from "./ExpensesPage.module.scss";
-import BackToWelcomeButton from "../../components/BackToWelcomeButton/BackToWelcomeButton";
+import PageHeader from "../../../../src/view/components/HeaderComponent/PageHeader/PageHeader";
 
 const COLORS = [
   "#4F46E5", // indigo
@@ -34,7 +34,7 @@ const ExpensesPage: React.FC = () => {
 
   return (
     <div className={styles.container}>
-      <BackToWelcomeButton />
+      <PageHeader showBackButton={true} />
 
       <div className={styles.content}>
         {/* Header with Month/Year Selector */}
