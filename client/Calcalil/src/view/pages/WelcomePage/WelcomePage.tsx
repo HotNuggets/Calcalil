@@ -19,9 +19,9 @@ const WelcomePage = () => {
         <Link to="/savings">
           <button>מחשבון חיסכון</button>
         </Link> 
-        <Link to="/expenses">
+        {/* <Link to="/expenses">
           <button>מעקב הוצאות</button>
-        </Link>
+        </Link> */}
         <Link to="/SNP">
           <button>מדד סנ"פ בישראל</button>
         </Link> 

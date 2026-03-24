@@ -48,10 +48,10 @@ export const router = createBrowserRouter([
     path: "/mortgage",
     element: <ProtectedRoute><MortgageCalculatorPage /></ProtectedRoute>,
   },
-  // {
-  //   path: "/expenses",
-  //   element: <ProtectedRoute><ExpensesPage /></ProtectedRoute>,
-  // },
+  {
+    path: "/expenses",
+    element: <ProtectedRoute><ExpensesPage /></ProtectedRoute>,
+  },
   {
     path: "/SNP",
     element: <ProtectedRoute><SNPPage /></ProtectedRoute>,
