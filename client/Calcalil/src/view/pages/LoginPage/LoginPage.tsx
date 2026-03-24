@@ -6,7 +6,7 @@ import styles from './LoginPage.module.scss'
 
 const LoginPage = () => {
   const { user, loading } = useAuth()
-  const [mode, setMode] = useState<'login' | 'signup'>('login')
+  const [mode, setMode] = useState<'login' | 'signup' | 'reset'>('login')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [submitting, setSubmitting] = useState(false)
@@ -14,8 +14,33 @@ const LoginPage = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     
-    if (!email || !password) {
-      alert('נא למלא את כל השדות')
+    if (!email) {
+      alert('נא למלא את כתובת המייל')
+      return
+    }
+
+    if (mode === 'reset') {
+      // Password Reset
+      setSubmitting(true)
+      try {
+        const { error } = await supabase.auth.resetPasswordForEmail(email, {
+          redirectTo: `${window.location.origin}/reset-password`
+        })
+
+        if (error) throw error
+
+        alert('✅ נשלח קישור לאיפוס סיסמה למייל שלך!')
+        setMode('login')
+      } catch (error: any) {
+        alert(`❌ שגיאה: ${error.message}`)
+      } finally {
+        setSubmitting(false)
+      }
+      return
+    }
+
+    if (!password) {
+      alert('נא למלא את הסיסמה')
       return
     }
 
@@ -40,9 +65,8 @@ const LoginPage = () => {
         if (error) throw error
 
         if (data.user) {
-          // Check if email confirmation is required
           if (data.user.identities?.length === 0) {
-            alert('כתובת המייל כבר רשומה במערכת. נסה להתחבר.')
+            alert('כתובת המייל כבר רשומה במערכת. נסה להתחבר או לאפס סיסמה.')
             setMode('login')
           } else {
             alert('✅ נשלח אימייל אישור! בדוק את תיבת הדואר שלך ולחץ על הקישור לאימות החשבון.')
@@ -56,14 +80,12 @@ const LoginPage = () => {
         })
 
         if (error) throw error
-
-        // Success - AuthContext will handle redirect
       }
     } catch (error: any) {
       console.error('Auth error:', error)
       
       if (error.message?.includes('Invalid login credentials')) {
-        alert('❌ אימייל או סיסמה שגויים')
+        alert('❌ אימייל או סיסמה שגויים. אם שכחת את הסיסמה, לחץ על "שכחתי סיסמה"')
       } else if (error.message?.includes('Email not confirmed')) {
         alert('❌ עליך לאמת את המייל לפני ההתחברות. בדוק את תיבת הדואר שלך.')
       } else {
@@ -91,28 +113,37 @@ const LoginPage = () => {
     <div className={styles.container}>
       <div className={styles.card}>
         <div className={styles.logo}>💰</div>
-        <h1 className={styles.title}>CalCalil</h1>
+        <h1 className={styles.title}>CalcaLil</h1>
         <p className={styles.subtitle}>
           מערכת חכמה לניהול הוצאות והכנסות
         </p>
 
-        {/* Toggle between Login and Signup */}
-        <div className={styles.modeToggle}>
-          <button
-            className={mode === 'login' ? styles.active : ''}
-            onClick={() => setMode('login')}
-            type="button"
-          >
-            התחברות
-          </button>
-          <button
-            className={mode === 'signup' ? styles.active : ''}
-            onClick={() => setMode('signup')}
-            type="button"
-          >
-            הרשמה
-          </button>
-        </div>
+        {/* Toggle between Login, Signup, and Reset */}
+        {mode !== 'reset' && (
+          <div className={styles.modeToggle}>
+            <button
+              className={mode === 'login' ? styles.active : ''}
+              onClick={() => setMode('login')}
+              type="button"
+            >
+              התחברות
+            </button>
+            <button
+              className={mode === 'signup' ? styles.active : ''}
+              onClick={() => setMode('signup')}
+              type="button"
+            >
+              הרשמה
+            </button>
+          </div>
+        )}
+
+        {mode === 'reset' && (
+          <div className={styles.resetHeader}>
+            <h2>איפוס סיסמה</h2>
+            <p>נשלח לך קישור למייל לאיפוס הסיסמה</p>
+          </div>
+        )}
 
         <form onSubmit={handleSubmit} className={styles.form}>
           <div className={styles.inputGroup}>
@@ -129,21 +160,22 @@ const LoginPage = () => {
             />
           </div>
 
-          <div className={styles.inputGroup}>
-            <label htmlFor="password">סיסמה</label>
-            <input
-              id="password"
-              type="password"
-              placeholder="לפחות 6 תווים"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              minLength={6}
-              maxLength={12}
-              autoComplete={mode === 'signup' ? 'new-password' : 'current-password'}
-              className={styles.input}
-            />
-          </div>
+          {mode !== 'reset' && (
+            <div className={styles.inputGroup}>
+              <label htmlFor="password">סיסמה</label>
+              <input
+                id="password"
+                type="password"
+                placeholder="לפחות 6 תווים"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                minLength={6}
+                autoComplete={mode === 'signup' ? 'new-password' : 'current-password'}
+                className={styles.input}
+              />
+            </div>
+          )}
 
           <button 
             type="submit" 
@@ -154,14 +186,38 @@ const LoginPage = () => {
               ? '⏳ מעבד...' 
               : mode === 'login' 
                 ? '🔐 התחבר' 
-                : '✨ הירשם'}
+                : mode === 'signup'
+                  ? '✨ הירשם'
+                  : '📧 שלח קישור לאיפוס'}
           </button>
         </form>
+
+        {mode === 'login' && (
+          <button 
+            onClick={() => setMode('reset')}
+            className={styles.forgotPassword}
+            type="button"
+          >
+            שכחתי סיסמה
+          </button>
+        )}
+
+        {mode === 'reset' && (
+          <button 
+            onClick={() => setMode('login')}
+            className={styles.backToLogin}
+            type="button"
+          >
+            ← חזור להתחברות
+          </button>
+        )}
 
         <div className={styles.hint}>
           {mode === 'login' 
             ? '💡 עדיין אין לך חשבון? לחץ על "הרשמה" למעלה'
-            : '💡 כבר יש לך חשבון? לחץ על "התחברות" למעלה'}
+            : mode === 'signup'
+              ? '💡 כבר יש לך חשבון? לחץ על "התחברות" למעלה'
+              : ''}
         </div>
 
         <div className={styles.features}>
