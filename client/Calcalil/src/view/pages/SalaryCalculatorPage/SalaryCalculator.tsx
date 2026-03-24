@@ -2,7 +2,6 @@ import React from 'react';
 import { useSalaryCalculatorVM, CURRENCIES, fmt, fmtDelta } from './SalaryCalculator.vm';
 import type { Currency, ProjectionRow } from './SalaryCalculator.vm';
 import styles from './SalaryCalculator.module.scss';
-import BackToWelcomeButton from '../../components/BackToWelcomeButton/BackToWelcomeButton';
 import PageHeader from '../../components/HeaderComponent/PageHeader/PageHeader';
 
 // ─── Sub-components ───────────────────────────────────────────────────────────
@@ -107,7 +106,6 @@ const SalaryCalculator: React.FC = () => {
       {/* ── כותרת ראשית ── */}
       <header className={styles.header}>
         <PageHeader />
-        <BackToWelcomeButton />
         <div className={styles.currencyBar}>
           {CURRENCIES.map((c) => (
             <button

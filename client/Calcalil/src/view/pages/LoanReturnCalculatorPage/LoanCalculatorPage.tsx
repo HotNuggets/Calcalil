@@ -1,4 +1,3 @@
-import BackToWelcomeButton from "../../components/BackToWelcomeButton/BackToWelcomeButton";
 import PageHeader from "../../components/HeaderComponent/PageHeader/PageHeader";
 import styles from "./LoanCalculatorPage.module.scss";
 import { useLoanCalculatorVM } from "./LoanCalculatorPageVM";

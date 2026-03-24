@@ -11,7 +11,6 @@ import {
 } from "recharts";
 import { useSAndPPageVM } from "./SAndPPageVM";
 import type { Period } from "./SAndPPageVM";
-import BackToWelcomeButton from "../../components/BackToWelcomeButton/BackToWelcomeButton";
 import PageHeader from "../../components/HeaderComponent/PageHeader/PageHeader";
 
 const SAndPPage = () => {

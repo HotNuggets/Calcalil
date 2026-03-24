@@ -1,6 +1,5 @@
 import  { useState, useEffect } from "react";
 import styles from "./MortgageCalculatorPage.module.scss";
-import BackToWelcomeButton from "../../components/BackToWelcomeButton/BackToWelcomeButton";
 import PageHeader from "../../components/HeaderComponent/PageHeader/PageHeader";
 
 type MortgageRow = {

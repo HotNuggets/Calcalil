@@ -1,6 +1,5 @@
 import React from "react";
 import styles from "./LegalPages.module.scss";
-import BackToWelcomeButton from "../../components/BackToWelcomeButton/BackToWelcomeButton";
 import PageHeader from "../../components/HeaderComponent/PageHeader/PageHeader";
 
 
