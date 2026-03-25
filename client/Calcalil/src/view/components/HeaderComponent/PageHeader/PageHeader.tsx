@@ -11,11 +11,6 @@ const PageHeader = ({ showBackButton = true }: PageHeaderProps) => {
 
   return (
     <div className={styles.pageHeader}>
-      
-
-      <div className={styles.userMenuContainer}>
-        <UserMenu />
-      </div>
       {showBackButton && (
         <button
           className={styles.backButton}
@@ -24,6 +19,11 @@ const PageHeader = ({ showBackButton = true }: PageHeaderProps) => {
           ← חזור לדף הבית
         </button>
       )}
+
+      <div className={styles.userMenuContainer}>
+        <UserMenu />
+      </div>
+      
     </div>
   )
 }
