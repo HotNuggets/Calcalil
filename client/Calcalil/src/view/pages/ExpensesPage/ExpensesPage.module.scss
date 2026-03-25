@@ -43,10 +43,12 @@ $shadow-lg:     0 8px 32px rgba(26, 29, 46, 0.10);
 .container {
   min-height: 100vh;
   background: $bg;
-  padding: 24px 20px 80px;
+  padding: 0 20px 80px;
   font-family: $font;
   color: $text;
   direction: rtl;
+  overflow-x: hidden;
+  overflow-y: visible; // Allow dropdown to show
 }
 
 .content {

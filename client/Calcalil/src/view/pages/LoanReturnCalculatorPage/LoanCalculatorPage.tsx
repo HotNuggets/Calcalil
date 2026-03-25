@@ -23,6 +23,8 @@ const LoanCalculatorPage = () => {
   return (
     <div className={styles.calculator}>
        <PageHeader />
+       <h1 className={styles.title}>מחשבון הלוואות</h1>
+
       <div className={styles.parameters}>
         <div className={styles.monthOrSum}>
           <span className={styles.parameter}>לחשב את:</span>

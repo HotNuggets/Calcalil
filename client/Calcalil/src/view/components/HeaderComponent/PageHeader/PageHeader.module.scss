@@ -7,14 +7,16 @@ $shadow-sm: 0 1px 4px rgba(26, 29, 46, 0.07);
 $shadow-md: 0 4px 16px rgba(26, 29, 46, 0.09);
 
 .pageHeader {
-  position: relative;
   width: 100%;
-  padding: 20px;
+  padding: 20px 20px 10px 20px;
   box-sizing: border-box;
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
   min-height: 60px;
+  overflow: visible; // Prevent cutting off dropdown
+  position: relative;
+  z-index: 10;
 }
 
 .backButton {
@@ -44,59 +46,19 @@ $shadow-md: 0 4px 16px rgba(26, 29, 46, 0.09);
 }
 
 .userMenuContainer {
-  // No absolute positioning - stays in flow
-  z-index: 100;
-}
-
-.titleContainer {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-  pointer-events: none; // Allows clicking through to buttons
-}
-
-.title {
-  font-family: $font;
-  font-size: clamp(24px, 5vw, 36px);
-  font-weight: 900;
-  margin: 0;
-  color: #1A1D2E;
-}
-
-.subtitle {
-  font-family: $font;
-  font-size: 16px;
-  color: #7B83A8;
-  margin: 8px 0 0;
+  z-index: 1000;
 }
 
 @media (max-width: 768px) {
   .pageHeader {
     padding: 16px;
-    flex-direction: column;
     gap: 12px;
-    align-items: stretch;
   }
 
   .backButton {
-    width: 100%;
-  }
-
-  .userMenuContainer {
-    position: absolute;
-    top: 16px;
-    right: 16px;
-  }
-
-  .titleContainer {
-    position: relative;
-    left: 0;
-    top: 0;
-    transform: none;
-    margin-top: 50px;
-    pointer-events: auto;
+    font-size: 14px;
+    padding: 8px 16px;
   }
 }
+
 
