@@ -85,7 +85,7 @@ $shadow-lg:     0 8px 32px rgba(26, 29, 46, 0.10);
 .dropdown {
   position: absolute;
   top: calc(100% + 8px);
-  right: 0;
+  left: 0; // Changed from right: 0 since menu is now on left
   background: $bg-card;
   border: 1px solid $border;
   border-radius: $radius-md;
@@ -94,7 +94,7 @@ $shadow-lg:     0 8px 32px rgba(26, 29, 46, 0.10);
   padding: 8px;
   animation: fadeIn 0.2s ease;
   font-family: $font;
-  //direction: rtl;
+  direction: rtl;
 }
 
 .userInfo {
@@ -178,7 +178,8 @@ $shadow-lg:     0 8px 32px rgba(26, 29, 46, 0.10);
 
 @media (max-width: 768px) {
   .dropdown {
-    right: auto;
-    left: 0;
+    // Keep left: 0 on mobile too
+    min-width: 240px; // Slightly smaller on mobile
+    max-width: calc(100vw - 32px); // Don't exceed screen width
   }
 }
