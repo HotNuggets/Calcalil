@@ -6,6 +6,7 @@ $font:          'Heebo', sans-serif;
 $bg:            #F4F6FB;
 $bg-card:       #FFFFFF;
 $text:          #F4F6FB;
+$label:         #44464b;
 $muted:         #7B83A8;
 $faint:         #9BA3C4;
 $indigo:        #4F46E5;
@@ -140,7 +141,7 @@ $shadow-lg:     0 8px 32px rgba(26, 29, 46, 0.10);
     display: block;
     font-size: 14px;
     font-weight: 600;
-    color: $text;
+    color: $label;
     margin-bottom: 8px;
   }
 
