@@ -13,8 +13,9 @@ const AuthRequiredModal = ({ onClose }: AuthRequiredModalProps) => {
   }
 
   const handleCancel = () => {
-    navigate('/') 
     onClose()
+    navigate('/') 
+    
   }
 
   return (
