@@ -12,8 +12,13 @@ const AuthRequiredModal = ({ onClose }: AuthRequiredModalProps) => {
     navigate('/login')
   }
 
+  const handleCancel = () => {
+    navigate('/') 
+    onClose()
+  }
+
   return (
-    <div className={styles.overlay} onClick={onClose}>
+    <div className={styles.overlay} onClick={handleCancel}>
       <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
         <div className={styles.icon}>🔐</div>
         
@@ -48,7 +53,7 @@ const AuthRequiredModal = ({ onClose }: AuthRequiredModalProps) => {
           
           <button 
             className={styles.secondaryBtn} 
-            onClick={onClose}
+            onClick={handleCancel}
           >
             ביטול
           </button>
