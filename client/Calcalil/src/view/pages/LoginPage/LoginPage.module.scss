@@ -5,8 +5,7 @@
 $font:          'Heebo', sans-serif;
 $bg:            #F4F6FB;
 $bg-card:       #FFFFFF;
-$text:          black;
-$label:         #44464b;
+$text:          #1A1D2E;
 $muted:         #7B83A8;
 $faint:         #9BA3C4;
 $indigo:        #4F46E5;
@@ -141,7 +140,7 @@ $shadow-lg:     0 8px 32px rgba(26, 29, 46, 0.10);
     display: block;
     font-size: 14px;
     font-weight: 600;
-    color: $label;
+    color: $text;
     margin-bottom: 8px;
   }
 
@@ -241,6 +240,43 @@ $shadow-lg:     0 8px 32px rgba(26, 29, 46, 0.10);
     font-size: 14px;
     color: $muted;
     margin: 0;
+  }
+}
+
+.termsCheckbox {
+  margin-top: 8px;
+  
+  label {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    cursor: pointer;
+    user-select: none;
+
+    input[type="checkbox"] {
+      margin-top: 3px;
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+      accent-color: $indigo;
+      flex-shrink: 0;
+    }
+
+    span {
+      font-size: 14px;
+      color: $text;
+      line-height: 1.6;
+
+      a {
+        color: $indigo;
+        text-decoration: none;
+        font-weight: 600;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
   }
 }
 

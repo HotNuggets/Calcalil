@@ -1,15 +1,15 @@
 import { useState } from 'react'
 import { supabase } from '../../../lib/supabase'
-import { Navigate } from 'react-router-dom'
+import { Navigate, Link } from 'react-router-dom'
 import { useAuth } from '../../../contexts/AuthContext'
 import styles from './LoginPage.module.scss'
-
 
 const LoginPage = () => {
   const { user, loading } = useAuth()
   const [mode, setMode] = useState<'login' | 'signup' | 'reset'>('login')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [acceptedTerms, setAcceptedTerms] = useState(false)
   const [submitting, setSubmitting] = useState(false)
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -47,6 +47,12 @@ const LoginPage = () => {
 
     if (password.length < 6) {
       alert('הסיסמה חייבת להכיל לפחות 6 תווים')
+      return
+    }
+
+    // Check terms acceptance for signup
+    if (mode === 'signup' && !acceptedTerms) {
+      alert('עליך לקרוא ולאשר את תנאי השימוש ומדיניות הפרטיות')
       return
     }
 
@@ -111,11 +117,10 @@ const LoginPage = () => {
   }
 
   return (
-    
     <div className={styles.container}>
       <div className={styles.card}>
         <div className={styles.logo}>💰</div>
-        <h1 className={styles.title}>CalCalil</h1>
+        <h1 className={styles.title}>CalcaLil</h1>
         <p className={styles.subtitle}>
           מערכת חכמה לניהול הוצאות והכנסות
         </p>
@@ -176,6 +181,25 @@ const LoginPage = () => {
                 autoComplete={mode === 'signup' ? 'new-password' : 'current-password'}
                 className={styles.input}
               />
+            </div>
+          )}
+
+          {mode === 'signup' && (
+            <div className={styles.termsCheckbox}>
+              <label>
+                <input
+                  type="checkbox"
+                  checked={acceptedTerms}
+                  onChange={(e) => setAcceptedTerms(e.target.checked)}
+                  required
+                />
+                <span>
+                  קראתי ואני מסכים/ה ל
+                  <Link to="/Terms" target="_blank"> תנאי השימוש</Link>
+                  {' '}ול
+                  <Link to="/privacy" target="_blank">מדיניות הפרטיות</Link>
+                </span>
+              </label>
             </div>
           )}
 

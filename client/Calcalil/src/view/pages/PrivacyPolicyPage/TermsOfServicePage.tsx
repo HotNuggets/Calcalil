@@ -1,76 +1,158 @@
-import React from "react";
-import styles from "./LegalPages.module.scss";
-import BackToWelcomeButton from "../../components/BackToWelcomeButton/BackToWelcomeButton";
 
+import styles from './LegalPage.module.scss'
+import PageHeader from '../../components/HeaderComponent/PageHeader/PageHeader'
 
-const TermsOfServicePage: React.FC = () => {
-return (
-<div className={styles.container}>
-    <BackToWelcomeButton />
-<h1>Terms of Service</h1>
-<p className={styles.updated}>Last updated: December 14, 2025</p>
+const TermsOfServicePage = () => {
 
+  return (
+    <div className={styles.container}>
+      <div className={styles.content}>
+        <PageHeader />
+      
 
-<section>
-<p>
-By accessing or using <strong>Calcalil</strong>, you agree to these Terms of
-Service.
-</p>
-</section>
+        <h1 className={styles.title}>תנאי שימוש – CalCalil</h1>
+        <p className={styles.lastUpdated}>
+          עודכן לאחרונה: {new Date().toLocaleDateString('he-IL')}
+        </p>
 
+        <section className={styles.section}>
+          <h2>1. מהות השירות</h2>
+          <p>
+            CalCalil הוא כלי פיננסי אינפורמטיבי המספק מחשבונים ותצוגות נתונים בנושאי חיסכון, הוצאות ותכנון פיננסי.
+            השירות ניתן ללא תשלום ומיועד למטרות מידע ולמידה בלבד.
+          </p>
+          <p>
+            CalCalil אינו שירות ייעוץ פיננסי. כל הנתונים, החישובים והתחזיות באתר הם תוצאה אוטומטית המבוססת על קלט משתמש ואינם מהווים ייעוץ מקצועי.
+          </p>
+        </section>
 
-<section>
-<h2>Use of the Website</h2>
-<p>
-You agree to use this website for lawful purposes only and not to misuse or
-disrupt the service.
-</p>
-</section>
+        <section className={styles.section}>
+          <h2>2. היעדר אחריות או הבטחת דיוק</h2>
+          <p>המידע באתר מסופק "כפי שהוא" וללא התחייבות כלשהי.</p>
+          <ul>
+            <li>אין התחייבות לדיוק או שלמות הנתונים</li>
+            <li>אין התחייבות לאמינות התוצאות</li>
+            <li>אין התחייבות לזמינות רציפה של השירות</li>
+            <li>התוצאות הן הערכות בלבד ועשויות להשתנות</li>
+          </ul>
+        </section>
 
+        <section className={styles.section}>
+          <h2>3. ⚠️ אין מדובר בייעוץ מקצועי</h2>
+          <div className={styles.disclaimer}>
+            <p className={styles.warning}>
+              <strong>קרא בעיון:</strong>
+            </p>
+            <ul>
+              <li>
+                <strong>CalCalil אינו מספק ייעוץ פיננסי, השקעות, מיסוי או ייעוץ משפטי.</strong>
+              </li>
+              <li>
+                <strong>המידע באתר אינו מהווה תחליף לייעוץ מקצועי.</strong>
+              </li>
+              <li>
+                <strong>החלטות פיננסיות:</strong> כל החלטה שאתה מקבל היא באחריותך בלבד.
+              </li>
+              <li>
+                <strong>תוצאות חישוב:</strong> כל החישובים הם הערכות בלבד ואינם מבטיחים תוצאה בפועל.
+              </li>
+            </ul>
+          </div>
+        </section>
 
-<section>
-<h2>Financial Disclaimer</h2>
-<p>
-All calculations and financial information provided are for informational
-purposes only and do not constitute financial, legal, or tax advice.
-</p>
-</section>
+        <section className={styles.section}>
+          <h2>4. שימוש מותר</h2>
+          <p>אתה מסכים להשתמש בשירות בהתאם לחוק בלבד. אסור לך:</p>
+          <ul>
+            <li>להשתמש בשירות למטרות לא חוקיות</li>
+            <li>לנסות לפגוע או לשבש את פעילות האתר</li>
+            <li>להשתמש בבוטים או כלים אוטומטיים באופן שפוגע בשירות</li>
+            <li>להציג את הנתונים כייעוץ מקצועי או רשמי</li>
+          </ul>
+        </section>
 
+        <section className={styles.section}>
+          <h2>5. מקורות נתונים חיצוניים</h2>
+          <p>
+            האתר עשוי להשתמש במקורות נתונים חיצוניים (כגון נתוני שוק או שערי מטבע).
+            אין לנו אחריות על דיוק, זמינות או אמינות של נתונים אלו.
+          </p>
+        </section>
 
-<section>
-<h2>No Guarantees</h2>
-<p>
-The website is provided "as is" without warranties of any kind regarding
-accuracy, availability, or suitability.
-</p>
-</section>
+        <section className={styles.section}>
+          <h2>6. קניין רוחני</h2>
+          <p>
+            כל התוכן, העיצוב והקוד באתר הם קניין של CalCalil.
+          </p>
+          <ul>
+            <li>מותר להשתמש באתר לשימוש אישי בלבד</li>
+            <li>מותר לשתף קישורים</li>
+            <li>אסור להעתיק או להפיץ תוכן למטרות מסחריות ללא אישור</li>
+          </ul>
+        </section>
 
+        <section className={styles.section}>
+          <h2>7. הגבלת אחריות</h2>
+          <div className={styles.disclaimer}>
+            <p className={styles.warning}>
+              <strong>קרא בעיון:</strong>
+            </p>
+            <ul>
+              <li>
+                השירות ניתן "כפי שהוא" ללא אחריות מכל סוג
+              </li>
+              <li>
+                איננו אחראים לנזקים ישירים או עקיפים
+              </li>
+              <li>
+                איננו אחראים להפסדים כספיים או אובדן נתונים
+              </li>
+              <li>
+                השימוש באתר הוא על אחריות המשתמש בלבד
+              </li>
+            </ul>
+          </div>
+        </section>
 
-<section>
-<h2>Limitation of Liability</h2>
-<p>
-We are not liable for financial losses, data loss, or damages arising from the
-use of this website.
-</p>
-</section>
+        <section className={styles.section}>
+          <h2>8. זמינות השירות</h2>
+          <ul>
+            <li>השירות עשוי להיות לא זמין מעת לעת</li>
+            <li>אנו רשאים לשנות או להפסיק את השירות בכל עת</li>
+            <li>אין התחייבות לפעולה רציפה</li>
+          </ul>
+        </section>
 
+        <section className={styles.section}>
+          <h2>9. שינויים בתנאים</h2>
+          <p>
+            אנו עשויים לעדכן תנאים אלו מעת לעת. המשך שימוש באתר מהווה הסכמה לתנאים המעודכנים.
+          </p>
+        </section>
 
-<section>
-<h2>Intellectual Property</h2>
-<p>
-All content, design, and code are the property of Calcalil unless otherwise
-stated.
-</p>
-</section>
+        <section className={styles.section}>
+          <h2>10. דין חל</h2>
+          <p>
+            תנאים אלו יהיו כפופים לדין החל.
+          </p>
+        </section>
 
+        <section className={styles.section}>
+          <h2>11. יצירת קשר</h2>
+          <p>
+            [פרטי יצירת קשר יתווספו כאן]
+          </p>
+        </section>
 
-<section>
-<h2>Contact</h2>
-<p>Email: your-email@example.com</p>
-</section>
-</div>
-);
-};
+        <div className={styles.footer}>
+          <p>© {new Date().getFullYear()} CalCalil. כל הזכויות שמורות.</p>
+          <p className={styles.warning}>
+            שימוש באתר מהווה הסכמה לתנאי שימוש אלו.
+          </p>
+        </div>
+      </div>
+    </div>
+  )
+}
 
-
-export default TermsOfServicePage;
+export default TermsOfServicePage

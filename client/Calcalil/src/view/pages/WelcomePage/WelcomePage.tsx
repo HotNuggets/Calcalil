@@ -2,6 +2,7 @@
 import { Link } from "react-router-dom";
 import styles from "./WelcomePage.module.scss";
 import PageHeader from "../../components/HeaderComponent/PageHeader/PageHeader";
+import { Analytics } from "@vercel/analytics/next"
 
 const WelcomePage = () => {
   return (
@@ -9,7 +10,7 @@ const WelcomePage = () => {
       <div className={styles.userMenuContainer}>
         <PageHeader showBackButton={false} />
       </div>
-
+        <Analytics /> 
       <h1 className={styles.title}>ברוך הבא!</h1>
       <p className={styles.subtitle}>בחר מחשבון כדי להתחיל:</p>
       <div className={styles.buttons}>
