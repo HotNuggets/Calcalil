@@ -8,7 +8,7 @@ const Footer = () => {
     <footer className={styles.footer}>
       <div className={styles.content}>
         <div className={styles.disclaimer}>
-          ⚠️ <strong>חשוב:</strong> CalcaLil אינו מחליף ייעוץ מקצועי. התייעץ עם רואה חשבון או יועץ פיננסי לפני החלטות משמעותיות.
+          ⚠️ <strong>חשוב:</strong> CalCalil אינו מחליף ייעוץ מקצועי. התייעץ עם רואה חשבון או יועץ פיננסי לפני החלטות משמעותיות.
         </div>
 
         <div className={styles.links}>
