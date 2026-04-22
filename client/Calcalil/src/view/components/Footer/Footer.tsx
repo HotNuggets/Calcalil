@@ -20,7 +20,7 @@ const Footer = () => {
         </div>
 
         <div className={styles.copyright}>
-          © {currentYear} CalcaLil. כל הזכויות שמורות.
+          © {currentYear} CalCalil. כל הזכויות שמורות.
         </div>
       </div>
     </footer>
