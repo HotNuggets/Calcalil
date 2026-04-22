@@ -1,0 +1,90 @@
+@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;900&display=swap');
+
+$font: 'Heebo', sans-serif;
+$text: #1A1D2E;
+$muted: #7B83A8;
+$indigo: #4F46E5;
+$orange: #F59E0B;
+$orange-light: #FEF3C7;
+$border: #E2E6F0;
+
+.footer {
+  font-family: $font;
+  direction: rtl;
+  padding: 40px 20px 32px;
+  margin-top: 60px;
+}
+
+.content {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.disclaimer {
+  background: $orange-light;
+  border: 2px solid $orange;
+  border-radius: 16px;
+  padding: 16px 20px;
+  margin-bottom: 24px;
+  font-size: 14px;
+  color: $text;
+  line-height: 1.6;
+
+  strong {
+    color: $orange;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 13px;
+    padding: 12px 16px;
+  }
+}
+
+.links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+
+  a {
+    font-size: 14px;
+    color: $indigo;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.2s;
+
+    &:hover {
+      text-decoration: underline;
+      opacity: 0.8;
+    }
+  }
+
+  .separator {
+    color: $border;
+    font-size: 12px;
+  }
+}
+
+.copyright {
+  font-size: 13px;
+  color: $muted;
+}
+
+@media (max-width: 768px) {
+  .footer {
+    padding: 32px 16px 24px;
+    margin-top: 40px;
+  }
+
+  .links {
+    font-size: 13px;
+    gap: 12px;
+  }
+
+  .copyright {
+    font-size: 12px;
+  }
+}

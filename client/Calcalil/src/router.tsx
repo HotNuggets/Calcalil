@@ -6,11 +6,12 @@ import MortgageCalculatorPage from "./view/pages/MortgageCalculatorPage/Mortgage
 import ExpensesPage from "./view/pages/ExpensesPage/ExpensesPage";
 import PrivacyPolicyPage from "./view/pages/PrivacyPolicyPage/PrivacyPolicyPage";
 import TermsOfServicePage from "./view/pages/PrivacyPolicyPage/TermsOfServicePage";
+import ContactPage from "./view/pages/ContactPage/ContactPage";
 import SNPPage from "./view/pages/S&PPage/SAndPPage";
 import SalaryCalculator from "./view/pages/SalaryCalculatorPage/SalaryCalculator";
 import LoginPage from "./view/pages/LoginPage/LoginPage";
 import ResetPasswordPage from "./view/pages/LoginPage/ResetPasswordPage";
-import ProtectedRoute from "./../src/view/components/ProtectedRoute";
+import ProtectedRoute from "../src/view/components/ProtectedRoute";
 
 export const router = createBrowserRouter([
   // ── Public Routes (no login required) ──
@@ -53,6 +54,10 @@ export const router = createBrowserRouter([
   {
     path: "/Terms",
     element: <TermsOfServicePage />,
+  },
+  {
+    path: "/contact",
+    element: <ContactPage />,
   },
 
   // ── Protected Routes (login required) ──

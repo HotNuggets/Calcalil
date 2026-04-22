@@ -1,6 +1,7 @@
 
 import styles from './LegalPage.module.scss'
 import PageHeader from '../../components/HeaderComponent/PageHeader/PageHeader'
+import { Link } from 'react-router-dom'
 
 const TermsOfServicePage = () => {
 
@@ -140,7 +141,7 @@ const TermsOfServicePage = () => {
         <section className={styles.section}>
           <h2>11. יצירת קשר</h2>
           <p>
-            [פרטי יצירת קשר יתווספו כאן]
+          <Link to="/contact">צור קשר</Link>
           </p>
         </section>
 

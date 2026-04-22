@@ -1,5 +1,6 @@
 import styles from './LegalPage.module.scss'
 import PageHeader from '../../components/HeaderComponent/PageHeader/PageHeader'
+import { Link } from 'react-router-dom'
 
 const PrivacyPolicyPage = () => {
   
@@ -96,7 +97,7 @@ const PrivacyPolicyPage = () => {
         <section className={styles.section}>
           <h2>10. יצירת קשר</h2>
           <p>
-            לפרטים נוספים או שאלות בנושא פרטיות, ניתן לפנות אלינו (פרטי יצירת קשר יתווספו בהמשך).
+            לפרטים נוספים או שאלות בנושא פרטיות, ניתן לפנות אלינו <Link to="/contact">צור קשר</Link>.
           </p>
         </section>
 

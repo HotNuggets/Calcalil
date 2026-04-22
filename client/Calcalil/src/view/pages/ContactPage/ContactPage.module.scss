@@ -1,0 +1,286 @@
+@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;900&display=swap');
+
+$font: 'Heebo', sans-serif;
+$bg: #F4F6FB;
+$bg-card: #FFFFFF;
+$text: #1A1D2E;
+$muted: #7B83A8;
+$indigo: #4F46E5;
+$violet: #7C3AED;
+$border: #E2E6F0;
+$bg-deep: #F0F2F8;
+$radius-md: 16px;
+$radius-lg: 20px;
+$shadow-sm: 0 1px 4px rgba(26, 29, 46, 0.07);
+$shadow-md: 0 4px 16px rgba(26, 29, 46, 0.09);
+$green: #059669;
+$green-light: #D1FAE5;
+$red: #DC2626;
+$red-light: #FEE2E2;
+
+.container {
+  min-height: 100vh;
+  background: $bg;
+  padding: 40px 20px;
+  font-family: $font;
+  direction: rtl;
+}
+
+.content {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.backBtn {
+  padding: 10px 20px;
+  border: 2px solid $border;
+  border-radius: 12px;
+  background: transparent;
+  color: $indigo;
+  font-family: $font;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-bottom: 32px;
+
+  &:hover {
+    border-color: $indigo;
+    background: $indigo;
+    color: #fff;
+  }
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.title {
+  font-size: clamp(32px, 5vw, 48px);
+  font-weight: 900;
+  background: linear-gradient(135deg, $indigo, $violet);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin: 0 0 12px 0;
+}
+
+.subtitle {
+  font-size: 18px;
+  color: $muted;
+  margin: 0;
+}
+
+.form {
+  background: $bg-card;
+  border-radius: $radius-lg;
+  padding: 32px;
+  box-shadow: $shadow-md;
+  margin-bottom: 40px;
+}
+
+.inputGroup {
+  margin-bottom: 24px;
+
+  label {
+    display: block;
+    font-size: 15px;
+    font-weight: 600;
+    color: $text;
+    margin-bottom: 8px;
+  }
+
+  input,
+  textarea {
+    width: 100%;
+    padding: 14px 16px;
+    border: 2px solid $border;
+    border-radius: $radius-md;
+    font-family: $font;
+    font-size: 15px;
+    color: $text;
+    background: #fff;
+    transition: all 0.2s;
+    box-sizing: border-box;
+    resize: vertical;
+
+    &:focus {
+      outline: none;
+      border-color: $indigo;
+      box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+    }
+
+    &:disabled {
+      background: $bg-deep;
+      cursor: not-allowed;
+      opacity: 0.6;
+    }
+
+    &::placeholder {
+      color: $muted;
+    }
+  }
+
+  textarea {
+    min-height: 120px;
+  }
+}
+
+.submitBtn {
+  width: 100%;
+  padding: 16px 24px;
+  border: none;
+  border-radius: $radius-md;
+  background: linear-gradient(135deg, $indigo, $violet);
+  color: #fff;
+  font-family: $font;
+  font-size: 17px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: $shadow-md;
+
+  &:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(79, 70, 229, 0.3);
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(0);
+  }
+
+  &:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+}
+
+.privacy {
+  margin-top: 16px;
+  font-size: 13px;
+  color: $muted;
+  text-align: center;
+
+  a {
+    color: $indigo;
+    text-decoration: none;
+    font-weight: 600;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.successMessage {
+  background: $green-light;
+  border: 2px solid $green;
+  border-radius: $radius-lg;
+  padding: 48px 32px;
+  text-align: center;
+  margin-bottom: 40px;
+
+  h2 {
+    font-size: 28px;
+    font-weight: 700;
+    color: $text;
+    margin: 16px 0 12px;
+  }
+
+  p {
+    font-size: 16px;
+    color: $text;
+    margin: 8px 0;
+  }
+}
+
+.successIcon {
+  font-size: 64px;
+}
+
+.redirecting {
+  margin-top: 16px !important;
+  font-size: 14px !important;
+  color: $muted !important;
+}
+
+.errorMessage {
+  padding: 14px 16px;
+  background: $red-light;
+  border: 2px solid $red;
+  border-radius: $radius-md;
+  color: $red;
+  font-size: 15px;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.info {
+  background: $bg-card;
+  border-radius: $radius-lg;
+  padding: 32px;
+  box-shadow: $shadow-sm;
+
+  h3 {
+    font-size: 20px;
+    font-weight: 700;
+    color: $text;
+    margin: 0 0 24px;
+  }
+}
+
+.infoGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.infoCard {
+  background: $bg-deep;
+  border-radius: $radius-md;
+  padding: 20px;
+  text-align: center;
+  transition: all 0.2s;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: $shadow-sm;
+  }
+
+  h4 {
+    font-size: 16px;
+    font-weight: 600;
+    color: $text;
+    margin: 12px 0 8px;
+  }
+
+  p {
+    font-size: 14px;
+    color: $muted;
+    margin: 0;
+    line-height: 1.5;
+  }
+}
+
+.infoIcon {
+  font-size: 32px;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 20px 16px;
+  }
+
+  .form {
+    padding: 24px 20px;
+  }
+
+  .infoGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .successMessage {
+    padding: 32px 24px;
+  }
+}

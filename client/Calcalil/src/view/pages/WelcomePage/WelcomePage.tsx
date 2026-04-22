@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import styles from "./WelcomePage.module.scss";
 import PageHeader from "../../components/HeaderComponent/PageHeader/PageHeader";
 import { Analytics } from "@vercel/analytics/react"
+import Footer from "../../components/Footer/Footer";
 
 const WelcomePage = () => {
   return (
@@ -30,6 +31,7 @@ const WelcomePage = () => {
           <button>מחשבון צמיחת שכר</button>
         </Link> 
       </div>
+       <Footer />
     </div>
   );
 };
