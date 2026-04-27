@@ -14,6 +14,7 @@ import {
   CartesianGrid,
 } from "recharts";
 import PageHeader from "../../components/HeaderComponent/PageHeader/PageHeader";
+import Footer from "../../components/Footer/Footer";
 
 // ─── Slider Component ─────────────────────────────────────────────────────────
 interface SliderProps {
@@ -426,6 +427,7 @@ const SavingsCalculatorPage = () => {
           </div>
         )}
       </div>
+      <Footer />
     </div>
   );
 };

@@ -3,6 +3,7 @@ import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer } from "recha
 import { useExpensesPageVM } from "./ExpensesPageVM";
 import styles from "./ExpensesPage.module.scss";
 import PageHeader from "../../../../src/view/components/HeaderComponent/PageHeader/PageHeader";
+import Footer from "../../components/Footer/Footer";
 
 const COLORS = [
   "#4F46E5", // indigo
@@ -347,6 +348,7 @@ const ExpensesPage: React.FC = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

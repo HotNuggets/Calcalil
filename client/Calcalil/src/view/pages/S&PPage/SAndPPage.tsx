@@ -12,6 +12,7 @@ import {
 import { useSAndPPageVM } from "./SAndPPageVM";
 import type { Period } from "./SAndPPageVM";
 import PageHeader from "../../components/HeaderComponent/PageHeader/PageHeader";
+import Footer from "../../components/Footer/Footer";
 
 const SAndPPage = () => {
   const vm = useSAndPPageVM();
@@ -228,6 +229,7 @@ const SAndPPage = () => {
           </ResponsiveContainer>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

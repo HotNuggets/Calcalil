@@ -1,3 +1,4 @@
+import Footer from "../../components/Footer/Footer";
 import PageHeader from "../../components/HeaderComponent/PageHeader/PageHeader";
 import styles from "./LoanCalculatorPage.module.scss";
 import { useLoanCalculatorVM } from "./LoanCalculatorPageVM";
@@ -114,6 +115,7 @@ const LoanCalculatorPage = () => {
           </div>
         )}
       </div>
+      <Footer />
     </div>
   );
 };

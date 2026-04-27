@@ -1,0 +1,32 @@
+.kofiButton {
+  display: flex;
+  align-items: center;
+  
+  // Custom Ko-fi button
+  :global(.kofi-button) {
+    &:active {
+      transform: translateY(0) !important;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1) !important;
+    }
+  }
+}
+
+@media (max-width: 400px) {
+  .kofiButton {
+    // Make button smaller on mobile
+    :global(.kofi-button) {
+      padding: 6px 12px !important;
+      font-size: 13px !important;
+      
+      span:first-child {
+        font-size: 16px !important;
+      }
+    }
+  }
+}
+
+@media (max-width: 350px) {
+  .kofiButton {
+    display: none; // Hide on very small screens
+  }
+}

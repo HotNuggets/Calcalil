@@ -1,6 +1,7 @@
 import UserMenu from '../../UserMenu/UserMenu'
 import { useNavigate } from 'react-router-dom'
 import styles from './PageHeader.module.scss'
+import KofiButton from '../../KofiButton/KofiButton'
 
 interface PageHeaderProps {
   showBackButton?: boolean
@@ -11,6 +12,7 @@ const PageHeader = ({ showBackButton = true }: PageHeaderProps) => {
 
   return (
     <div className={styles.pageHeader}>
+      <KofiButton />
       {showBackButton && (
         <button
           className={styles.backButton}

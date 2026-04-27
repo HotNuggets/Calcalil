@@ -5,11 +5,14 @@ import PageHeader from "../../components/HeaderComponent/PageHeader/PageHeader";
 import { Analytics } from "@vercel/analytics/react"
 import Footer from "../../components/Footer/Footer";
 
+
+
 const WelcomePage = () => {
   return (
     <div className={styles.welcome}>
       <div className={styles.userMenuContainer}>
         <PageHeader showBackButton={false} />
+        
       </div>
         <Analytics /> 
       <h1 className={styles.title}>ברוך הבא!</h1>
