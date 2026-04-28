@@ -1,84 +1,67 @@
-// ─── Import Heebo font ────────────────────────────────────────────────────────
 @import url('https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;900&display=swap');
 
-// ─── Design Tokens ────────────────────────────────────────────────────────────
-$font:          'Heebo', sans-serif;
-$bg:            #F4F6FB;
-$bg-card:       #FFFFFF;
-$text:          #1A1D2E;
-$muted:         #7B83A8;
-$indigo:        #4F46E5;
-$blue:          #0EA5E9;
-$violet:        #7C3AED;
-$border:        #E2E6F0;
-$radius-lg:     20px;
-$shadow-sm:     0 1px 4px rgba(26, 29, 46, 0.07);
-$shadow-md:     0 4px 16px rgba(26, 29, 46, 0.09);
-
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes shimmer {
-  0%   { background-position: -200% center; }
-  100% { background-position:  200% center; }
-}
+$font: 'Heebo', sans-serif;
+$bg: #F4F6FB;
+$text: #1A1D2E;
+$muted: #7B83A8;
+$indigo: #4F46E5;
+$violet: #7C3AED;
+$border: #E2E6F0;
+$radius-lg: 20px;
+$shadow-md: 0 4px 16px rgba(26, 29, 46, 0.09);
 
 .welcome {
-  direction: rtl;
-  width: 100%;
   min-height: 100vh;
-  padding: 3rem 1.5rem;
-  box-sizing: border-box;
-  text-align: center;
+  background: $bg;
+  font-family: $font;
+  direction: rtl;
+  display: flex;
+  flex-direction: column;
+  padding-top: 80px; // Space for PageHeader on mobile
+}
+
+.content {
+  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
-  background: $bg;
-  font-family: $font;
+  justify-content: center;
+  padding: 0 20px 40px;
+  max-width: 800px;
   margin: 0 auto;
-  max-width: 100%;
-  position: relative;
-}
-
-.userMenuContainer {
-  position: absolute;
-  top: 20px;
-  left: 20px;
+  width: 100%;
 }
 
 .title {
-  font-size: clamp(2.2rem, 6vw, 3.5rem);
+  font-size: clamp(36px, 8vw, 64px);
   font-weight: 900;
-  margin-bottom: 0.5rem;
-  background: linear-gradient(90deg, $indigo, $blue, $indigo);
+  text-align: center;
+  margin: 0 0 16px;
+  background: linear-gradient(135deg, $indigo, $violet);
   background-size: 200%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: shimmer 4s linear infinite, fadeUp 0.6s ease both;
+  animation: shimmer 4s linear infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
 }
 
 .subtitle {
-  font-size: 1.1rem;
-  margin-bottom: 3rem;
+  font-size: clamp(16px, 3vw, 20px);
   color: $muted;
-  max-width: 600px;
-  animation: fadeUp 0.6s 0.1s ease both;
-  opacity: 0;
-  animation-fill-mode: forwards;
+  text-align: center;
+  margin: 0 0 40px;
 }
 
 .buttons {
-  width: 100%;
-  max-width: 900px;
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 1rem;
-  animation: fadeUp 0.6s 0.2s ease both;
-  opacity: 0;
-  animation-fill-mode: forwards;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+  width: 100%;
+  max-width: 600px;
 
   a {
     text-decoration: none;
@@ -86,40 +69,52 @@ $shadow-md:     0 4px 16px rgba(26, 29, 46, 0.09);
 
   button {
     width: 100%;
-    padding: 1.2rem 1.5rem;
-    font-size: 1.1rem;
-    font-family: $font;
-    font-weight: 600;
-    border: 1px solid $border;
+    padding: 20px 24px;
+    border: 2px solid $border;
     border-radius: $radius-lg;
-    cursor: pointer;
-    background: $bg-card;
+    background: white;
     color: $text;
-    transition: all 0.2s ease;
-    box-shadow: $shadow-sm;
-    box-sizing: border-box;
+    font-family: $font;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: $shadow-md;
 
     &:hover {
-      transform: translateY(-3px);
-      box-shadow: $shadow-md;
       border-color: $indigo;
-      color: $indigo;
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(79, 70, 229, 0.2);
     }
 
     &:active {
-      transform: translateY(-1px);
+      transform: translateY(-2px);
     }
   }
 }
 
-@media (min-width: 768px) {
+@media (max-width: 768px) {
+  .welcome {
+    padding-top: 100px; // More space on mobile for wrapped header
+  }
+
+  .content {
+    padding: 0 16px 32px;
+  }
+
   .buttons {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr;
+    gap: 12px;
+
+    button {
+      padding: 18px 20px;
+      font-size: 17px;
+    }
   }
 }
 
-@media (min-width: 1024px) {
-  .buttons {
-    grid-template-columns: repeat(3, 1fr);
+@media (max-width: 400px) {
+  .welcome {
+    padding-top: 120px; // Even more space for very small screens
   }
 }
