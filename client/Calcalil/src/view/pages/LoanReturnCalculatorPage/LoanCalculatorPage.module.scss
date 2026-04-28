@@ -1,243 +1,146 @@
-@use "sass:color";
+@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;900&display=swap');
 
-// ─── Import Heebo font ────────────────────────────────────────────────────────
-@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;900&display=swap');
+$font: 'Heebo', sans-serif;
+$bg: #F4F6FB;
+$bg-card: #FFFFFF;
+$text: #1A1D2E;
+$muted: #7B83A8;
+$indigo: #4F46E5;
+$indigo-light: #EEF2FF;
+$violet: #7C3AED;
+$green: #059669;
+$border: #E2E6F0;
+$radius-md: 16px;
+$radius-lg: 20px;
+$shadow-sm: 0 1px 4px rgba(26, 29, 46, 0.07);
+$shadow-md: 0 4px 16px rgba(26, 29, 46, 0.09);
+$shadow-lg: 0 8px 32px rgba(26, 29, 46, 0.10);
 
-// ─── Design Tokens ────────────────────────────────────────────────────────────
-$font:          'Heebo', sans-serif;
-
-// Backgrounds
-$bg:            #F4F6FB;
-$bg-card:       #FFFFFF;
-$bg-deep:       #F0F2F8;
-
-// Borders
-$border:        #E2E6F0;
-$border-subtle: #EAECF4;
-$border-input:  #CBD2E8;
-
-// Text
-$text:          #1A1D2E;
-$text-secondary:#3D4466;
-$muted:         #7B83A8;
-$faint:         #9BA3C4;
-
-// Accents
-$indigo:        #4F46E5;
-$indigo-light:  #EEF2FF;
-$blue:          #0EA5E9;
-$blue-light:    #E0F2FE;
-$green:         #059669;
-$green-light:   #D1FAE5;
-$red:           #DC2626;
-$red-light:     #FEE2E2;
-$orange:        #EA580C;
-$violet:        #7C3AED;
-
-// Radius
-$radius-sm:     12px;
-$radius-md:     16px;
-$radius-lg:     20px;
-$radius-xl:     24px;
-
-// Shadows
-$shadow-sm:     0 1px 4px rgba(26, 29, 46, 0.07);
-$shadow-md:     0 4px 16px rgba(26, 29, 46, 0.09);
-$shadow-lg:     0 8px 32px rgba(26, 29, 46, 0.10);
-
-// ─── Animations ───────────────────────────────────────────────────────────────
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes shimmer {
-  0%   { background-position: -200% center; }
-  100% { background-position:  200% center; }
-}
-
-@keyframes slideIn {
-  from { opacity: 0; transform: translateX(20px); }
-  to   { opacity: 1; transform: translateX(0); }
-}
-
-// ─── Container ────────────────────────────────────────────────────────────────
 .calculator {
   min-height: 100vh;
   background: $bg;
-  padding: 24px 20px 80px;
+  padding: 0 20px 80px;
   font-family: $font;
   color: $text;
   direction: rtl;
 }
 
-.content {
-  max-width: 1000px;
-  margin: 0 auto;
-}
-
-// ─── Title ────────────────────────────────────────────────────────────────────
 .title {
-  font-size: clamp(24px, 5vw, 40px);
+  font-size: clamp(32px, 5vw, 48px);
   font-weight: 900;
-  margin: 32px 0 32px;
   text-align: center;
-  background: linear-gradient(90deg, $indigo, $blue, $indigo);
-  background-size: 200%;
+  margin: 32px 0;
+  background: linear-gradient(135deg, $indigo, $violet);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: shimmer 4s linear infinite;
-  line-height: 1.2;
 }
 
-// ─── Option selectors ─────────────────────────────────────────────────────────
-.selectorSection {
-  animation: fadeUp 0.6s 0.1s ease both;
-  opacity: 0;
-  animation-fill-mode: forwards;
-  margin-bottom: 24px;
-}
-
-.selectorLabel {
-  font-size: 14px;
-  font-weight: 700;
-  color: $text;
-  margin-bottom: 12px;
+.toggleSection {
+  max-width: 800px;
+  margin: 0 auto 24px;
   text-align: center;
 }
 
-.optionButtons {
+.toggleLabel {
+  display: block;
+  font-size: 16px;
+  font-weight: 600;
+  color: $text;
+  margin-bottom: 12px;
+}
+
+.toggleButtons {
   display: flex;
-  justify-content: center;
   gap: 12px;
+  justify-content: center;
   flex-wrap: wrap;
 }
 
-.optionBtn {
-  background: $bg-card;
-  color: $muted;
-  border: 1px solid $border;
-  border-radius: $radius-md;
+.toggleBtn {
   padding: 12px 24px;
+  border: 2px solid $border;
+  border-radius: $radius-md;
+  background: $bg-card;
+  color: $text;
   font-family: $font;
   font-size: 15px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s;
-  box-shadow: $shadow-sm;
+  white-space: nowrap;
 
   &:hover {
     border-color: $indigo;
-    color: $indigo;
-    transform: translateY(-1px);
-    box-shadow: $shadow-md;
+    transform: translateY(-2px);
+    box-shadow: $shadow-sm;
   }
 
   &.active {
-    background: $indigo;
-    color: #fff;
+    background: linear-gradient(135deg, $indigo, $violet);
     border-color: $indigo;
+    color: #fff;
     box-shadow: $shadow-md;
   }
 }
 
-// ─── Form card ────────────────────────────────────────────────────────────────
-.formCard {
+.formWindow {
+  max-width: 600px;
+  margin: 0 auto;
   background: $bg-card;
-  border: 1px solid $border;
   border-radius: $radius-lg;
   padding: 32px;
-  margin-bottom: 24px;
-  box-shadow: $shadow-sm;
-  animation: fadeUp 0.6s 0.2s ease both;
-  opacity: 0;
-  animation-fill-mode: forwards;
+  box-shadow: $shadow-md;
 }
 
-.formTitle {
-  font-size: 18px;
-  font-weight: 700;
-  color: $text;
-  margin-bottom: 24px;
-  padding-bottom: 16px;
-  border-bottom: 1px solid $border-subtle;
-}
-
-.formGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 24px;
-  margin-bottom: 24px;
-}
-
-// ─── Input field ──────────────────────────────────────────────────────────────
 .inputGroup {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
+  margin-bottom: 24px;
 
-.inputLabel {
-  font-size: 13px;
-  color: $muted;
-  font-weight: 600;
-}
-
-.inputWrapper {
-  position: relative;
-}
-
-.inputSymbol {
-  position: absolute;
-  right: 14px;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 16px;
-  color: $muted;
-  pointer-events: none;
-  font-weight: 600;
-}
-
-.input {
-  width: 100%;
-  background: $bg-card;
-  border: 1.5px solid $border-input;
-  border-radius: $radius-sm;
-  padding: 12px 40px 12px 14px;
-  font-family: $font;
-  font-size: 16px;
-  color: $text;
-  outline: none;
-  transition: border-color 0.2s, box-shadow 0.2s;
-  font-weight: 600;
-  direction: ltr;
-  text-align: right;
-
-  &:focus {
-    border-color: $indigo;
-    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.12);
+  label {
+    display: block;
+    font-size: 15px;
+    font-weight: 600;
+    color: $text;
+    margin-bottom: 8px;
   }
 
-  &::placeholder {
-    color: $faint;
-    font-weight: 400;
+  input {
+    width: 100%;
+    padding: 14px 16px;
+    border: 2px solid $border;
+    border-radius: $radius-md;
+    font-family: $font;
+    font-size: 16px;
+    color: $text;
+    background: #fff;
+    transition: all 0.2s;
+    box-sizing: border-box;
+
+    &:focus {
+      outline: none;
+      border-color: $indigo;
+      box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+    }
+
+    &::placeholder {
+      color: $muted;
+    }
   }
 }
 
-// ─── Calculate button ─────────────────────────────────────────────────────────
 .calculateBtn {
   width: 100%;
-  padding: 14px;
+  padding: 16px 24px;
   border: none;
   border-radius: $radius-md;
   background: linear-gradient(135deg, $indigo, $violet);
   color: #fff;
   font-family: $font;
-  font-size: 16px;
+  font-size: 17px;
   font-weight: 700;
   cursor: pointer;
   transition: all 0.2s;
   box-shadow: $shadow-md;
+  margin-top: 8px;
 
   &:hover {
     transform: translateY(-2px);
@@ -249,460 +152,81 @@ $shadow-lg:     0 8px 32px rgba(26, 29, 46, 0.10);
   }
 }
 
-// ─── Results section ──────────────────────────────────────────────────────────
-.resultsSection {
-  animation: fadeUp 0.6s 0.3s ease both;
-  opacity: 0;
-  animation-fill-mode: forwards;
+.results {
+  margin-top: 40px;
+  padding-top: 32px;
+  border-top: 2px solid $border;
 }
 
-// ─── Summary cards ────────────────────────────────────────────────────────────
-.summaryCards {
+.resultsTitle {
+  font-size: 24px;
+  font-weight: 700;
+  color: $text;
+  text-align: center;
+  margin: 0 0 24px;
+}
+
+.resultCards {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 16px;
-  margin-bottom: 24px;
 }
 
-.summaryCard {
-  background: $bg-card;
-  border: 1px solid $border;
-  border-radius: $radius-lg;
+.resultCard {
+  background: $indigo-light;
+  border: 2px solid $indigo;
+  border-radius: $radius-md;
   padding: 20px;
-  box-shadow: $shadow-sm;
-  transition: transform 0.2s, box-shadow 0.2s;
-
-  &:hover {
-    transform: translateY(-2px);
-    box-shadow: $shadow-md;
-  }
-
-  &.primary {
-    background: linear-gradient(135deg, $indigo-light, $bg-card);
-    border-color: color.adjust($indigo-light, $lightness: -8%);
-  }
-
-  &.highlight {
-    background: linear-gradient(135deg, $blue-light, $bg-card);
-    border-color: color.adjust($blue-light, $lightness: -8%);
-  }
-
-  .cardLabel {
-    font-size: 12px;
-    color: $muted;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    margin-bottom: 8px;
-  }
-
-  .cardValue {
-    font-size: clamp(20px, 3.5vw, 28px);
-    font-weight: 900;
-    line-height: 1;
-    color: $indigo;
-  }
-}
-
-// ─── Breakdown strip ──────────────────────────────────────────────────────────
-.breakdown {
-  background: linear-gradient(135deg, $indigo-light, $bg-card);
-  border: 1px solid color.adjust($indigo-light, $lightness: -5%);
-  border-radius: $radius-lg;
-  padding: 20px 24px;
-  margin-bottom: 24px;
-  box-shadow: $shadow-sm;
-}
-
-.breakdownTitle {
-  font-size: 16px;
-  font-weight: 700;
-  color: $indigo;
-  margin-bottom: 16px;
   text-align: center;
-}
-
-.breakdownGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 12px;
-}
-
-.breakdownStat {
-  background: $bg-card;
-  border-radius: $radius-sm;
-  padding: 12px 14px;
-  border: 1px solid $border;
-  text-align: center;
-
-  .statLabel {
-    font-size: 11px;
-    color: $muted;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    margin-bottom: 6px;
-  }
-
-  .statValue {
-    font-size: 16px;
-    font-weight: 700;
-    color: $text;
-  }
-}
-
-// ─── Chart card ───────────────────────────────────────────────────────────────
-.chartCard {
-  background: $bg-card;
-  border: 1px solid $border;
-  border-radius: $radius-lg;
-  padding: 24px;
-  margin-bottom: 24px;
-  box-shadow: $shadow-sm;
-}
-
-.chartTitle {
-  font-size: 18px;
-  font-weight: 700;
-  color: $text;
-  margin-bottom: 20px;
-}
-
-.chartWrapper {
-  width: 100%;
-  height: 350px;
-  direction: ltr;
-
-  // Recharts styles - scoped to this component
-  .recharts-cartesian-axis-tick-value {
-    font-family: $font;
-    font-size: 12px;
-    fill: $muted;
-  }
-
-  .recharts-default-tooltip {
-    background: $bg-card !important;
-    border: 1px solid $border !important;
-    border-radius: $radius-sm !important;
-    box-shadow: $shadow-md !important;
-    padding: 12px !important;
-    font-family: $font;
-  }
-
-  .recharts-tooltip-label {
-    font-weight: 600;
-    color: $text;
-    margin-bottom: 6px;
-  }
-
-  .recharts-tooltip-item {
-    font-size: 13px !important;
-    font-weight: 500;
-  }
-}
-
-// ─── Table ────────────────────────────────────────────────────────────────────
-.tableCard {
-  background: $bg-card;
-  border: 1px solid $border;
-  border-radius: $radius-lg;
-  overflow: hidden;
-  box-shadow: $shadow-sm;
-}
-
-.tableHeader {
-  padding: 20px 24px;
-  border-bottom: 1px solid $border-subtle;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.tableTitle {
-  font-size: 18px;
-  font-weight: 700;
-  color: $text;
-}
-
-.tableSubtitle {
-  font-size: 13px;
-  color: $muted;
-  font-weight: 500;
-}
-
-.tableToggle {
-  display: flex;
-  gap: 8px;
-}
-
-.toggleBtn {
-  padding: 6px 12px;
-  border: 1px solid $border;
-  border-radius: $radius-sm;
-  background: $bg-deep;
-  color: $muted;
-  font-size: 12px;
-  font-weight: 600;
-  cursor: pointer;
   transition: all 0.2s;
 
   &:hover {
-    border-color: $indigo;
-    color: $indigo;
-  }
-
-  &.active {
-    background: $indigo;
-    color: #fff;
-    border-color: $indigo;
+    transform: translateY(-4px);
+    box-shadow: $shadow-sm;
   }
 }
 
-.tableScroll {
-  overflow-x: auto;
-  max-height: 500px;
-}
-
-.table {
-  width: 100%;
-  border-collapse: collapse;
+.resultLabel {
+  display: block;
   font-size: 14px;
-  direction: rtl;
-
-  thead {
-    position: sticky;
-    top: 0;
-    background: $bg-deep;
-    z-index: 1;
-  }
-
-  th {
-    padding: 12px 16px;
-    text-align: right;
-    color: $muted;
-    font-weight: 600;
-    font-size: 12px;
-    border-bottom: 1px solid $border-subtle;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-  }
-
-  tbody tr {
-    border-bottom: 1px solid $border-subtle;
-    transition: background 0.15s;
-
-    &:hover {
-      background: $bg-deep;
-    }
-
-    &:last-child {
-      font-weight: 600;
-    }
-  }
-
-  td {
-    padding: 12px 16px;
-    text-align: right;
-    font-weight: 500;
-    color: $text;
-
-    &.highlight {
-      font-weight: 700;
-      color: $indigo;
-    }
-
-    &.principal {
-      color: $blue;
-    }
-
-    &.interest {
-      color: $orange;
-    }
-  }
+  font-weight: 600;
+  color: $indigo;
+  margin-bottom: 8px;
 }
 
-// ─── Mobile responsive ────────────────────────────────────────────────────────
+.resultValue {
+  display: block;
+  font-size: 24px;
+  font-weight: 900;
+  color: $text;
+}
+
 @media (max-width: 768px) {
   .calculator {
-    padding: 20px 16px 60px;
+    padding: 0 16px 60px;
   }
 
   .title {
-    margin: 24px 0 24px;
+    margin: 24px 0;
   }
 
-  .formCard {
+  .formWindow {
     padding: 24px 20px;
   }
 
-  .formGrid {
+  .toggleButtons {
+    flex-direction: column;
+  }
+
+  .toggleBtn {
+    width: 100%;
+  }
+
+  .resultCards {
     grid-template-columns: 1fr;
   }
 
-  .summaryCards {
-    grid-template-columns: 1fr;
-  }
-
-  .breakdownGrid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .optionButtons {
-    flex-direction: column;
-    gap: 8px;
-  }
-
-  .optionBtn {
-    width: 100%;
-  }
-
-  .chartWrapper {
-    height: 280px;
-  }
-
-  .tableHeader {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 12px;
+  .resultValue {
+    font-size: 20px;
   }
 }
-
-// ─── OLD STRUCTURE COMPATIBILITY ──────────────────────────────────────────────
-// These classes support your old TSX structure
-.parameters {
-  margin-bottom: 32px;
-}
-
-.monthOrSum,
-.method {
-  animation: fadeUp 0.6s 0.1s ease both;
-  opacity: 0;
-  animation-fill-mode: forwards;
-  margin-bottom: 24px;
-}
-
-.parameter {
-  display: block;
-  font-size: 14px;
-  font-weight: 700;
-  color: $text;
-  margin-bottom: 12px;
-  text-align: center;
-}
-
-.option {
-  background: $bg-card;
-  color: $muted;
-  border: 1px solid $border;
-  border-radius: $radius-md;
-  padding: 12px 24px;
-  margin: 6px;
-  font-family: $font;
-  font-size: 15px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s;
-  box-shadow: $shadow-sm;
-
-  &:hover {
-    border-color: $indigo;
-    color: $indigo;
-    transform: translateY(-1px);
-    box-shadow: $shadow-md;
-  }
-
-  &.active {
-    background: $indigo;
-    color: #fff;
-    border-color: $indigo;
-    box-shadow: $shadow-md;
-  }
-}
-
-#formWindow {
-  background: $bg-card;
-  border: 1px solid $border;
-  border-radius: $radius-lg;
-  padding: 32px;
-  margin-bottom: 24px;
-  box-shadow: $shadow-sm;
-  animation: fadeUp 0.6s 0.2s ease both;
-  opacity: 0;
-  animation-fill-mode: forwards;
-
-  span {
-    display: block;
-    font-size: 13px;
-    color: $muted;
-    font-weight: 600;
-    margin-top: 16px;
-    margin-bottom: 8px;
-  }
-
-  input {
-    width: 100%;
-    background: $bg-card;
-    border: 1.5px solid $border-input;
-    border-radius: $radius-sm;
-    padding: 12px 14px;
-    font-family: $font;
-    font-size: 16px;
-    color: $text;
-    outline: none;
-    transition: border-color 0.2s, box-shadow 0.2s;
-    font-weight: 600;
-    box-sizing: border-box;
-
-    &:focus {
-      border-color: $indigo;
-      box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.12);
-    }
-
-    &::placeholder {
-      color: $faint;
-      font-weight: 400;
-    }
-  }
-
-  button {
-    width: 100%;
-    padding: 14px;
-    margin-top: 24px;
-    border: none;
-    border-radius: $radius-md;
-    background: linear-gradient(135deg, $indigo, $violet);
-    color: #fff;
-    font-family: $font;
-    font-size: 16px;
-    font-weight: 700;
-    cursor: pointer;
-    transition: all 0.2s;
-    box-shadow: $shadow-md;
-
-    &:hover {
-      transform: translateY(-2px);
-      box-shadow: $shadow-lg;
-    }
-
-    &:active {
-      transform: translateY(0);
-    }
-  }
-}
-
-.result {
-  margin-top: 24px;
-  padding: 20px;
-  border-radius: $radius-md;
-  background: linear-gradient(135deg, $green-light, $bg-card);
-  border: 1px solid color.adjust($green-light, $lightness: -8%);
-  animation: fadeUp 0.3s ease both;
-
-  p {
-    margin: 8px 0;
-    font-size: 16px;
-    font-weight: 600;
-    color: $green;
-  }
-}
-

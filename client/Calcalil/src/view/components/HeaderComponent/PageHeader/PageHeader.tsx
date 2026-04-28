@@ -1,7 +1,7 @@
 import UserMenu from '../../UserMenu/UserMenu'
+import KofiButton from '../../KofiButton/KofiButton'
 import { useNavigate } from 'react-router-dom'
 import styles from './PageHeader.module.scss'
-import KofiButton from '../../KofiButton/KofiButton'
 
 interface PageHeaderProps {
   showBackButton?: boolean
@@ -12,20 +12,21 @@ const PageHeader = ({ showBackButton = true }: PageHeaderProps) => {
 
   return (
     <div className={styles.pageHeader}>
-      <KofiButton />
-      {showBackButton && (
-        <button
-          className={styles.backButton}
-          onClick={() => navigate("/")}
-        >
-          ← חזור לדף הבית
-        </button>
-      )}
+      <div className={styles.leftSection}>
+        {showBackButton && (
+          <button
+            className={styles.backButton}
+            onClick={() => navigate("/")}
+          >
+            ← חזור לדף הבית
+          </button>
+        )}
+        <KofiButton />
+      </div>
 
       <div className={styles.userMenuContainer}>
         <UserMenu />
       </div>
-      
     </div>
   )
 }

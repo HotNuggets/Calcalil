@@ -14,9 +14,15 @@ $shadow-md: 0 4px 16px rgba(26, 29, 46, 0.09);
   align-items: center;
   justify-content: space-between;
   min-height: 60px;
-  overflow: visible; // Prevent cutting off dropdown
+  overflow: visible;
   position: relative;
   z-index: 10;
+}
+
+.leftSection {
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
 .backButton {
@@ -55,8 +61,15 @@ $shadow-md: 0 4px 16px rgba(26, 29, 46, 0.09);
     gap: 12px;
   }
 
+  .leftSection {
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
   .backButton {
     font-size: 14px;
     padding: 8px 16px;
   }
 }
+
+

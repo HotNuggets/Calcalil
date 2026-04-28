@@ -25,7 +25,7 @@ const KofiButton = () => {
           align-items: center;
           gap: 8px;
           padding: 8px 16px;
-          background: #f58773;
+          background: #72a4f2;
           color: white;
           border-radius: 8px;
           text-decoration: none;
