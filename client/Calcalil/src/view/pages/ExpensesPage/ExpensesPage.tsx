@@ -4,6 +4,8 @@ import { useExpensesPageVM } from "./ExpensesPageVM";
 import styles from "./ExpensesPage.module.scss";
 import PageHeader from "../../../../src/view/components/HeaderComponent/PageHeader/PageHeader";
 import Footer from "../../components/Footer/Footer";
+import * as XLSX from 'xlsx';
+import { useNavigate } from "react-router-dom";
 
 const COLORS = [
   "#4F46E5", // indigo
@@ -22,6 +24,7 @@ const MONTHS = [
 ];
 
 const ExpensesPage: React.FC = () => {
+  const navigate = useNavigate();
   const vm = useExpensesPageVM();
 
   if (vm.loading) {
@@ -32,6 +35,63 @@ const ExpensesPage: React.FC = () => {
       </div>
     );
   }
+  const handleExportToExcel = () => {
+    // Prepare income data
+    const incomeData = [{
+      'סוג הכנסה': vm.isHourly ? 'שעתי' : 'חודשי',
+      'שכר שעתי': vm.isHourly ? vm.hourlyRate : '-',
+      'שעות עבודה': vm.isHourly ? vm.hoursWorked : '-',
+      'משכורת חודשית': !vm.isHourly ? vm.monthlySalary : '-',
+      'סה"כ הכנסה': vm.totalIncome,
+    }];
+
+    // Prepare expenses data
+    const expensesData = vm.expenses.map((exp, i) => ({
+      '#': i + 1,
+      'תיאור': exp.description,
+      'קטגוריה': exp.category,
+      'סכום': exp.amount,
+    }));
+
+    // Prepare summary data
+    const summaryData = [{
+      'סה"כ הכנסות': vm.totalIncome,
+      'סה"כ הוצאות': vm.totalSpent,
+      'סה"כ חיסכון': vm.totalSaved,
+      'אחוז חיסכון': vm.totalIncome > 0 ? `${((vm.totalSaved / vm.totalIncome) * 100).toFixed(1)}%` : '0%',
+    }];
+
+    // Prepare category breakdown
+    const categoryData = vm.chartData
+      .filter(cat => cat.value > 0)
+      .map(cat => ({
+        'קטגוריה': cat.name,
+        'סכום': cat.value,
+        'אחוז': vm.totalSpent > 0 ? `${((cat.value / vm.totalSpent) * 100).toFixed(1)}%` : '0%',
+      }));
+
+    // Create workbook
+    const wb = XLSX.utils.book_new();
+    
+    // Add worksheets
+    const wsIncome = XLSX.utils.json_to_sheet(incomeData);
+    const wsExpenses = XLSX.utils.json_to_sheet(expensesData);
+    const wsSummary = XLSX.utils.json_to_sheet(summaryData);
+    const wsCategories = XLSX.utils.json_to_sheet(categoryData);
+
+    XLSX.utils.book_append_sheet(wb, wsIncome, 'הכנסות');
+    XLSX.utils.book_append_sheet(wb, wsExpenses, 'הוצאות');
+    XLSX.utils.book_append_sheet(wb, wsSummary, 'סיכום');
+    XLSX.utils.book_append_sheet(wb, wsCategories, 'פירוט קטגוריות');
+
+    // Generate filename with current date
+    const date = new Date().toLocaleDateString('he-IL').replace(/\//g, '-');
+    const filename = `הוצאות_${date}.xlsx`;
+
+    // Save file
+    XLSX.writeFile(wb, filename);
+  };
+
 
   return (
     <div className={styles.container}>
@@ -41,7 +101,21 @@ const ExpensesPage: React.FC = () => {
         {/* Header with Month/Year Selector */}
         <div className={styles.header}>
           <h1 className={styles.title}>מעקב הוצאות והכנסות</h1>
-          
+          <div className={styles.actionButtons}>
+          <button 
+            className={styles.summaryBtn}
+            onClick={() => navigate('/expenses/summary')}
+          >
+            📊 סיכום תקופתי
+          </button>
+          <button 
+            className={styles.exportBtn}
+            onClick={handleExportToExcel}
+          >
+            📥 ייצא לאקסל
+          </button>
+        </div>
+
           <div className={styles.headerActions}>
             <div className={styles.monthSelector}>
               <button

@@ -1,0 +1,370 @@
+@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;900&display=swap');
+
+$font: 'Heebo', sans-serif;
+$bg: #F4F6FB;
+$bg-card: #FFFFFF;
+$text: #1A1D2E;
+$muted: #7B83A8;
+$indigo: #4F46E5;
+$indigo-light: #EEF2FF;
+$violet: #7C3AED;
+$green: #059669;
+$green-light: #D1FAE5;
+$red: #DC2626;
+$red-light: #FEE2E2;
+$border: #E2E6F0;
+$radius-sm: 12px;
+$radius-md: 16px;
+$radius-lg: 20px;
+$shadow-sm: 0 1px 4px rgba(26, 29, 46, 0.07);
+$shadow-md: 0 4px 16px rgba(26, 29, 46, 0.09);
+$shadow-lg: 0 8px 32px rgba(26, 29, 46, 0.10);
+
+.container {
+  min-height: 100vh;
+  background: $bg;
+  padding: 0 20px 80px;
+  font-family: $font;
+  color: $text;
+  direction: rtl;
+}
+
+.content {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.title {
+  font-size: clamp(28px, 5vw, 40px);
+  font-weight: 900;
+  text-align: center;
+  margin: 32px 0 32px;
+  background: linear-gradient(135deg, $indigo, $violet);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+// Controls
+.controls {
+  background: $bg-card;
+  border-radius: $radius-lg;
+  padding: 24px;
+  margin-bottom: 32px;
+  box-shadow: $shadow-md;
+}
+
+.toggleSection {
+  display: flex;
+  gap: 8px;
+  background: $indigo-light;
+  padding: 4px;
+  border-radius: $radius-md;
+  margin-bottom: 20px;
+}
+
+.toggleBtn {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  border-radius: $radius-sm;
+  background: transparent;
+  color: $indigo;
+  font-family: $font;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &.active {
+    background: $indigo;
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(79, 70, 229, 0.3);
+  }
+
+  &:hover:not(.active) {
+    background: rgba(79, 70, 229, 0.1);
+  }
+}
+.backButton {
+  padding: 10px 20px;
+  border: 2px solid $border;
+  border-radius: 12px;
+  background: white;
+  color: $indigo;
+  font-family: $font;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+  box-shadow: $shadow-sm;
+  direction: rtl;
+
+  &:hover {
+    border-color: $indigo;
+    transform: translateY(-2px);
+    box-shadow: $shadow-md;
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+.dateRange {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.inputGroup {
+  label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: $text;
+    margin-bottom: 8px;
+  }
+
+  input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid $border;
+    border-radius: $radius-sm;
+    font-family: $font;
+    font-size: 15px;
+    color: $text;
+    box-sizing: border-box;
+    transition: all 0.2s;
+
+    &:focus {
+      outline: none;
+      border-color: $indigo;
+      box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+    }
+  }
+}
+
+.exportBtn {
+  width: 100%;
+  padding: 14px 24px;
+  border: none;
+  border-radius: $radius-md;
+  background: $green;
+  color: #fff;
+  font-family: $font;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: $shadow-sm;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: $shadow-md;
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+// Summary Cards
+.summaryCards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  margin-bottom: 32px;
+}
+
+.summaryCard {
+  background: $bg-card;
+  padding: 28px;
+  border-radius: $radius-lg;
+  text-align: center;
+  box-shadow: $shadow-md;
+  transition: all 0.2s;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: $shadow-lg;
+  }
+
+  &.income {
+    border-top: 4px solid $green;
+  }
+
+  &.expenses {
+    border-top: 4px solid $red;
+  }
+
+  &.savings {
+    border-top: 4px solid $indigo;
+  }
+}
+
+.cardIcon {
+  font-size: 40px;
+  display: block;
+  margin-bottom: 12px;
+}
+
+.cardLabel {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: $muted;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.cardValue {
+  display: block;
+  font-size: 32px;
+  font-weight: 900;
+  color: $text;
+  margin-bottom: 4px;
+}
+
+.cardPercentage {
+  display: inline-block;
+  padding: 4px 12px;
+  background: $indigo-light;
+  color: $indigo;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 700;
+  margin-top: 8px;
+}
+
+// Chart Sections
+.chartSection {
+  background: $bg-card;
+  border-radius: $radius-lg;
+  padding: 28px;
+  margin-bottom: 24px;
+  box-shadow: $shadow-md;
+}
+
+.sectionTitle {
+  font-size: 20px;
+  font-weight: 700;
+  color: $text;
+  margin: 0 0 24px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid $border;
+}
+
+// Table
+.tableSection {
+  background: $bg-card;
+  border-radius: $radius-lg;
+  padding: 28px;
+  box-shadow: $shadow-md;
+}
+
+.table {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.tableHeader,
+.tableRow {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr 80px;
+  gap: 16px;
+  padding: 16px;
+  align-items: center;
+  text-align: center;
+
+  & > span:first-child {
+    text-align: right;
+  }
+}
+
+.tableHeader {
+  background: $indigo-light;
+  border-radius: $radius-sm;
+  font-weight: 700;
+  color: $indigo;
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.tableRow {
+  border-bottom: 1px solid $border;
+  transition: all 0.2s;
+  font-size: 15px;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &:hover {
+    background: $bg;
+  }
+
+  .income {
+    color: $green;
+    font-weight: 600;
+  }
+
+  .expenses {
+    color: $red;
+    font-weight: 600;
+  }
+
+  .savings {
+    color: $indigo;
+    font-weight: 700;
+  }
+}
+
+// Mobile
+@media (max-width: 768px) {
+  .container {
+    padding: 0 16px 60px;
+  }
+
+  .title {
+    margin: 24px 0;
+  }
+
+  .controls {
+    padding: 20px;
+  }
+
+  .dateRange {
+    grid-template-columns: 1fr;
+  }
+
+  .summaryCards {
+    grid-template-columns: 1fr;
+  }
+
+  .cardValue {
+    font-size: 28px;
+  }
+
+  .chartSection {
+    padding: 20px;
+    overflow-x: auto;
+  }
+
+  .tableSection {
+    padding: 20px;
+  }
+
+  .table {
+    min-width: 600px;
+  }
+
+  .tableHeader,
+  .tableRow {
+    grid-template-columns: 100px 80px 80px 80px 60px;
+    gap: 8px;
+    padding: 12px 8px;
+    font-size: 13px;
+  }
+}

@@ -12,6 +12,7 @@ import SalaryCalculator from "./view/pages/SalaryCalculatorPage/SalaryCalculator
 import LoginPage from "./view/pages/LoginPage/LoginPage";
 import ResetPasswordPage from "./view/pages/LoginPage/ResetPasswordPage";
 import ProtectedRoute from "../src/view/components/ProtectedRoute";
+import ExpensesSummaryPage from "../src/view/pages/ExpensesPage/PeriodicSummaryPage/PeriodicSummaryPage"
 
 export const router = createBrowserRouter([
   // ── Public Routes (no login required) ──
@@ -65,4 +66,8 @@ export const router = createBrowserRouter([
     path: "/expenses",
     element: <ProtectedRoute><ExpensesPage /></ProtectedRoute>,
   },
+  {
+  path: "/expenses/summary",
+  element: <ProtectedRoute><ExpensesSummaryPage /></ProtectedRoute>,
+}
 ]);
