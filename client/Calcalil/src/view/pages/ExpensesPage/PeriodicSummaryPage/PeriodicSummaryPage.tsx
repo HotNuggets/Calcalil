@@ -68,6 +68,17 @@ const PeriodicSummaryPage = () => {
     ? ((totals.savings / totals.income) * 100).toFixed(1)
     : '0';
 
+     const cumulativeData = useMemo(() => {
+    let accumulated = 0;
+    return filteredData.map(month => {
+      accumulated += month.savings;
+      return {
+        ...month,
+        cumulativeSavings: accumulated,
+      };
+    });
+  }, [filteredData]);
+
   const handleExportSummary = () => {
     // Prepare summary data
     const summaryData = [{
@@ -114,7 +125,7 @@ const PeriodicSummaryPage = () => {
           </button>
 
       <div className={styles.content}>
-        <h1 className={styles.title}>📊 סיכום תקופתי</h1>
+        <h1 className={styles.title}> סיכום תקופתי</h1>
 
         <div className={styles.controls}>
           <div className={styles.toggleSection}>
@@ -153,9 +164,9 @@ const PeriodicSummaryPage = () => {
             </div>
           )}
 
-          <button className={styles.exportBtn} onClick={handleExportSummary}>
+          {/* <button className={styles.exportBtn} onClick={handleExportSummary}>
             📥 ייצא לאקסל
-          </button>
+          </button> */}
         </div>
 
         {/* Summary Cards */}
@@ -196,24 +207,30 @@ const PeriodicSummaryPage = () => {
         </div>
 
         <div className={styles.chartSection}>
-          <h2 className={styles.sectionTitle}>מגמת חיסכון</h2>
+          <h2 className={styles.sectionTitle}>מגמת חיסכון מצטבר</h2>
           <ResponsiveContainer width="100%" height={250}>
-            <LineChart data={filteredData}>
+            <LineChart data={cumulativeData}>
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="month" />
               <YAxis />
-              <Tooltip />
+              <Tooltip 
+                formatter={(value?: number) =>
+                 value != null ? `${value.toLocaleString()} ₪` : '' }
+              />
               <Legend />
               <Line 
                 type="monotone" 
-                dataKey="savings" 
+                dataKey="cumulativeSavings" 
                 stroke="#4F46E5" 
                 strokeWidth={3}
-                name="חיסכון חודשי"
+                name="חיסכון מצטבר"
+                dot={{ r: 5 }}
+                activeDot={{ r: 7 }}
               />
             </LineChart>
           </ResponsiveContainer>
         </div>
+
 
         {/* Monthly Table */}
         <div className={styles.tableSection}>
