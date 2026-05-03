@@ -102,12 +102,12 @@ const ExpensesPage: React.FC = () => {
         <div className={styles.header}>
           <h1 className={styles.title}>מעקב הוצאות והכנסות</h1>
           <div className={styles.actionButtons}>
-          <button 
+          {/* <button 
             className={styles.summaryBtn}
             onClick={() => navigate('/expenses/summary')}
           >
             📊 סיכום תקופתי
-          </button>
+          </button> */}
           {/* <button 
             className={styles.exportBtn}
             onClick={handleExportToExcel}
