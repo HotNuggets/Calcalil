@@ -24,7 +24,7 @@ const MONTHS = [
 ];
 
 const ExpensesPage: React.FC = () => {
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
   const vm = useExpensesPageVM();
 
   if (vm.loading) {
