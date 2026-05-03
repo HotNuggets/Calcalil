@@ -79,40 +79,40 @@ const PeriodicSummaryPage = () => {
     });
   }, [filteredData]);
 
-  const handleExportSummary = () => {
-    // Prepare summary data
-    const summaryData = [{
-      'תקופה': summaryType === 'ytd' ? 'שנה עד היום' : `${startDate} - ${endDate}`,
-      'סה"כ הכנסות': totals.income,
-      'סה"כ הוצאות': totals.expenses,
-      'סה"כ חיסכון': totals.savings,
-      'אחוז חיסכון': `${savingsRate}%`,
-    }];
+  // const handleExportSummary = () => {
+  //   // Prepare summary data
+  //   const summaryData = [{
+  //     'תקופה': summaryType === 'ytd' ? 'שנה עד היום' : `${startDate} - ${endDate}`,
+  //     'סה"כ הכנסות': totals.income,
+  //     'סה"כ הוצאות': totals.expenses,
+  //     'סה"כ חיסכון': totals.savings,
+  //     'אחוז חיסכון': `${savingsRate}%`,
+  //   }];
 
-    // Prepare monthly breakdown
-    const monthlyBreakdown = filteredData.map(d => ({
-      'חודש': d.month,
-      'שנה': d.year,
-      'הכנסות': d.income,
-      'הוצאות': d.expenses,
-      'חיסכון': d.savings,
-      'אחוז חיסכון': d.income > 0 ? `${((d.savings / d.income) * 100).toFixed(1)}%` : '0%',
-    }));
+  //   // Prepare monthly breakdown
+  //   const monthlyBreakdown = filteredData.map(d => ({
+  //     'חודש': d.month,
+  //     'שנה': d.year,
+  //     'הכנסות': d.income,
+  //     'הוצאות': d.expenses,
+  //     'חיסכון': d.savings,
+  //     'אחוז חיסכון': d.income > 0 ? `${((d.savings / d.income) * 100).toFixed(1)}%` : '0%',
+  //   }));
 
-    // Create workbook
-    const wb = XLSX.utils.book_new();
-    const wsSummary = XLSX.utils.json_to_sheet(summaryData);
-    const wsMonthly = XLSX.utils.json_to_sheet(monthlyBreakdown);
+  //   // Create workbook
+  //   const wb = XLSX.utils.book_new();
+  //   const wsSummary = XLSX.utils.json_to_sheet(summaryData);
+  //   const wsMonthly = XLSX.utils.json_to_sheet(monthlyBreakdown);
 
-    XLSX.utils.book_append_sheet(wb, wsSummary, 'סיכום');
-    XLSX.utils.book_append_sheet(wb, wsMonthly, 'פירוט חודשי');
+  //   XLSX.utils.book_append_sheet(wb, wsSummary, 'סיכום');
+  //   XLSX.utils.book_append_sheet(wb, wsMonthly, 'פירוט חודשי');
 
-    // Generate filename
-    const date = new Date().toLocaleDateString('he-IL').replace(/\//g, '-');
-    const filename = `סיכום_תקופתי_${date}.xlsx`;
+  //   // Generate filename
+  //   const date = new Date().toLocaleDateString('he-IL').replace(/\//g, '-');
+  //   const filename = `סיכום_תקופתי_${date}.xlsx`;
 
-    XLSX.writeFile(wb, filename);
-  };
+  //   XLSX.writeFile(wb, filename);
+  // };
 
   return (
     <div className={styles.container}>
