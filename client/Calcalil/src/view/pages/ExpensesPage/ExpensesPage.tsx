@@ -4,7 +4,7 @@ import { useExpensesPageVM } from "./ExpensesPageVM";
 import styles from "./ExpensesPage.module.scss";
 import PageHeader from "../../../../src/view/components/HeaderComponent/PageHeader/PageHeader";
 import Footer from "../../components/Footer/Footer";
-import * as XLSX from 'xlsx';
+//import * as XLSX from 'xlsx';
 import { useNavigate } from "react-router-dom";
 
 const COLORS = [

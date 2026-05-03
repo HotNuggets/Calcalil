@@ -12,7 +12,7 @@ import {
   LineChart,
   Line,
 } from "recharts";
-import * as XLSX from 'xlsx';
+//import * as XLSX from 'xlsx';
 import PageHeader from "../../../components/HeaderComponent/PageHeader/PageHeader";
 import styles from "./PeriodicSummaryPage.module.scss";
 
