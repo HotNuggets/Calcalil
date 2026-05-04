@@ -12,24 +12,41 @@ const WelcomePage = () => {
       
       <div className={styles.content}>
         <h1 className={styles.title}>ברוך הבא!</h1>
-        <p className={styles.subtitle}>בחר מחשבון כדי להתחיל:</p>
+        <p className={styles.subtitle}>בחר כלי כדי להתחיל:</p>
         
-        <div className={styles.buttons}>
-          <Link to="/loan">
-            <button>מחשבון הלוואות</button>
-          </Link>
-          <Link to="/savings">
-            <button>מחשבון חיסכון</button>
-          </Link> 
-          <Link to="/expenses">
-            <button>מעקב הוצאות</button>
-          </Link> 
-          <Link to="/SNP">
-            <button>מדד סנ"פ בישראל</button>
-          </Link> 
-          <Link to="/Salary">
-            <button>מחשבון צמיחת שכר</button>
-          </Link> 
+        <div className={styles.sections}>
+
+          {/* --- Calculators group --- */}
+          <div className={styles.group}>
+            <span className={styles.groupLabel}>מחשבונים</span>
+            <div className={styles.buttons}>
+              <Link to="/loan">
+                <button className={styles.btnCalc}>מחשבון הלוואות</button>
+              </Link>
+              <Link to="/savings">
+                <button className={styles.btnCalc}>מחשבון חיסכון</button>
+              </Link>
+              <Link to="/Salary">
+                <button className={styles.btnCalc}>מחשבון צמיחת שכר</button>
+              </Link>
+            </div>
+          </div>
+
+          <div className={styles.divider} />
+
+          {/* --- Tools group --- */}
+          <div className={styles.group}>
+            <span className={`${styles.groupLabel} ${styles.groupLabelTeal}`}>כלים נוספים</span>
+            <div className={styles.buttons}>
+              <Link to="/expenses">
+                <button className={styles.btnTool}>מעקב הוצאות</button>
+              </Link>
+              <Link to="/SNP">
+                <button className={styles.btnTool}>מדד סנ"פ בישראל</button>
+              </Link>
+            </div>
+          </div>
+
         </div>
       </div>
       
