@@ -13,6 +13,7 @@ import LoginPage from "./view/pages/LoginPage/LoginPage";
 import ResetPasswordPage from "./view/pages/LoginPage/ResetPasswordPage";
 import ProtectedRoute from "../src/view/components/ProtectedRoute";
 import ExpensesSummaryPage from "../src/view/pages/ExpensesPage/PeriodicSummaryPage/PeriodicSummaryPage"
+import NasdaqPage from "./view/pages/NasdaqPage/NasdaqPage";
 
 export const router = createBrowserRouter([
   // ── Public Routes (no login required) ──
@@ -69,5 +70,9 @@ export const router = createBrowserRouter([
   {
   path: "/expenses/summary",
   element: <ProtectedRoute><ExpensesSummaryPage /></ProtectedRoute>,
-}
+},
+{
+    path: "/nasdaq",
+    element: <NasdaqPage />,
+  },
 ]);

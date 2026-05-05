@@ -1,4 +1,4 @@
-import styles from "./SAndPPage.module.scss";
+import styles from "./NasdaqPage.module.scss";
 import {
   LineChart,
   Line,
@@ -10,13 +10,13 @@ import {
   CartesianGrid,
   ReferenceLine,
 } from "recharts";
-import { useSAndPPageVM } from "./SAndPPageVM";
-import type { Period, ChartView } from "./SAndPPageVM";
+import { useNasdaqPageVM } from "./NasdaqPageVM";
+import type { Period, ChartView } from "./NasdaqPageVM";
 import PageHeader from "../../components/HeaderComponent/PageHeader/PageHeader";
 import Footer from "../../components/Footer/Footer";
 
-const SAndPPage = () => {
-  const vm = useSAndPPageVM();
+const NasdaqPage = () => {
+  const vm = useNasdaqPageVM();
 
   if (vm.loading) {
     return (
@@ -54,7 +54,7 @@ const SAndPPage = () => {
     <div className={styles.container}>
       <PageHeader />
 
-      <h2 className={styles.title}>S&P 500 – מעקב ביצועים</h2>
+      <h2 className={styles.title}>Nasdaq 100 – מעקב ביצועים</h2>
 
       {/* ── Period selector ── */}
       <div className={styles.periodSelector}>
@@ -140,12 +140,12 @@ const SAndPPage = () => {
           <span className={styles.chartTitle}>גרף ביצועים</span>
           <div className={styles.chartLegend}>
             <span>
-              <span className={styles.legendDot} style={{ background: '#0EA5E9' }} />
-              S&P (USD)
+              <span className={styles.legendDot} style={{ background: '#F97316' }} />
+              Nasdaq (USD)
             </span>
             <span>
-              <span className={styles.legendDot} style={{ background: '#4F46E5' }} />
-              S&P (ILS)
+              <span className={styles.legendDot} style={{ background: '#7C3AED' }} />
+              Nasdaq (ILS)
             </span>
           </div>
         </div>
@@ -186,18 +186,11 @@ const SAndPPage = () => {
 
               <YAxis
                 width={70}
-                tickFormatter={(v) =>
-                  vm.isPercentView
-                    ? `${v.toFixed(1)}%`
-                    : v.toLocaleString()
-                }
+                tickFormatter={(v) => `${v.toFixed(1)}%`}
                 tick={{ fontSize: 12 }}
               />
 
-              {/* zero-line anchor when showing % returns */}
-              {vm.isPercentView && (
-                <ReferenceLine y={0} stroke="#94a3b8" strokeDasharray="4 4" />
-              )}
+              <ReferenceLine y={0} stroke="#94a3b8" strokeDasharray="4 4" />
 
               <Tooltip
                 labelFormatter={(label) =>
@@ -209,15 +202,7 @@ const SAndPPage = () => {
                 }
                 formatter={(value: number | undefined, name: string | undefined) => {
                   if (value === undefined || name === undefined) return ['N/A', ''];
-                  if (vm.isPercentView) {
-                    return [`${value >= 0 ? '+' : ''}${value.toFixed(2)}%`, name];
-                  }
-                  return [
-                    name.includes('USD')
-                      ? `$${value.toFixed(2)}`
-                      : `₪${value.toFixed(2)}`,
-                    name,
-                  ];
+                  return [`${value >= 0 ? '+' : ''}${value.toFixed(2)}%`, name];
                 }}
               />
 
@@ -225,20 +210,20 @@ const SAndPPage = () => {
 
               <Line
                 type="monotone"
-                dataKey="spxUSD"
-                stroke="#0EA5E9"
+                dataKey="nsdqUSD"
+                stroke="#F97316"
                 strokeWidth={2}
-                name="S&P (USD)"
+                name="Nasdaq (USD)"
                 dot={vm.chartView === 'monthly'}
                 activeDot={{ r: 6 }}
               />
 
               <Line
                 type="monotone"
-                dataKey="spxILS"
-                stroke="#4F46E5"
+                dataKey="nsdqILS"
+                stroke="#7C3AED"
                 strokeWidth={2}
-                name="S&P (ILS)"
+                name="Nasdaq (ILS)"
                 dot={vm.chartView === 'monthly'}
                 activeDot={{ r: 6 }}
               />
@@ -252,4 +237,4 @@ const SAndPPage = () => {
   );
 };
 
-export default SAndPPage;
+export default NasdaqPage;

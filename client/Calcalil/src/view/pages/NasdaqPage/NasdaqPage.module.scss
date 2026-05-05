@@ -1,6 +1,5 @@
 @use "sass:color";
 
-// ─── Import Heebo font ────────────────────────────────────────────────────────
 @import url('https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;900&display=swap');
 
 // ─── Design Tokens ────────────────────────────────────────────────────────────
@@ -16,26 +15,27 @@ $border-subtle: #EAECF4;
 $text:          #1A1D2E;
 $text-secondary:#3D4466;
 $muted:         #7B83A8;
-$faint:         #9BA3C4;
 
-$indigo:        #4F46E5;
-$indigo-light:  #EEF2FF;
-$blue:          #0EA5E9;
-$blue-light:    #E0F2FE;
+// Nasdaq accent — orange
+$accent:        #F97316;
+$accent-light:  #FFF7ED;
+$accent-dark:   #EA580C;
+
+// Secondary line — violet
+$violet:        #7C3AED;
+$violet-light:  #F5F3FF;
+
 $green:         #059669;
 $green-light:   #D1FAE5;
 $red:           #DC2626;
 $red-light:     #FEE2E2;
-$orange:        #EA580C;
 
 $radius-sm:     12px;
 $radius-md:     16px;
 $radius-lg:     20px;
-$radius-xl:     24px;
 
 $shadow-sm:     0 1px 4px rgba(26, 29, 46, 0.07);
 $shadow-md:     0 4px 16px rgba(26, 29, 46, 0.09);
-$shadow-lg:     0 8px 32px rgba(26, 29, 46, 0.10);
 
 // ─── Animations ───────────────────────────────────────────────────────────────
 @keyframes fadeUp {
@@ -46,11 +46,6 @@ $shadow-lg:     0 8px 32px rgba(26, 29, 46, 0.10);
 @keyframes shimmer {
   0%   { background-position: -200% center; }
   100% { background-position:  200% center; }
-}
-
-@keyframes pulse {
-  0%, 100% { transform: scale(1); }
-  50%       { transform: scale(1.05); }
 }
 
 // ─── Container ────────────────────────────────────────────────────────────────
@@ -78,7 +73,7 @@ $shadow-lg:     0 8px 32px rgba(26, 29, 46, 0.10);
   font-weight: 900;
   margin: 32px 0 24px;
   text-align: center;
-  background: linear-gradient(90deg, $indigo, $blue, $indigo);
+  background: linear-gradient(90deg, $accent, $violet, $accent);
   background-size: 200%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -136,6 +131,9 @@ $shadow-lg:     0 8px 32px rgba(26, 29, 46, 0.10);
     font-size: 15px;
     font-weight: 700;
     margin-top: 8px;
+    background: $green-light;
+    color: $green;
+    border: 1px solid color.adjust($green-light, $lightness: -8%);
   }
 
   .label {
@@ -147,23 +145,13 @@ $shadow-lg:     0 8px 32px rgba(26, 29, 46, 0.10);
 }
 
 .usd {
-  .currentValue { color: $blue; }
-
-  .growthBadge {
-    background: $green-light;
-    color: $green;
-    border: 1px solid color.adjust($green-light, $lightness: -8%);
-  }
+  .currentValue { color: $accent; }
 }
 
 .ils {
-  .currentValue { color: $indigo; }
+  .currentValue { color: $violet; }
 
   .growthBadge {
-    background: $green-light;
-    color: $green;
-    border: 1px solid color.adjust($green-light, $lightness: -8%);
-
     &.negative {
       background: $red-light;
       color: $red;
@@ -174,8 +162,8 @@ $shadow-lg:     0 8px 32px rgba(26, 29, 46, 0.10);
 
 // ─── Comparison strip ─────────────────────────────────────────────────────────
 .comparison {
-  background: linear-gradient(135deg, $indigo-light, $bg-card);
-  border: 1px solid color.adjust($indigo-light, $lightness: -5%);
+  background: linear-gradient(135deg, $accent-light, $bg-card);
+  border: 1px solid color.adjust($accent-light, $lightness: -5%);
   border-radius: $radius-lg;
   padding: 20px 24px;
   margin-bottom: 24px;
@@ -188,7 +176,7 @@ $shadow-lg:     0 8px 32px rgba(26, 29, 46, 0.10);
 .comparisonTitle {
   font-size: 14px;
   font-weight: 700;
-  color: $indigo;
+  color: $accent-dark;
   margin-bottom: 14px;
   text-align: center;
 }
@@ -265,12 +253,11 @@ $shadow-lg:     0 8px 32px rgba(26, 29, 46, 0.10);
   margin-left: 6px;
 }
 
-// ─── Chart view toggle (daily / monthly / YTD%) ───────────────────────────────
+// ─── Chart view toggle ────────────────────────────────────────────────────────
 .chartViewSelector {
   display: flex;
   gap: 6px;
   margin-bottom: 16px;
-  // right-align to match RTL layout, but keep the pills together
   justify-content: flex-start;
 }
 
@@ -287,16 +274,16 @@ $shadow-lg:     0 8px 32px rgba(26, 29, 46, 0.10);
   transition: all 0.18s;
 
   &:hover {
-    border-color: $blue;
-    color: $blue;
-    background: $blue-light;
+    border-color: $accent;
+    color: $accent;
+    background: $accent-light;
   }
 
   &.chartViewActive {
-    background: $blue;
+    background: $accent;
     color: #fff;
-    border-color: $blue;
-    box-shadow: 0 2px 8px rgba(14, 165, 233, 0.3);
+    border-color: $accent;
+    box-shadow: 0 2px 8px rgba(249, 115, 22, 0.3);
   }
 }
 
@@ -363,14 +350,14 @@ $shadow-lg:     0 8px 32px rgba(26, 29, 46, 0.10);
   transition: all 0.2s;
 
   &:hover {
-    border-color: $indigo;
-    color: $indigo;
+    border-color: $accent;
+    color: $accent;
   }
 
   &.active {
-    background: $indigo;
+    background: $accent;
     color: #fff;
-    border-color: $indigo;
+    border-color: $accent;
   }
 }
 

@@ -44,6 +44,9 @@ const WelcomePage = () => {
               <Link to="/SNP">
                 <button className={styles.btnTool}>מדד סנ"פ בישראל</button>
               </Link>
+              <Link to="/nasdaq">
+                <button className={styles.btnTool}>מדד נסדאק בישראל</button>
+              </Link>
             </div>
           </div>
 
