@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
+import { supabase } from "../../../lib/supabase"; // adjust path to your supabase.ts
 
 export type DataPoint = {
   date: string;
@@ -6,7 +7,7 @@ export type DataPoint = {
   spxILS: number;
 };
 
-export type Period = 'YTD' | '1M' | '3M' | '6M' | '1Y';
+export type Period    = 'YTD' | '1M' | '3M' | '6M' | '1Y';
 export type ChartView = 'daily' | 'monthly' | 'ytd';
 
 export interface SAndPPageVM {
@@ -15,110 +16,70 @@ export interface SAndPPageVM {
   error: string | null;
   period: Period;
   setPeriod: (p: Period) => void;
-
-  // Chart view
   chartView: ChartView;
   setChartView: (v: ChartView) => void;
-  chartData: DataPoint[];           // transformed data for the active chart view
-  isPercentView: boolean;           // true when chartView === 'ytd'
-
-  // Current values
+  chartData: DataPoint[];
+  isPercentView: boolean;
   currentUSD: number;
   currentILS: number;
-
-  // Growth metrics
   usdGrowth: number;
   ilsGrowth: number;
-
-  // Comparison metrics
   fxImpact: number;
+  fxImpactFormatted: string;
   highestUSD: number;
   lowestUSD: number;
   highestILS: number;
   lowestILS: number;
-
-  // Formatted strings
-  fxImpactFormatted: string;
 }
 
 export function useSAndPPageVM(): SAndPPageVM {
-  const [rawData, setRawData] = useState<DataPoint[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const [period, setPeriod] = useState<Period>('YTD');
+  const [rawData,   setRawData]   = useState<DataPoint[]>([]);
+  const [loading,   setLoading]   = useState(true);
+  const [error,     setError]     = useState<string | null>(null);
+  const [period,    setPeriod]    = useState<Period>('YTD');
   const [chartView, setChartView] = useState<ChartView>('daily');
 
-  const hasFetched = useRef(false);
-  const API_KEY = import.meta.env.VITE_ALPHA_VANTAGE_KEY;
-
+  // ── Fetch SPY rows from Supabase once on mount ───────────────────────────
   useEffect(() => {
-    if (hasFetched.current) return;
-    hasFetched.current = true;
+    async function load() {
+      setLoading(true);
+      setError(null);
 
-    const sleep = (ms: number) =>
-      new Promise((resolve) => setTimeout(resolve, ms));
+      const { data, error } = await supabase
+        .from("market_data")
+        .select("date, close_usd, close_ils")
+        .eq("symbol", "SPY")
+        .order("date", { ascending: true });
 
-    async function fetchData() {
-      try {
-        if (!API_KEY) {
-          setError('מפתח API חסר - הגדר VITE_ALPHA_VANTAGE_KEY');
-          setLoading(false);
-          return;
-        }
-
-        const spRes = await fetch(
-          `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=SPY&apikey=${API_KEY}`
-        );
-        const spJson = await spRes.json();
-
-        if (!spJson['Time Series (Daily)']) {
-          setError('הגעת למגבלת הקריאות - נסה שוב בעוד דקה');
-          setLoading(false);
-          return;
-        }
-
-        await sleep(1200);
-
-        const fxRes = await fetch(
-          `https://www.alphavantage.co/query?function=FX_DAILY&from_symbol=USD&to_symbol=ILS&apikey=${API_KEY}`
-        );
-        const fxJson = await fxRes.json();
-
-        if (!fxJson['Time Series FX (Daily)']) {
-          setError('שגיאה בטעינת שער מטבע');
-          setLoading(false);
-          return;
-        }
-
-        const spSeries = spJson['Time Series (Daily)'];
-        const fxSeries = fxJson['Time Series FX (Daily)'];
-
-        const rows: DataPoint[] = Object.keys(spSeries)
-          .map((date) => {
-            const sp = Number(spSeries[date]['4. close']);
-            const fx = Number(fxSeries[date]?.['4. close']);
-            if (!fx) return null;
-            return { date, spxUSD: sp, spxILS: sp * fx };
-          })
-          .filter(Boolean)
-          .reverse() as DataPoint[];
-
-        setRawData(rows);
-      } catch (e) {
-        console.error('Fetch error:', e);
-        setError('שגיאה בטעינת נתונים');
-      } finally {
+      if (error) {
+        setError("שגיאה בטעינת נתונים מהשרת");
         setLoading(false);
+        return;
       }
+
+      if (!data || data.length === 0) {
+        setError("אין נתונים זמינים – יתכן שהסנכרון היומי טרם הופעל");
+        setLoading(false);
+        return;
+      }
+
+      setRawData(
+        data.map((r) => ({
+          date:   r.date as string,
+          spxUSD: Number(r.close_usd),
+          spxILS: Number(r.close_ils),
+        }))
+      );
+      setLoading(false);
     }
 
-    fetchData();
-  }, [API_KEY]);
+    load();
+  }, []);
 
-  // ── Filter by selected period ──────────────────────────────────────────────
+  // ── Filter by selected period ─────────────────────────────────────────────
   const data = (() => {
     if (rawData.length === 0) return [];
-    const now = new Date();
+    const now    = new Date();
     const cutoff = new Date(now);
     switch (period) {
       case 'YTD': cutoff.setMonth(0, 1); break;
@@ -130,41 +91,29 @@ export function useSAndPPageVM(): SAndPPageVM {
     return rawData.filter((d) => new Date(d.date) >= cutoff);
   })();
 
-  // ── Build chart data for the three views ──────────────────────────────────
-
-  /** Convert a slice of DataPoints to cumulative % return from its first entry */
+  // ── Chart helpers ─────────────────────────────────────────────────────────
   const toPercent = (slice: DataPoint[]): DataPoint[] => {
     if (slice.length === 0) return [];
     const base = slice[0];
     return slice.map((d) => ({
-      date: d.date,
+      date:   d.date,
       spxUSD: ((d.spxUSD - base.spxUSD) / base.spxUSD) * 100,
       spxILS: ((d.spxILS - base.spxILS) / base.spxILS) * 100,
     }));
   };
 
-  /** daily – every trading day in the period window, as % */
   const dailyData = toPercent(data);
 
-  /** monthly – one point per calendar month (last trading day), as % */
   const monthlyData: DataPoint[] = (() => {
     if (data.length === 0) return [];
     const byMonth: Record<string, DataPoint> = {};
-    for (const point of data) {
-      byMonth[point.date.slice(0, 7)] = point;
-    }
+    for (const point of data) byMonth[point.date.slice(0, 7)] = point;
     return toPercent(Object.values(byMonth));
   })();
 
-  /**
-   * ytd – same as daily but the window is always Jan 1 → today,
-   * regardless of the period selector.
-   */
   const ytdData: DataPoint[] = (() => {
-    const now = new Date();
-    const jan1 = new Date(now.getFullYear(), 0, 1);
-    const ytdSlice = rawData.filter((d) => new Date(d.date) >= jan1);
-    return toPercent(ytdSlice);
+    const jan1 = new Date(new Date().getFullYear(), 0, 1);
+    return toPercent(rawData.filter((d) => new Date(d.date) >= jan1));
   })();
 
   const chartData =
@@ -172,7 +121,6 @@ export function useSAndPPageVM(): SAndPPageVM {
     chartView === 'monthly' ? monthlyData :
     ytdData;
 
-  // all three views are now % — always show percent formatting
   const isPercentView = true;
 
   // ── Metrics ───────────────────────────────────────────────────────────────
@@ -182,10 +130,10 @@ export function useSAndPPageVM(): SAndPPageVM {
   const currentUSD = last?.spxUSD ?? 0;
   const currentILS = last?.spxILS ?? 0;
 
-  const usdGrowth =
-    first && last ? ((last.spxUSD - first.spxUSD) / first.spxUSD) * 100 : 0;
-  const ilsGrowth =
-    first && last ? ((last.spxILS - first.spxILS) / first.spxILS) * 100 : 0;
+  const usdGrowth = first && last
+    ? ((last.spxUSD - first.spxUSD) / first.spxUSD) * 100 : 0;
+  const ilsGrowth = first && last
+    ? ((last.spxILS - first.spxILS) / first.spxILS) * 100 : 0;
 
   const fxImpact = ilsGrowth - usdGrowth;
   const fxImpactFormatted =
@@ -197,24 +145,10 @@ export function useSAndPPageVM(): SAndPPageVM {
   const lowestILS  = data.length > 0 ? Math.min(...data.map((d) => d.spxILS)) : 0;
 
   return {
-    data,
-    loading,
-    error,
-    period,
-    setPeriod,
-    chartView,
-    setChartView,
-    chartData,
-    isPercentView,
-    currentUSD,
-    currentILS,
-    usdGrowth,
-    ilsGrowth,
-    fxImpact,
-    fxImpactFormatted,
-    highestUSD,
-    lowestUSD,
-    highestILS,
-    lowestILS,
+    data, loading, error, period, setPeriod,
+    chartView, setChartView, chartData, isPercentView,
+    currentUSD, currentILS, usdGrowth, ilsGrowth,
+    fxImpact, fxImpactFormatted,
+    highestUSD, lowestUSD, highestILS, lowestILS,
   };
 }
