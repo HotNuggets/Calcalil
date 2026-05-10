@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { supabase } from "../../../lib/supabase"; // adjust path to your supabase.ts
+import { ensureFreshData, fetchMarketData } from "../../../services/marketDataService"; // adjust path
 
 export type DataPoint = {
   date: string;
@@ -39,44 +39,35 @@ export function useNasdaqPageVM(): NasdaqPageVM {
   const [period,    setPeriod]    = useState<Period>('YTD');
   const [chartView, setChartView] = useState<ChartView>('daily');
 
-  // ── Fetch QQQ rows from Supabase once on mount ───────────────────────────
   useEffect(() => {
     async function load() {
       setLoading(true);
       setError(null);
+      try {
+        // Fire refresh in background (skips if already up to date)
+        ensureFreshData();
 
-      const { data, error } = await supabase
-        .from("market_data")
-        .select("date, close_usd, close_ils")
-        .eq("symbol", "QQQ")
-        .order("date", { ascending: true });
+        const rows = await fetchMarketData("QQQ");
 
-      if (error) {
+        if (rows.length === 0) {
+          setError("אין נתונים זמינים – יתכן שהסנכרון היומי טרם הופעל");
+          return;
+        }
+
+        setRawData(rows.map((r) => ({
+          date:    r.date,
+          nsdqUSD: r.close_usd,
+          nsdqILS: r.close_ils,
+        })));
+      } catch (e) {
         setError("שגיאה בטעינת נתונים מהשרת");
+      } finally {
         setLoading(false);
-        return;
       }
-
-      if (!data || data.length === 0) {
-        setError("אין נתונים זמינים – יתכן שהסנכרון היומי טרם הופעל");
-        setLoading(false);
-        return;
-      }
-
-      setRawData(
-        data.map((r) => ({
-          date:    r.date as string,
-          nsdqUSD: Number(r.close_usd),
-          nsdqILS: Number(r.close_ils),
-        }))
-      );
-      setLoading(false);
     }
-
     load();
   }, []);
 
-  // ── Filter by selected period ─────────────────────────────────────────────
   const data = (() => {
     if (rawData.length === 0) return [];
     const now    = new Date();
@@ -91,7 +82,6 @@ export function useNasdaqPageVM(): NasdaqPageVM {
     return rawData.filter((d) => new Date(d.date) >= cutoff);
   })();
 
-  // ── Chart helpers ─────────────────────────────────────────────────────────
   const toPercent = (slice: DataPoint[]): DataPoint[] => {
     if (slice.length === 0) return [];
     const base = slice[0];
@@ -123,7 +113,6 @@ export function useNasdaqPageVM(): NasdaqPageVM {
 
   const isPercentView = true;
 
-  // ── Metrics ───────────────────────────────────────────────────────────────
   const first = data[0];
   const last  = data[data.length - 1];
 
