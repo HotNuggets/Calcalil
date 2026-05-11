@@ -9,14 +9,12 @@ const UserMenu = () => {
   const [isOpen, setIsOpen] = useState(false)
   const menuRef = useRef<HTMLDivElement>(null)
 
-  // Close menu when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
         setIsOpen(false)
       }
     }
-
     document.addEventListener('mousedown', handleClickOutside)
     return () => document.removeEventListener('mousedown', handleClickOutside)
   }, [])
@@ -33,28 +31,28 @@ const UserMenu = () => {
     setIsOpen(false)
   }
 
-  // If no user - show Login button
+  const handleDeleteAccount = () => {
+    navigate('/delete-account')
+    setIsOpen(false)
+  }
+
   if (!user) {
     return (
       <div className={styles.userMenu}>
-        <button 
-          className={styles.loginButton} 
-          onClick={handleLogin}
-        >
+        <button className={styles.loginButton} onClick={handleLogin}>
           🔐 התחבר
         </button>
       </div>
     )
   }
 
-  // If user logged in - show avatar menu
-  const userEmail = user.email || 'משתמש'
+  const userEmail   = user.email || 'משתמש'
   const userInitial = userEmail.charAt(0).toUpperCase()
 
   return (
     <div className={styles.userMenu} ref={menuRef}>
-      <button 
-        className={styles.userButton} 
+      <button
+        className={styles.userButton}
         onClick={() => setIsOpen(!isOpen)}
         aria-label="תפריט משתמש"
       >
@@ -71,11 +69,19 @@ const UserMenu = () => {
             </div>
           </div>
 
-          <div className={styles.divider}></div>
+          <div className={styles.divider} />
 
           <button className={styles.menuItem} onClick={handleSignOut}>
             <span className={styles.menuIcon}>🚪</span>
             <span>התנתק</span>
+          </button>
+
+          <button
+            className={`${styles.menuItem} ${styles.menuItemDanger}`}
+            onClick={handleDeleteAccount}
+          >
+            <span className={styles.menuIcon}>🗑️</span>
+            <span>מחק חשבון</span>
           </button>
         </div>
       )}
